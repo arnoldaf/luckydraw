@@ -50,7 +50,7 @@ class DashboardController extends Controller
 
     {
 
-        return view('dashboard');
+        return view('admin/dashboard');
 
     }
 
@@ -70,7 +70,7 @@ class DashboardController extends Controller
 
     {
 
-        return view('test');
+        return view('admin/test');
 
     }
 
