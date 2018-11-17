@@ -51,9 +51,7 @@ class LoginController extends Controller
 
             return response()->json(['result' => false, 'msg' => $responseMsg]);
         }
-        $email = $request->email;
-        $password = $request->password;
-        if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => '1'])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => '1'])) {
             $user = Auth::user();
             $user->last_login = date('Y-m-d h:i:s');
             $user->is_login = 1;
