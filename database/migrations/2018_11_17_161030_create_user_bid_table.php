@@ -22,6 +22,7 @@ class CreateUserBidTable extends Migration
             $table->integer('user_id');
             $table->integer('game_id');
             $table->integer('bid_category_id');
+            $table->integer('bid_number');
             $table->double('amount');
             $table->tinyInteger('is_deleted');
             $table->timestamp('created_at')->useCurrent();
