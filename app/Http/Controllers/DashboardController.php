@@ -49,7 +49,7 @@ class DashboardController extends Controller
     public function myHome()
 
     {
-
+        
         return view('admin/dashboard');
 
     }
