@@ -14,8 +14,7 @@
 Route::get('/', 'MemberController@index');
 
 Route::get('admin/dashboard', 'DashboardController@myHome');
-Route::get('test', 'DashboardController@test');
-Route::get('contact', function()
-{
-    echo 'PP';
-});
+Route::get('admin/test', 'DashboardController@test');
+
+Route::get('admin/user/create', 'DashboardController@userCreate');
+Route::get('admin/user/manage', 'DashboardController@userManage');

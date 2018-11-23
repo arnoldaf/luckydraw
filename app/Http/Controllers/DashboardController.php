@@ -49,7 +49,7 @@ class DashboardController extends Controller
     public function myHome()
 
     {
-        
+
         return view('admin/dashboard');
 
     }
@@ -73,5 +73,18 @@ class DashboardController extends Controller
         return view('admin/test');
 
     }
+
+    public function userCreate()   {
+
+        return view('admin/userCreate');
+    }
+
+    public function userManage()  {
+
+        return view('admin/userManage');
+
+    }
+
+
 
 }
