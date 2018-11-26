@@ -129,7 +129,7 @@
                             <div class="stepbystep ">
                                 <div class="rightsection denominations">
                                     <ul>
-                                        <li class="icon active"><a href="#">50</a></li>
+                                        <li class="icon selected"><a href="#">50</a></li>
                                         <li class="icon"><a href="#">100</a></li>
                                         <li class="icon"><a href="#">200</a></li>
                                         <li class="icon"><a href="#">500</a></li>
@@ -144,6 +144,7 @@
                    
                         <article>
                             <div class="main">
+                                <div class="alert alert-danger denomination-warning">  </div>
                                 <div id="ttabs" class="poker-tabs poker-tabs-pos-top-left poker-tabs-anim-scale poker-tabs-response-to-icons">
                                     <?php $tabSer = 1;?>
                                     @foreach($games as $game)
@@ -161,7 +162,7 @@
                                         <?php $tabSer = 0;?>
                                         @foreach($games as $game)
                                                 <?php $tabSer++;?>
-                                        <li class="poker-tab-content-{{$tabSer}} game-wrapper" data-id="{{$game['id']}}">
+                                        <li class="poker-tab-content-{{$tabSer}} game-wrapper" data-id="{{$game['id']}}" data-name="{{$game['name']}}">
                                             <div class="numberbg">
                                                 <div class="checker__numbers">
                                                     <div class="checker__grid two_third">
@@ -192,10 +193,11 @@
                                                 </div>
                                             </div>
                                             <div class="numberbg-right">
-                                                    <div id="tablewrapper">
+                                                    <div id="tablewrapper" class="member-bid-history">
 
                                                             <section>
-                                                                <table cellpadding="0" cellspacing="0" border="0" id="table" class="tinytable">
+                                                                <form method="post" name="memberBid">
+                                                                <table cellpadding="0" cellspacing="0" border="0" id="table" class="tinytable member-bid-rocords">
                                                                     <thead>
                                                                         <tr>
                                                                             <th class="nosort">
@@ -217,134 +219,47 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr class="evenrow">
-                                                                            <td>1</td>
-                                                                            <td class="name">Dishawar</td>
-                                                                            <td>44</td>
-                                                                            <td>1000</td>
+                                                                        {{--<tr class="evenrow member-bid-record">--}}
+                                                                            {{--<td class="sr-num">1</td>--}}
+                                                                            {{--<td class="game-name" data-id="1">Dishawar</td>--}}
+                                                                            {{--<td class="bid-num">44</td>--}}
+                                                                            {{--<td class="bid-amount">1000</td>--}}
+                                                                            {{--<td>--}}
+                                                                                {{--<a href="" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>--}}
+                                                                            {{--</td>--}}
+                                                                        {{--</tr>--}}
+                                                                        {{--<tr class="oddrow member-bid-record">--}}
+                                                                            {{--<td class="sr-num">2</td>--}}
+                                                                            {{--<td class="game-name" data-id="2">Gali</td>--}}
+                                                                            {{--<td class="bid-num">45</td>--}}
+                                                                            {{--<td class="bid-amount">500</td>--}}
+                                                                            {{--<td>--}}
+                                                                                {{--<a href="javascript:void(0)" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>--}}
+                                                                            {{--</td>--}}
+                                                                        {{--</tr>--}}
+                                                                        <tr class="member-bid-record snippet hidden">
+                                                                            <td class="sr-num"> </td>
+                                                                            <td class="game-name" data-id=""> </td>
+                                                                            <td class="bid-num"> </td>
+                                                                            <td class="bid-amount"> </td>
                                                                             <td>
-                                                                                <a href="" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="oddrow">
-                                                                            <td>2</td>
-                                                                            <td class="name">Dishawar</td>
-                                                                            <td>44</td>
-                                                                            <td>1000</td>
-                                                                            <td>
-                                                                                <a href="" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="evenrow">
-                                                                            <td>3</td>
-                                                                            <td class="name">Dishawar</td>
-                                                                            <td>44</td>
-                                                                            <td>1000</td>
-                                                                            <td>
-                                                                                <a href="" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="oddrow">
-                                                                            <td>4</td>
-                                                                            <td class="name">Dishawar</td>
-                                                                            <td>44</td>
-                                                                            <td>1000</td>
-                                                                            <td>
-                                                                                <a href="" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="evenrow">
-                                                                            <td>5</td>
-                                                                            <td class="name">Dishawar</td>
-                                                                            <td>44</td>
-                                                                            <td>1000</td>
-                                                                            <td>
-                                                                                <a href="" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="oddrow">
-                                                                            <td>6</td>
-                                                                            <td class="name">Dishawar</td>
-                                                                            <td>44</td>
-                                                                            <td>1000</td>
-                                                                            <td>
-                                                                                <a href="" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="evenrow">
-                                                                            <td>7</td>
-                                                                            <td class="name">Dishawar</td>
-                                                                            <td>44</td>
-                                                                            <td>1000</td>
-                                                                            <td>
-                                                                                <a href="" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="evenrow">
-                                                                            <td>&nbsp;</td>
-                                                                            <td class="name">&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>
-                                                                                &nbsp;
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="evenrow">
-                                                                            <td>&nbsp;</td>
-                                                                            <td class="name">&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>
-                                                                                &nbsp;
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="evenrow">
-                                                                            <td>&nbsp;</td>
-                                                                            <td class="name">&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>
-                                                                                &nbsp;
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="evenrow">
-                                                                            <td>&nbsp;</td>
-                                                                            <td class="name">&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>
-                                                                                &nbsp;
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="evenrow">
-                                                                            <td>&nbsp;</td>
-                                                                            <td class="name">&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>
-                                                                                &nbsp;
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="evenrow">
-                                                                            <td>&nbsp;</td>
-                                                                            <td class="name">&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>&nbsp;</td>
-                                                                            <td>
-                                                                                &nbsp;
+                                                                                <a href="javascript:void(0)" class="delete" data-id="">
+                                                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                                                </a>
                                                                             </td>
                                                                         </tr>
                                     
                                                                         <tr class="">
                                                                             <td colspan="3">Total Bid Points</td>
                                     
-                                                                            <td class="bid-amount"><strong> 0 </strong></td>
+                                                                            <td class="total-bid-amount"><strong> 0 </strong></td>
                                                                             <td>
                                     
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
+                                                                </form>
                                                             </section>
                                                             <form method="post" name="form_checker">
                                                                 <div class="checker__buttons">
