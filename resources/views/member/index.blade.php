@@ -87,56 +87,56 @@
 					<a href="#"><i class="fa fa-sign-in"></i>Login</a>
 					<div class="grid-container4">
 						<form action="#">
-							<fieldset>								
+							<fieldset>
 								<section><label class="input"><i class="fa fa-append fa-user"></i><input type="text" placeholder="Login or E-mail"></label></section>
 								<section><label class="input"><i class="fa fa-append fa-lock"></i><input type="password" placeholder="Password"></label></section>
 								<button type="submit" class="button">Login</button>
-							</fieldset>						
+							</fieldset>
 						</form>
 					</div>
 				</li>
 			</ul>
      </div>
-</div> 
+</div>
 <!-- Slider -->
 <div id="section-1">
 <div class="slidePoint" id="slide0" data-slide="1" data-stellar-background-ratio="0.5">
     <div class="padding_slide1">
         <div class="clearfix">
                     <div class="slide-contentfull">
-                        <div class="fullwidthbanner-container">					
+                        <div class="fullwidthbanner-container">
                             <div class="fullwidthbanner">
                                 <ul>
-                                    <li data-transition="fade" data-slotamount="10" data-thumb="#"> 										
-                                        <img src="images/slides/1.jpg" alt=""/>		
-                                        <div class="caption lfl small_text img-arleft" data-x="-60" data-y="150" data-speed="600" data-start="1600" data-easing="easeOutExpo"><img src="images/slides/power.png" alt=""/></div>							
+                                    <li data-transition="fade" data-slotamount="10" data-thumb="#">
+                                        <img src="images/slides/1.jpg" alt=""/>
+                                        <div class="caption lfl small_text img-arleft" data-x="-60" data-y="150" data-speed="600" data-start="1600" data-easing="easeOutExpo"><img src="images/slides/power.png" alt=""/></div>
                                         <div class="caption lfl small_text img-arleft" data-x="-40" data-y="210" data-speed="900" data-start="1300" data-easing="easeOutExpo"><img src="images/rb.png" alt=""/></div>
                                         <div class="caption lft medium_black" data-x="70" data-y="190" data-speed="400" data-start="1000" data-easing="easeOutExpo"><p class="blackbold">RESPONSIVE</p></div>
                                         <div class="caption fade medium_black" data-x="70" data-y="300" data-speed="600" data-start="1500" data-easing="easeInOutElastic"><p>TOUCH SWIPE NAVIGATION</p></div>
-                                        <div class="caption sfb small_text" data-x="80" data-y="390" data-speed="1200" data-start="2400" data-easing="easeOutExpo"><img src="images/ipad1.png" alt=""/></div> 
+                                        <div class="caption sfb small_text" data-x="80" data-y="390" data-speed="1200" data-start="2400" data-easing="easeOutExpo"><img src="images/ipad1.png" alt=""/></div>
                                         <div class="caption sfb small_text" data-x="180" data-y="510" data-speed="1200" data-start="3400" data-easing="easeOutExpo"><img src="images/hand.png" alt=""/></div>
                                         <div class="caption sfr small_text" data-x="410" data-y="350" data-speed="900" data-start="2500" data-easing="easeOutExpo"><img src="images/slides/line1.png" alt=""/></div>
                                         <div class="caption sfr small_text_desc" data-x="530" data-y="350" data-speed="900" data-start="2500" data-easing="easeOutExpo">
-                                            <p>Limited-time offer : </p> 
+                                            <p>Limited-time offer : </p>
                                             <p>Deposit and free $20!</p>
                                         </div>
                                         <div class="caption fade" data-x="580" data-y="450" data-speed="2000" data-start="3300" data-easing="easeInOutElastic"><img class="guarantee" src="images/guarantee.png" alt="guarantee"/></div>
                                     </li>
-                                    <li data-transition="slideright" data-slotamount="6" data-thumb="#"> 
-                                        <img src="images/slides/2.jpg" alt=""/>			         
-                                        <div class="caption sfb medium_text" data-x="40" data-y="420" data-speed="1200" data-start="2400" data-easing="easeOutExpo"><p>RESPONSIVE DESIGN</p></div> 
-                                        <div class="caption sfb medium_text" data-x="40" data-y="470" data-speed="1200" data-start="2600" data-easing="easeOutExpo"><p>Parallax version</p></div> 
-                                        <div class="caption sfb medium_text" data-x="40" data-y="520" data-speed="1200" data-start="2800" data-easing="easeOutExpo"><p>CSS3 Animation</p></div>   
-                                        <div class="caption sfr small_text imgimac" data-x="440" data-y="320" data-speed="500" data-start="1200" data-easing="easeOutExpo"><img src="images/imac.png" alt=""/></div>  
-                                         <div class="caption sfr small_text imgipad" data-x="420" data-y="430" data-speed="600" data-start="1800" data-easing="easeOutExpo"><img src="images/ipad.png" alt=""/></div>  
+                                    <li data-transition="slideright" data-slotamount="6" data-thumb="#">
+                                        <img src="images/slides/2.jpg" alt=""/>
+                                        <div class="caption sfb medium_text" data-x="40" data-y="420" data-speed="1200" data-start="2400" data-easing="easeOutExpo"><p>RESPONSIVE DESIGN</p></div>
+                                        <div class="caption sfb medium_text" data-x="40" data-y="470" data-speed="1200" data-start="2600" data-easing="easeOutExpo"><p>Parallax version</p></div>
+                                        <div class="caption sfb medium_text" data-x="40" data-y="520" data-speed="1200" data-start="2800" data-easing="easeOutExpo"><p>CSS3 Animation</p></div>
+                                        <div class="caption sfr small_text imgimac" data-x="440" data-y="320" data-speed="500" data-start="1200" data-easing="easeOutExpo"><img src="images/imac.png" alt=""/></div>
+                                         <div class="caption sfr small_text imgipad" data-x="420" data-y="430" data-speed="600" data-start="1800" data-easing="easeOutExpo"><img src="images/ipad.png" alt=""/></div>
                                         <div class="caption lft medium_black" data-x="40" data-y="150" data-speed="400" data-start="2800" data-easing="easeOutExpo"><p class="blackbold">Your poker web site </p></div>
-                                        <div class="caption lft medium_black" data-x="40" data-y="255" data-speed="600" data-start="3000" data-easing="easeOutExpo"><p>Business solution</p></div>	
+                                        <div class="caption lft medium_black" data-x="40" data-y="255" data-speed="600" data-start="3000" data-easing="easeOutExpo"><p>Business solution</p></div>
                                     </li>
-                                    <li id="money" data-transition="slideright" data-slotamount="6" data-thumb="#"> 
-                                        <img src="images/slides/3.jpg" alt=""/>		         
-                                        <div class="caption sfb small_text" data-x="100" data-y="420" data-speed="1200" data-start="2400" data-easing="easeOutExpo"><img src="images/banner1-man.png" alt=""/></div>   
+                                    <li id="money" data-transition="slideright" data-slotamount="6" data-thumb="#">
+                                        <img src="images/slides/3.jpg" alt=""/>
+                                        <div class="caption sfb small_text" data-x="100" data-y="420" data-speed="1200" data-start="2400" data-easing="easeOutExpo"><img src="images/banner1-man.png" alt=""/></div>
                                         <div class="caption lft medium_black" data-x="70" data-y="150" data-speed="400" data-start="2800" data-easing="easeOutExpo"><p class="blackbold">Your game your money</p></div>
-                                        <div class="caption lft medium_black" data-x="70" data-y="255" data-speed="600" data-start="3000" data-easing="easeOutExpo"><p>Million solution</p></div>    
+                                        <div class="caption lft medium_black" data-x="70" data-y="255" data-speed="600" data-start="3000" data-easing="easeOutExpo"><p>Million solution</p></div>
                                         <div class="caption lfl small_text" data-x="150" data-y="320" data-speed="900" data-start="1400" data-easing="easeOutExpo"><img src="images/slides/rb.png" alt=""/></div>
                                         <div class="caption lfl small_text" data-x="-20" data-y="500" data-speed="900" data-start="1200" data-easing="easeOutExpo"><img src="images/slides/ru.png" alt=""/></div>
                                         <div class="caption lfr small_text" data-x="600" data-y="320" data-speed="900" data-start="1400" data-easing="easeOutExpo"><img src="images/slides/lb.png" alt=""/></div>
@@ -144,12 +144,12 @@
                                         <div class="caption lfl small_text" data-x="110" data-y="270" data-speed="900" data-start="1600" data-easing="easeOutExpo"><img src="images/slides/b.png" alt=""/></div>
                                         <div class="caption lfl small_text" data-x="-70" data-y="570" data-speed="900" data-start="1500" data-easing="easeOutExpo"><img src="images/slides/a.png" alt=""/></div>
                                         <div class="caption lfr small_text" data-x="620" data-y="270" data-speed="900" data-start="1600" data-easing="easeOutExpo"><img src="images/slides/a.png" alt=""/></div>
-                                        <div class="caption lfr small_text" data-x="840" data-y="570" data-speed="900" data-start="1500" data-easing="easeOutExpo"><img src="images/slides/c.png" alt=""/></div>                                  
+                                        <div class="caption lfr small_text" data-x="840" data-y="570" data-speed="900" data-start="1500" data-easing="easeOutExpo"><img src="images/slides/c.png" alt=""/></div>
                                     </li>
-                                </ul>		
-                                <div class="tp-bannertimer"></div>												
-                            </div>					
-                        </div>    
+                                </ul>
+                                <div class="tp-bannertimer"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="clear"></div>
         </div>
@@ -186,7 +186,7 @@
                 <div class="one_fourth last">
    		            <i class="fa fa-trophy"></i>
                     <div class="clearfix"></div>
-    	            <h3 class="nocaps">Two Home Pages</h3>    
+    	            <h3 class="nocaps">Two Home Pages</h3>
                     <p>There are variations available majoritaey suffered alteration words which look even believable.</p>
                     <br>
                     <a href="#" class="readmore_but1">Read more +</a>
@@ -194,7 +194,7 @@
             </div><!-- end container -->
         </article>
     </section>
-<div class="clear"></div> 
+<div class="clear"></div>
   <!-- Texas Holdem -->
   <div id="section-holdem" class="programinfo">
       <div class="container">
@@ -210,7 +210,7 @@
       </div>
        <div class="container texas-space">
            <div class="grid_item content-item hidden fadeInUp">
-               <img class="img_holdem" src="images/design_multitouch.jpg" alt="" />      
+               <img class="img_holdem" src="images/design_multitouch.jpg" alt="" />
            </div>
            <div class="clear"></div>
            <!-- tabs -->
@@ -611,7 +611,7 @@
                         <a class="btn btn-lg btn-block btn-primary">Order Now</a>
                     </div>
                 </div>
-            </div> 
+            </div>
         </article>
         <article class="grid_3_banner clubbox">
             <div class="pricing-table pricing-table-inverse animated fadeInRight" data-animate="fadeInRight">
@@ -683,7 +683,7 @@
             <article class="clearfix">
                 <div class="container services-our">
                     <h2 class="section_title_white">Our <span class="secondtxt">Services</span></h2>
-                    <div class="one_fourth">   	
+                    <div class="one_fourth">
                         <div class="box">
                             <div class="image">
                                 <div>
@@ -709,7 +709,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="one_fourth">   	
+                    <div class="one_fourth">
                         <div class="box">
                             <div class="image">
                                 <div>
@@ -721,7 +721,7 @@
                                 <div><h4 class="nocaps">Branding</h4> Lorem ipsum dolor sit amet, consectetuer  elit. Suspen disse et justo.</div>
                             </div>
                         </div>
-        
+
                     </div>
                     <div class="one_fourth last">
                         <div class="box">
@@ -736,7 +736,7 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </article>
         </div>
     </section>
@@ -751,7 +751,7 @@
       </div>
       <div class="clear"></div>
       <!-- FILTER CONTROLS -->
-			<div class="controls control_align">	
+			<div class="controls control_align">
 				<ul class="filter-buttons">
 					<li class="filter selected" data-filter="all">Show All</li>
 					<li class="filter" data-filter="category_1">Cat. 1</li>
@@ -768,10 +768,10 @@
                 <li class="sort" data-sort="data-cat" data-order="asc">Ascending</li>
             </ul>
         </div>
-        </div> 	
+        </div>
             <ul id="Grid" class="grid cs-style-1"><!-- GRID -->
 				<li class="mix category_1 one_third_gallery_wild" data-cat="1">
-                    <figure class="2014 clearfix">   
+                    <figure class="2014 clearfix">
                         <div class="layer">
                             <div class="portfolio-info">
                                 <p class="gallery_title">BRASIL CHAMPIONSHIP</p>
@@ -920,10 +920,10 @@
                         <img class="" src="images/event4.jpg" alt="alt" />
                     </figure>
                 </li>
-				<li class="gap"></li> 
+				<li class="gap"></li>
 			</ul>
-    </div> 
-  
+    </div>
+
 
 <!-- Content Part - Table -->
    <section id="testimonial">
@@ -947,9 +947,9 @@
     <div class="contactinfo">
         <div class="content-contact">
             <div class="container">
-            
+
                 <div class="two_third_contact ctn_social">
-                    <section class="social_align">         
+                    <section class="social_align">
                         <ul class="socials fr">
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -969,12 +969,12 @@
                         <form method="post" id="contact_form">
                                 <section id="contact" class="contact-select">
                                    <div class="info_maps">
-                                    <section class="first">                  
+                                    <section class="first">
                                       <ul class="contactsidebar" >
                                           <li><i class="fa fa-home"></i><span>Steet us: </span>2A4 UD Street Name, Punta Cana</li>
                                           <li><i class="fa fa-phone"></i><span>Phone US: </span>(+44) 66-997-12341</li>
-                                      </ul>     
-                                    </section>        
+                                      </ul>
+                                    </section>
                                   </div>
                               </section>
 
@@ -998,11 +998,11 @@
                                 </div>
                                 <p class="success">Your message has been sent successfully.</p>
                                 <p class="error">E-mail must be valid and message must be longer than 20 characters.</p>
-                            
+
                         </form>
                     </div>
                 </div>
-            
+
             </div>
             <div class="footer-top-div">
                 <div class="container">
@@ -1040,7 +1040,7 @@
                                     <li><a href="#">cash game</a></li>
                                     <li><a href="#">casinò</a></li>
                                 </ul>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                     <hr class="separatorspace"/>
@@ -1071,7 +1071,7 @@
     <script type="text/javascript" src="{!! asset('member/js/slide/jquery.themepunch.revolution.min.js')!!}"></script>
     <script src="{!! asset('member/js/jquery.parallax-1.1.3.js')!!}" type="text/javascript"></script>
     <script src="{!! asset('member/js/screen.js')!!}" type="text/javascript"></script>
-    
+
     <script src="{!! asset('member/js/jquery.nav1.js')!!}" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () { "use strict"; $('#Grid_top').mixitup(); });

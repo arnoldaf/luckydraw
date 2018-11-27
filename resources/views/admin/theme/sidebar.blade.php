@@ -9,6 +9,17 @@
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fas fa-fw fa-folder"></i>
+      <span>User Management</span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+      <a class="dropdown-item" href="/admin/user/create">Add User</a>
+      <a class="dropdown-item" href="/admin/user/manage">Manage Users</a>
+    </div>
+  </li>
+<!--
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-fw fa-folder"></i>
       <span>Pages</span>
     </a>
     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
@@ -32,5 +43,6 @@
       <i class="fas fa-fw fa-table"></i>
       <span>Tables</span></a>
   </li>
+-->
 </ul>
 <!-- /Sidebar -->

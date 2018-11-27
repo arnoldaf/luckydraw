@@ -12,7 +12,10 @@
 */
 
 Route::get('/', 'MemberController@index');
+Route::get('/game', 'UserBidController@getGame');
 
-Route::get('/dashboard', 'DashboardController@myHome');
+Route::get('admin/dashboard', 'DashboardController@myHome');
+Route::get('admin/test', 'DashboardController@test');
 
-Route::get('test', 'DashboardController@test');
+Route::get('admin/user/create', 'DashboardController@userCreate');
+Route::get('admin/user/manage', 'DashboardController@userManage');

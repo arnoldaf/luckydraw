@@ -74,4 +74,17 @@ class DashboardController extends Controller
 
     }
 
+    public function userCreate()   {
+
+        return view('admin/userCreate');
+    }
+
+    public function userManage()  {
+
+        return view('admin/userManage');
+
+    }
+
+
+
 }
