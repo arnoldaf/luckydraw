@@ -167,7 +167,7 @@
                                                 <div class="checker__numbers">
                                                     <div class="checker__grid two_third">
                                                         @for($i = 0; $i <=99; $i++)
-                                                        <a href="javascript:;" id="B0ID_{{$i}}" class="ball user-selected-num"><span class="num">{{$i}}</span><p class="value hidden"> 0</p></a>
+                                                        <a href="javascript:;" id="B0ID_{{$i}}" class="ball user-selected-num" data-id="{{$i}}"><span class="num">{{$i}}</span><p class="value hidden"> 0</p></a>
                                                             <!--<a href="javascript:;" id="B0ID_18" class="ball Selected"><span>18</span><p class="value"> 9000 </p></a>-->
                                                         @endfor
 
@@ -243,7 +243,7 @@
                                                                             <td class="bid-num"> </td>
                                                                             <td class="bid-amount"> </td>
                                                                             <td>
-                                                                                <a href="javascript:void(0)" class="delete" data-id="">
+                                                                                <a href="javascript:void(0)" class="delete member-bid-delete" data-id="">
                                                                                     <i class="fa fa-times" aria-hidden="true"></i>
                                                                                 </a>
                                                                             </td>

@@ -25,6 +25,23 @@ $('.game-wrapper').on('click', '.user-selected-num', function(){
 });
 
 /**
+ * To remove selected bid num
+ */
+$(document).on('click', '.member-bid-delete', function () {
+    let _this = $(this);
+    let wrapper = _this.closest('.member-bid-record');
+    let selectedGameId = parseInt(wrapper.find('.game-name').data('id'));
+    let bidNum = parseInt(wrapper.find('.bid-num').text());
+    let bidAmount = parseInt(wrapper.find('.bid-amount').text());
+    let gameWrapper = $('.game-wrapper[data-id="'+selectedGameId+'"]');
+    gameWrapper.find('.user-selected-num[data-id="'+bidNum+'"]').removeClass('Selected');
+    gameWrapper.find('.user-selected-num[data-id="'+bidNum+'"] .value').addClass('hidden').text('0');
+    setGameBidAmount(selectedGameId, -bidAmount);
+    wrapper.remove();
+    setSerialNum(selectedGameId);
+});
+
+/**
  * To set active denomination amount
  * @returns {jQuery}
  */
@@ -68,8 +85,8 @@ function setBidNumberPoints() {
         newRow.find('.game-name').data('id', gameId);
         newRow.find('.bid-num').text(userBidNum);
         newRow.find('.bid-amount').text(totalBidAmountOnNum);
-        newRow.insertBefore('.member-bid-record.snippet');
-        setSerialNum();
+        newRow.insertBefore('.game-wrapper[data-id="'+gameId+'"] .member-bid-record.snippet');
+        setSerialNum(gameId);
     }
 }
 
@@ -84,7 +101,7 @@ function getTotalBidAmount() {
 /**
  * TO set serial num of member bid history
  */
-function setSerialNum() {
+function setSerialNum(gameId) {
     let gameHistoryWrapper = $('.game-wrapper[data-id="'+gameId+'"] .member-bid-history');
     let i = 1;
     gameHistoryWrapper.find('.member-bid-record').not('.snippet').each(function () {
