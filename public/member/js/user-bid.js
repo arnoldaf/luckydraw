@@ -4,9 +4,7 @@ let gameId = 0;
 let userBidNum = 0;
 let totalBidAmountOnNum = 0;
 $('.game-wrapper').on('click', '.user-selected-num', function(){
-    if(setDenominationValue() === 0) {
-        return;
-    }
+    if(setDenominationValue() === 0) { return; }
     let _this = $(this);
     _this.addClass('Selected');
     let gameWrapper = _this.closest('.game-wrapper');
@@ -19,7 +17,7 @@ $('.game-wrapper').on('click', '.user-selected-num', function(){
     let userBidValue = parseInt(userBidValueWrap.text());
     totalBidAmountOnNum = parseInt(denominationVal + userBidValue);
     userBidValueWrap.text(totalBidAmountOnNum);
-    setGameBidAmount(gameId, denominationVal)
+    setGameBidAmount(gameId, denominationVal);
     setBidNumberPoints();
     //alert(userBidNum + ', ' + userBidValue);
 });
@@ -39,6 +37,36 @@ $(document).on('click', '.member-bid-delete', function () {
     setGameBidAmount(selectedGameId, -bidAmount);
     wrapper.remove();
     setSerialNum(selectedGameId);
+});
+
+/**
+ * To bid a number for andar
+ */
+$('.andar-bid').on('click', function () {
+    if(setDenominationValue() === 0) { return; }
+    let _this = $(this);
+    let bidNumber = _this.data('id');
+    let gameWrapper = _this.closest('.game-wrapper');
+    gameId = gameWrapper.data('id');
+    gameName = gameWrapper.attr("data-name");
+    totalBidAmountOnNum = parseInt(denominationVal);
+    setBidNumberPointsHalf(gameId, "A-"+bidNumber);
+    setGameBidAmount(gameId, denominationVal)
+});
+
+/**
+ * To bid a number for andar
+ */
+$('.bahar-bid').on('click', function () {
+    if(setDenominationValue() === 0) { return; }
+    let _this = $(this);
+    let bidNumber = _this.data('id');
+    let gameWrapper = _this.closest('.game-wrapper');
+    gameId = gameWrapper.data('id');
+    gameName = gameWrapper.attr("data-name");
+    totalBidAmountOnNum = parseInt(denominationVal);
+    setBidNumberPointsHalf(gameId, "B-"+bidNumber);
+    setGameBidAmount(gameId, denominationVal)
 });
 
 /**
@@ -108,4 +136,27 @@ function setSerialNum(gameId) {
         $(this).find('.sr-num').text(i);
         i++;
     });
+}
+
+function setBidNumberPointsHalf(gameId, bidNum) {
+    let gameHistoryWrapper = $('.game-wrapper[data-id="'+gameId+'"] .member-bid-history');
+    let findRow = false;
+    gameHistoryWrapper.find('.member-bid-record').not('.snippet').each(function () {
+        let $this = $(this);
+        if ($this.find('.game-name').data('id') == gameId && $this.find('.bid-num').text() == bidNum) {
+            findRow = true;
+            let existedAmount = parseInt($this.find('.bid-amount').text());
+            $this.find('.bid-amount').text(existedAmount + denominationVal);
+        }
+    });
+    if (!findRow) {
+        console.log('not found');
+        let newRow = gameHistoryWrapper.find('.member-bid-record.snippet').clone().removeClass('snippet').removeClass('hidden');
+        newRow.find('.game-name').text(gameName);
+        newRow.find('.game-name').data('id', gameId);
+        newRow.find('.bid-num').text(bidNum);
+        newRow.find('.bid-amount').text(denominationVal);
+        newRow.insertBefore('.game-wrapper[data-id="'+gameId+'"] .member-bid-record.snippet');
+        setSerialNum(gameId);
+    }
 }
