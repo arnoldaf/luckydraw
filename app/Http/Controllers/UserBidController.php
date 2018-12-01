@@ -16,6 +16,6 @@ class UserBidController extends Controller
                 '2' => ['id' => '3', 'name'=>'Ghaziabad'],
             ]
         ];
-        return view('member.game')->with($games);
+        return view('member.member-bid')->with($games);
     }
 }

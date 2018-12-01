@@ -1181,7 +1181,7 @@ p.quote {
 	width: 79%;
 }
 .stepbystep .rightsection ul:hover i {
-	//background-color: #D4202B;
+	background-color: #D4202B;
 }
 .stepbystep .rightsection ul.active i {
 	background-color: #D4202B;
