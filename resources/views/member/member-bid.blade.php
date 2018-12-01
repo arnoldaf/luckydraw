@@ -186,29 +186,15 @@
                                                         <div class="tablebox checker__grid">
 
                                                             <h3>A - Ander </h3>
-                                                            <a href="javascript:;" id="B0ID_1" class="ball"><span>1</span></a>
-                                                            <a href="javascript:;" id="B0ID_2" class="ball"><span>2</span></a>
-                                                            <a href="javascript:;" id="B0ID_3" class="ball"><span>3</span></a>
-                                                            <a href="javascript:;" id="B0ID_4" class="ball"><span>4</span></a>
-                                                            <a href="javascript:;" id="B0ID_5" class="ball"><span>5</span></a>
-                                                            <a href="javascript:;" id="B0ID_6" class="ball"><span>6</span></a>
-                                                            <a href="javascript:;" id="B0ID_7" class="ball"><span>7</span></a>
-                                                            <a href="javascript:;" id="B0ID_8" class="ball"><span>8</span></a>
-                                                            <a href="javascript:;" id="B0ID_9" class="ball"><span>9</span></a>
-                                                            <a href="javascript:;" id="B0ID_10" class="ball"><span>10</span></a>
+                                                            @for($i = 0; $i <=9; $i++)
+                                                                <a href="javascript:;" id="B0ID_{{$i}}" class="ball andar-bid" data-id="{{$i}}"><span>{{$i}}</span></a>
+                                                            @endfor
                                                         </div>
                                                         <div class="tablebox checker__grid">
                                                             <h3>B - Bahar </h3>
-                                                            <a href="javascript:;" id="B0ID_1" class="ball"><span>1</span></a>
-                                                            <a href="javascript:;" id="B0ID_2" class="ball"><span>2</span></a>
-                                                            <a href="javascript:;" id="B0ID_3" class="ball"><span>3</span></a>
-                                                            <a href="javascript:;" id="B0ID_4" class="ball"><span>4</span></a>
-                                                            <a href="javascript:;" id="B0ID_5" class="ball"><span>5</span></a>
-                                                            <a href="javascript:;" id="B0ID_6" class="ball"><span>6</span></a>
-                                                            <a href="javascript:;" id="B0ID_7" class="ball"><span>7</span></a>
-                                                            <a href="javascript:;" id="B0ID_8" class="ball"><span>8</span></a>
-                                                            <a href="javascript:;" id="B0ID_9" class="ball"><span>9</span></a>
-                                                            <a href="javascript:;" id="B0ID_10" class="ball"><span>10</span></a>
+                                                            @for($i = 0; $i <= 9; $i++)
+                                                                <a href="javascript:;" id="B0ID_{{$i}}" class="ball bahar-bid" data-id="{{$i}}"><span>{{$i}}</span></a>
+                                                            @endfor
                                                         </div>
                                                     </div>
                                                 </div>

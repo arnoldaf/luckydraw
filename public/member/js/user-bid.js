@@ -141,7 +141,7 @@ function setSerialNum() {
 }
 
 function setBidNumberPointsHalf(gameId, bidNum) {
-    let gameHistoryWrapper = $('.game-wrapper[data-id="'+gameId+'"] .member-bid-history');
+    let gameHistoryWrapper = $('.member-bid-history');
     let findRow = false;
     gameHistoryWrapper.find('.member-bid-record').not('.snippet').each(function () {
         let $this = $(this);
@@ -158,7 +158,7 @@ function setBidNumberPointsHalf(gameId, bidNum) {
         newRow.find('.game-name').data('id', gameId);
         newRow.find('.bid-num').text(bidNum);
         newRow.find('.bid-amount').text(denominationVal);
-        newRow.insertBefore('.game-wrapper[data-id="'+gameId+'"] .member-bid-record.snippet');
+        newRow.insertBefore('.member-bid-record.snippet');
         setSerialNum();
     }
 }
