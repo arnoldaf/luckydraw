@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/admin/dashboard';
 
     /**
      * Create a new controller instance.
@@ -40,6 +40,7 @@ class LoginController extends Controller
 
     public function postLogin(Request $request) {
 
+
         $requiredField = [
             "email" => "required|email|max:255",
             "password" => "required|min:5",
@@ -51,6 +52,7 @@ class LoginController extends Controller
 
             return response()->json(['result' => false, 'msg' => $responseMsg]);
         }
+
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => '1'])) {
             $user = Auth::user();
             $user->last_login = date('Y-m-d h:i:s');
@@ -68,4 +70,20 @@ class LoginController extends Controller
 
         return response()->json(['result' => false, 'msg' => $responseMsg]);
     }
+
+    /**
+       * Check user's role and redirect user based on their role
+       * @return
+       */
+       public function authenticated()
+            {
+              //$user=Auth::user();
+
+            //  if ( Auth::user()->isAdmin() ) {// do your margic here
+                  return redirect()->route('dashboard');
+            //  }
+
+            // return redirect('/home');
+        }
+
 }

@@ -369,6 +369,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{!! asset('admin/css/sb-admin.css') !!}" rel="stylesheet">
+    <link href="{!! asset('admin/css/backend.css') !!}" rel="stylesheet">
 
   </head>
 
@@ -445,6 +446,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{!! asset('admin/js/sb-admin.min.js') !!} "></script>
+    <script src="{!! asset('admin/js/custom-function.js') !!} "></script>
+
 
     <!-- Demo scripts for this page-->
     <script src="{!! asset('admin/js/demo/datatables-demo.js') !!} "></script>

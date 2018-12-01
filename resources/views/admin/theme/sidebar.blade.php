@@ -1,7 +1,7 @@
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
   <li class="nav-item active">
-    <a class="nav-link" href="/dashboard">
+    <a class="nav-link" href="/admin/dashboard">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Dashboard </span>
     </a>
@@ -12,8 +12,8 @@
       <span>User Management</span>
     </a>
     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-      <a class="dropdown-item" href="/admin/user/create">Add User</a>
-      <a class="dropdown-item" href="/admin/user/manage">Manage Users</a>
+      <a class="dropdown-item" href="/admin/users/create">Add User</a>
+      <a class="dropdown-item" href="/admin/users">Manage Users</a>
     </div>
   </li>
 <!--
