@@ -47,7 +47,7 @@ $('.andar-bid').on('click', function () {
     let _this = $(this);
     let bidNumber = _this.data('id');
     let gameWrapper = _this.closest('.game-wrapper');
-    _this.addClass('selected');
+    _this.addClass('Selected');
     gameId = gameWrapper.data('id');
     gameName = gameWrapper.attr("data-name");
     totalBidAmountOnNum = parseInt(denominationVal);
@@ -56,14 +56,14 @@ $('.andar-bid').on('click', function () {
 });
 
 /**
- * To bid a number for andar
+ * To bid a number for bahar
  */
 $('.bahar-bid').on('click', function () {
     if(setDenominationValue() === 0) { return; }
     let _this = $(this);
     let bidNumber = _this.data('id');
     let gameWrapper = _this.closest('.game-wrapper');
-    _this.addClass('selected');
+    _this.addClass('Selected');
     gameId = gameWrapper.data('id');
     gameName = gameWrapper.attr("data-name");
     totalBidAmountOnNum = parseInt(denominationVal);
