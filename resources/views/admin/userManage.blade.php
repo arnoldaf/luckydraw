@@ -63,6 +63,7 @@
                   </div><!--btn-toolbar-->
             </div><!--col-->
         </div><!--row-->
+        @include('admin.partials.search-users-form')
 
         <div class="row mt-4">
             <div class="col">
@@ -71,29 +72,31 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th>E-mail</th>
-                            <th>UUID</th>
+                            <th>User ID</th>
                             <th>Confirmed</th>
                             <th>Phone</th>
                             <th>Roles</th>
-                            <th>Last Updated</th>
+                            <th>Registration </th>
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody  id="users_table">
 
                           @foreach($users as $user)
                               <tr>
                                     <td>{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
+                                    <td>{{$user->first_name}}</td>
+                                    <td>{{$user->last_name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->uuid}}</td>
                                     <td>
                                       <span class="badge badge-success">{{$user->active?"Yes":"No"}}</span>
                                     </td>
                                     <td>{{$user->phone}}</td>
-                                    <td>{{$user->role_id}}</td>
+                                    <td>{{$user->role_name}}</td>
                                     <td>{{$user->created_at}}</td>
                                     <td>
 
@@ -109,27 +112,11 @@
                                       <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('admin/users/' . $user->id . '/edit') }}" data-toggle="tooltip" title="Edit">
                                           {!! trans('usersmanagement.buttons.edit') !!}
                                       </a>
-
-                                      <!--
-                                          <div class="btn-group btn-group-sm" role="group" aria-label="User Actions">
-                                          <a href="/admin/auth/user/1" class="btn btn-info"><svg class="svg-inline--fa fa-eye fa-w-18" data-toggle="tooltip" data-placement="top" title="" aria-labelledby="svg-inline--fa-title-1" data-prefix="fas" data-icon="eye" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg="" data-original-title="View"><title id="svg-inline--fa-title-1">View</title><path fill="currentColor" d="M569.354 231.631C512.969 135.949 407.81 72 288 72 168.14 72 63.004 135.994 6.646 231.631a47.999 47.999 0 0 0 0 48.739C63.031 376.051 168.19 440 288 440c119.86 0 224.996-63.994 281.354-159.631a47.997 47.997 0 0 0 0-48.738zM288 392c-75.162 0-136-60.827-136-136 0-75.162 60.826-136 136-136 75.162 0 136 60.826 136 136 0 75.162-60.826 136-136 136zm104-136c0 57.438-46.562 104-104 104s-104-46.562-104-104c0-17.708 4.431-34.379 12.236-48.973l-.001.032c0 23.651 19.173 42.823 42.824 42.823s42.824-19.173 42.824-42.823c0-23.651-19.173-42.824-42.824-42.824l-.032.001C253.621 156.431 270.292 152 288 152c57.438 0 104 46.562 104 104z"></path></svg></a>
-                                          <a href="/admin/auth/user/1/edit" class="btn btn-primary"><svg class="svg-inline--fa fa-edit fa-w-18" data-toggle="tooltip" data-placement="top" title="" aria-labelledby="svg-inline--fa-title-2" data-prefix="fas" data-icon="edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg="" data-original-title="Edit"><title id="svg-inline--fa-title-2">Edit</title><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg>/a>
-
-                                          <div class="btn-group" role="group">
-                                              <button id="userActions" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                More
-                                              </button>
-                                              <div class="dropdown-menu" aria-labelledby="userActions">
-                                                <a href="/admin/auth/user/1/password/change" class="dropdown-item">Change Password</a>
-                                              </div>
-                                          </div>
-                                        </div>
-                                      -->
                                     </td>
                                 </tr>
                           @endforeach
-
                       </tbody>
+                      <tbody id="search_results"></tbody>
                     </table>
                 </div>
             </div><!--col-->
@@ -163,8 +150,5 @@
     @include('admin.scripts.save-modal-script')
     @if(config('usersmanagement.tooltipsEnabled'))
         @include('scripts.tooltips')
-    @endif
-    @if(config('usersmanagement.enableSearchUsers'))
-        @include('scripts.search-users')
     @endif
 @endsection

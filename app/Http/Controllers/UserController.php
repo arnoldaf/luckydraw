@@ -8,6 +8,7 @@ use App\Item;
 use Validator;
 use Auth;
 use App\Traits\CaptureIpTrait;
+use Illuminate\Http\Response;
 
 
 
@@ -45,10 +46,23 @@ class UserController extends Controller
         } else {
             $users = User::all();
         }
-        //$roles = Role::all();
+        $roles = Role::all();
+        $filteredRoles = [];
+        foreach ($roles as $key=> $val) {
+          $filteredRoles[$val->id] = $val->name;
+        }
+      
+        foreach ($users as $key=> $val) {
+          $val->role_name = '';
+          if($val->role_id) {
+            $val->role_name = $filteredRoles[$val->role_id];
+          }
+            $users[$key] = $val;
+        }
+
 
         //return View('usersmanagement.show-users', compact('users', 'roles'));
-        return View('admin/userManage', compact('users'));
+        return View('admin/userManage', compact('users', 'roles'));
     }
 
     /**
@@ -84,13 +98,14 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(),
             [
-                'name'                  => 'required|max:255',
-                'first_name'            => '',
+                'first_name'            => 'required|max:255',
                 'last_name'             => '',
-                'email'                 => 'required|email|max:255|unique:users',
+                //'email'               => 'required|email|max:255|unique',
+                'email'                 => 'required|email|max:255',
                 'password'              => 'required|min:6|max:20|confirmed',
                 'password_confirmation' => 'required|same:password',
                 'role'                  => 'required',
+                'pin'                   => 'required|min:4|max:4',
             ],
             [
                 'name.unique'         => trans('auth.userNameTaken'),
@@ -101,6 +116,7 @@ class UserController extends Controller
                 'password.min'        => trans('auth.PasswordMin'),
                 'password.max'        => trans('auth.PasswordMax'),
                 'role.required'       => trans('auth.roleRequired'),
+                'pin.min'         => "Pin should be of 4 digit",
             ]
         );
 
@@ -120,21 +136,24 @@ class UserController extends Controller
         $uuid = $this->generateUUID($request->input('role'));
 
         $user = User::create([
-            'name'             => $request->input('name'),
+            'first_name'             => $request->input('first_name'),
             'email'            => $request->input('email'),
             'password'         => bcrypt($request->input('password')),
             'role_id'          => $request->input('role'),
             'parent_id'        => $parent_id,
             'phone'            => $request->input('phone'),
             'address'          => $request->input('address'),
+            'city'             => $request->input('city'),
+            'country'          => $request->input('country'),
             'comission'        => $request->input('comission'),
             'patti'            => $request->input('patti'),
             'status'           => $request->input('status'),
+            'pin'              => $request->input('pin'),
+            'dob'              => date('Y-m-d', strtotime($request->input('year').'-'.$request->input('month').'-'.$request->input('day'))),
             'uuid'             => $uuid,
             'token'            => str_random(64),
             'activated'        => 1,
         ]);
-
         //$user->profile()->save($profile);
         //$user->attachRole($request->input('role'));
         $user->save();
@@ -298,6 +317,7 @@ class UserController extends Controller
 
         $results = User::where('id', 'like', $searchTerm.'%')
                             ->orWhere('name', 'like', $searchTerm.'%')
+                            ->orWhere('uuid', 'like', $searchTerm.'%')
                             ->orWhere('email', 'like', $searchTerm.'%')->get();
 
         // Attach roles to results

@@ -1,4 +1,6 @@
 <script>
+var $ = jQuery;
+$( document ).ready(function() {
     $(function() {
         var cardTitle = $('#card_title');
         var usersTable = $('#users_table');
@@ -69,13 +71,12 @@
                                 '<td>' + val.id + '</td>' +
                                 '<td>' + val.name + '</td>' +
                                 '<td class="hidden-xs">' + val.email + '</td>' +
-                                '<td class="hidden-xs">' + val.first_name + '</td>' +
-                                '<td class="hidden-xs">' + val.last_name + '</td>' +
-                                '<td class="hidden-sm hidden-xs"> ' + rolesHtml  +'</td>' +
+                                '<td class="hidden-xs">' + val.uuid + '</td>' +
+                                '<td class="hidden-xs">' + val.active + '</td>' +
+                                '<td class="hidden-xs">' + val.phone + '</td>' +
+                                '<td class="hidden-xs">' + val.role_id + '</td>' +
                                 '<td class="hidden-sm hidden-xs hidden-md">' + val.created_at + '</td>' +
-                                '<td class="hidden-sm hidden-xs hidden-md">' + val.updated_at + '</td>' +
                                 '<td>' + deleteCellHtml + '</td>' +
-                                '<td>' + showCellHtml + '</td>' +
                                 '<td>' + editCellHtml + '</td>' +
                             '</tr>');
                         });
@@ -123,4 +124,5 @@
             usersCount.html(" ");
         });
     });
+});
 </script>

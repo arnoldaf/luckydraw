@@ -35,3 +35,5 @@ Route::resource('admin/users', 'UserController', [
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('search-users', 'UserController@search')->name('search-users');

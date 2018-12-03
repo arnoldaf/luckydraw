@@ -452,7 +452,7 @@
     <!-- Demo scripts for this page-->
     <script src="{!! asset('admin/js/demo/datatables-demo.js') !!} "></script>
     <script src="{!! asset('admin/js/demo/chart-area-demo.js') !!} "></script>
-
+@include('admin.scripts.search-users')
   </body>
 
 </html>
