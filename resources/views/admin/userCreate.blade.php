@@ -118,20 +118,20 @@
                                 <select class="custom-select form-control required" name="day" id="day" style="width: 10%;" required="true">
                                             <option value="">Day</option>
                                             @for ($i = 1; $i <= 31; $i++)
-                                                <option value="{{ $i }}">{{ $i }}</option>
+                                                <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
                                             @endfor
                                  </select> /
                                  <select class="custom-select form-control required" name="month" id="month"  style="width: 10%;" required="true">
                                              <option value="">Month</option>
                                              @for ($i = 1; $i <= 12; $i++)
-                                                 <option value="{{ $i }}">{{ $i }}</option>
+                                                 <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
                                              @endfor
                                   </select> /
 
                                   <select class="custom-select form-control required" name="year" id="year"  style="width: 10%;" required="true">
                                               <option value="">Year</option>
                                               @for ($i = 2018; $i >1950; $i--)
-                                                  <option value="{{ $i }}">{{ $i }}</option>
+                                                  <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
                                               @endfor
                                    </select>
                             </div><!--col-->
@@ -211,7 +211,7 @@
                                     <option value="">Select Area Manager</option>
                                     @if ($amkUsers)
                                         @foreach($amkUsers as $amk)
-                                            <option value="{{ $amk->id }}" >{{ $amk->name }}</option>
+                                            <option value="{{ $amk->id }}" >{{ $amk->first_name }}({{$amk->uuid}})</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -226,7 +226,7 @@
                                     <option value="">Select Distributor Manager</option>
                                     @if ($dmkUsers)
                                         @foreach($dmkUsers as $dmk)
-                                            <option value="{{ $dmk->id }}" >{{ $dmk->name }}</option>
+                                            <option value="{{ $dmk->id }}" >{{ $dmk->first_name }}({{$dmk->uuid}})</option>
                                         @endforeach
                                     @endif
                                 </select>

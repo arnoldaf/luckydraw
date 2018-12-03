@@ -46,7 +46,7 @@
                     <div class="col-sm-5">
                         <h4 class="card-title mb-0">
                             User Management
-                            <small class="text-muted">Edit User</small>
+                            <small class="text-muted">Edit User(<span style="color:green;">{{$user->uuid}})</span></small>
                         </h4>
                     </div><!--col-->
                 </div><!--row-->
@@ -126,20 +126,20 @@
 
                                             <option value="">Day</option>
                                             @for ($i = 1; $i <= 31; $i++)
-                                                <option value="{{ $i }}"  {{ $i == $day ? 'selected="selected"' : '' }} >{{ $i }}</option>
+                                                <option value="{{ sprintf('%02d', $i) }}"  {{ intval($i) == intval($day) ? 'selected="selected"' : '' }} >{{ sprintf('%02d', $i) }}</option>
                                             @endfor
                                  </select> /
                                  <select class="custom-select form-control required" name="month" id="month"  style="width: 10%;" required="true">
                                              <option value="">Month</option>
                                              @for ($i = 1; $i <= 12; $i++)
-                                                 <option value="{{ $i }}" {{ $i == $month ? 'selected="selected"' : '' }}>{{ $i }}</option>
+                                                 <option value="{{ sprintf('%02d', $i) }}" {{ intval($i) == intval($month) ? 'selected="selected"' : '' }}>{{ sprintf('%02d', $i) }}</option>
                                              @endfor
                                   </select> /
 
                                   <select class="custom-select form-control required" name="year" id="year"  style="width: 10%;" required="true">
                                               <option value="">Year</option>
                                               @for ($i = 2018; $i >1950; $i--)
-                                                  <option value="{{ $i }}" {{ $i == intval($year) ? 'selected="selected"' : '' }}>{{ $i }}</option>
+                                                  <option value="{{ sprintf('%02d', $i) }}" {{ intval($i) == intval($year) ? 'selected="selected"' : '' }}>{{sprintf('%02d', $i) }}</option>
                                               @endfor
                                    </select>
                             </div><!--col-->
@@ -157,11 +157,11 @@
                         </div><!--form-group-->
 
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="email">E-mail Address</label>
+                            <label class="col-md-2 form-control-label" for="email">Email Id</label>
 
                             <div class="col-md-10">
                                 <!--<input class="form-control" type="email" name="email" id="email" value="" placeholder="E-mail Address" maxlength="191">-->
-                                {!! Form::text('email', $user->email, array('id' => 'email', 'class' => 'form-control', 'placeholder' => 'E-mail', 'required'=>"true", 'autofocus'=> "" )) !!}
+                                {!! Form::text('email', $user->email, array('id' => 'emailid', 'class' => 'form-control', 'placeholder' => 'Email Id', 'required'=>"true", 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
 
@@ -192,10 +192,26 @@
                         </div><!--form-group-->
 
                         <div class="form-group row">
+                            <label class="col-md-2 form-control-label" for="password">PIN</label>
+
+                            <div class="col-md-10">
+                                <!--<input class="form-control" type="password" name="password" id="password" placeholder="Password">-->
+                                {!! Form::password('pin', array('id' => 'pin', 'class' => 'form-control ', 'placeholder' => 'PIN', 'maxlength' => '4', 'onkeypress'=>'validate(event)' )) !!}
+                                <!--
+                                @if ($errors->has('password'))
+                                    <span class="help-block error-mgs">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                              -->
+                            </div><!--col-->
+                        </div><!--form-group-->
+
+                        <div class="form-group row">
                             <label class="col-md-2 form-control-label" for="first_name">Role</label>
 
                             <div class="col-md-10">
-                                <select class="custom-select form-control" name="role" id="role">
+                                <select class="custom-select form-control" name="role" id="role" disabled>
                                             <option value="">Select User Role</option>
                                             @if ($roles)
                                                 @foreach($roles as $role)
@@ -212,11 +228,11 @@
                             <label class="col-md-2 form-control-label" for="first_name">Area Manager</label>
 
                             <div class="col-md-10">
-                                <select name="area_manager" id="area_manager" class="custom-select form-control" >
+                                <select name="area_manager" id="area_manager" class="custom-select form-control"  disabled  >
                                     <option value="">Select Area Manager</option>
                                     @if ($amkUsers)
                                         @foreach($amkUsers as $amk)
-                                            <option value="{{ $amk->id }}" {{ $user->parent_id == $amk->id ? 'selected="selected"' : '' }}>{{ $amk->name }}</option>
+                                            <option value="{{ $amk->id }}" {{ $user->parent_id == $amk->id ? 'selected="selected"' : '' }}>{{ $amk->first_name }}({{$amk->uuid}})</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -227,11 +243,11 @@
                             <label class="col-md-2 form-control-label" for="first_name">Distributor Manager</label>
 
                             <div class="col-md-10">
-                                <select name="distributor_manager" id="distributor_manager" class="custom-select form-control" >
+                                <select name="distributor_manager" id="distributor_manager"  readonly  class="custom-select form-control" >
                                     <option value="">Select Distributor Manager</option>
                                     @if ($dmkUsers)
                                         @foreach($dmkUsers as $dmk)
-                                            <option value="{{ $dmk->id }}" {{ $user->parent_id == $dmk->id ? 'selected="selected"' : '' }}>{{ $dmk->name }}</option>
+                                            <option value="{{ $dmk->id }}" {{ $user->parent_id == $dmk->id ? 'selected="selected"' : '' }}>{{ $dmk->first_name }}({{$dmk->uuid}})</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -244,10 +260,10 @@
 
                             <div class="col-md-10">
                                 <!--<input class="form-control" type="text" name="comission" id="comission" placeholder="Comission" maxlength="191" autofocus="">-->
-                                {!! Form::text('comission', $user->comission, array('id' => 'email', 'class' => 'form-control required', 'placeholder' => 'Comission', 'required'=>"", 'autofocus'=> "" )) !!}
+                                {!! Form::text('comission', $user->comission, array('id' => 'email', 'class' => 'form-control required','placeholder' => 'Comission', 'required'=>"", 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
-                        <div class="form-group row">
+                        <div class="form-group row patti"  style="{{ $user->role_id == 2 ? '': 'display:none;' }}">
                             <label class="col-md-2 form-control-label" for="first_name">Patti(%)</label>
                             <div class="col-md-10">
                                 <!--<input class="form-control" type="text" name="patti" id="patti" placeholder="Patti" maxlength="191" autofocus="">-->
@@ -290,4 +306,3 @@
             </div>
 
 @endsection
-<link href="http://finovics.com/css/backend.css?111" rel="stylesheet">

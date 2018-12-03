@@ -51,7 +51,7 @@ class UserController extends Controller
         foreach ($roles as $key=> $val) {
           $filteredRoles[$val->id] = $val->name;
         }
-      
+
         foreach ($users as $key=> $val) {
           $val->role_name = '';
           if($val->role_id) {
@@ -105,6 +105,9 @@ class UserController extends Controller
                 'password'              => 'required|min:6|max:20|confirmed',
                 'password_confirmation' => 'required|same:password',
                 'role'                  => 'required',
+                'day'                   => 'required',
+                'month'                 => 'required',
+                'year'                  => 'required',
                 'pin'                   => 'required|min:4|max:4',
             ],
             [
@@ -133,10 +136,12 @@ class UserController extends Controller
           $parent_id = 0;
         }
 
+      
         $uuid = $this->generateUUID($request->input('role'));
 
         $user = User::create([
-            'first_name'             => $request->input('first_name'),
+            'first_name'       => $request->input('first_name'),
+            'last_name'        => '',
             'email'            => $request->input('email'),
             'password'         => bcrypt($request->input('password')),
             'role_id'          => $request->input('role'),
@@ -222,9 +227,13 @@ class UserController extends Controller
 
         if ($emailCheck) {
             $validator = Validator::make($request->all(), [
-                'name'     => 'required|max:255',
+                'first_name'     => 'required|max:255',
                 'email'    => 'email|max:255',
                 'password' => 'nullable|confirmed|min:6',
+                'pin'      => 'nullable|min:4|max:4',
+                'day'      => 'required',
+                'month'    => 'required',
+                'year'     => 'required',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
@@ -236,15 +245,21 @@ class UserController extends Controller
             return back()->withErrors($validator)->withInput();
         }
 
-        $user->name = $request->input('name');
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+
         $user->address = $request->input('address');
+        $user->city = $request->input('city');
+        $user->country = $request->input('country');
         $user->phone = $request->input('phone');
         $user->role_id = $request->input('role');
         $user->comission = $request->input('comission');
         $user->patti = $request->input('patti');
+        $user->dob = date('Y-m-d', strtotime($request->input('year').'-'.$request->input('month').'-'.$request->input('day')));
 
         $user->active = ($request->input('status') != '')?$request->input('status'):0;
 
+        /*
         if($request->input('role') == 4) {
           $user->parent_id = $request->input('distributor_manager');
         } else if($request->input('role') == 3) {
@@ -252,6 +267,7 @@ class UserController extends Controller
         } else {
           $user->parent_id = 0;
         }
+        */
 
         /*
         if ($emailCheck) {
@@ -261,6 +277,9 @@ class UserController extends Controller
 
         if ($request->input('password') != null) {
             $user->password = bcrypt($request->input('password'));
+        }
+        if ($request->input('pin') != null) {
+            $user->password = $request->input('pin');
         }
 
 

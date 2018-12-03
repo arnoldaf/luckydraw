@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\ActivityLog;
+
 
 class LoginController extends Controller
 {
@@ -40,9 +42,10 @@ class LoginController extends Controller
 
     public function postLogin(Request $request) {
 
-
+        echo 'Hii';
+        exit;
         $requiredField = [
-            "email" => "required|email|max:255",
+            "email" => "required|max:255",
             "password" => "required|min:5",
         ];
         $validate = Validator::make($request->all(), $requiredField);
@@ -53,7 +56,7 @@ class LoginController extends Controller
             return response()->json(['result' => false, 'msg' => $responseMsg]);
         }
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => '1'])) {
+        if (Auth::attempt(['uuid' => $request->email, 'password' => $request->password, 'status' => '1'])) {
             $user = Auth::user();
             $user->last_login = date('Y-m-d h:i:s');
             $user->is_login = 1;
@@ -85,5 +88,11 @@ class LoginController extends Controller
 
             // return redirect('/home');
         }
+
+        protected function credentials(Request $request)
+        {
+            return ['uuid'=>$request->get('email'),'password'=>$request->get('password')];
+        }
+
 
 }
