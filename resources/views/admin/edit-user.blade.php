@@ -116,17 +116,17 @@
                             <label class="col-md-2 form-control-label" for="first_name">Birthday</label>
                             <div class="col-md-10">
                                 <!--<input class="form-control" type="text" name="name" id="name" placeholder="Name" maxlength="191" required="" autofocus=""> -->
-
+                                <?php
+                                  $a = $user->dob;
+                                  $day = date('d', strtotime($user->dob));
+                                  $month = date('m', strtotime($user->dob));
+                                  $year = date('Y', strtotime($user->dob));
+                                ?>
                                 <select class="custom-select form-control required" name="day" id="day" style="width: 10%;" required="true">
-                                          <?php
-                                            $a = $user->dob;
-                                            $day = date('d', strtotime($user->dob));
-                                            $month = date('m', strtotime($user->dob));
-                                            echo $year = date('Y', strtotime($user->year));
-                                          ?>
+
                                             <option value="">Day</option>
                                             @for ($i = 1; $i <= 31; $i++)
-                                                <option value="{{ $i }}"  {{ $i == $day ? 'selected="selected"' : '' }} >{{ $i }}{{$a}}</option>
+                                                <option value="{{ $i }}"  {{ $i == $day ? 'selected="selected"' : '' }} >{{ $i }}</option>
                                             @endfor
                                  </select> /
                                  <select class="custom-select form-control required" name="month" id="month"  style="width: 10%;" required="true">
@@ -139,7 +139,7 @@
                                   <select class="custom-select form-control required" name="year" id="year"  style="width: 10%;" required="true">
                                               <option value="">Year</option>
                                               @for ($i = 2018; $i >1950; $i--)
-                                                  <option value="{{ $i }}" {{ $i == intval($year) ? 'selected="selected"' : '' }}>{{ $i }}{{$year}}</option>
+                                                  <option value="{{ $i }}" {{ $i == intval($year) ? 'selected="selected"' : '' }}>{{ $i }}</option>
                                               @endfor
                                    </select>
                             </div><!--col-->
