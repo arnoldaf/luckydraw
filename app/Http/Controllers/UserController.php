@@ -9,7 +9,7 @@ use Validator;
 use Auth;
 use App\Traits\CaptureIpTrait;
 use Illuminate\Http\Response;
-
+use DB;
 
 
 class UserController extends Controller
@@ -100,14 +100,14 @@ class UserController extends Controller
             [
                 'first_name'            => 'required|max:255',
                 'last_name'             => '',
-                //'email'               => 'required|email|max:255|unique',
-                'email'                 => 'required|email|max:255',
+                'email'                 => 'nullable|email|max:255',
                 'password'              => 'required|min:6|max:20|confirmed',
                 'password_confirmation' => 'required|same:password',
                 'role'                  => 'required',
-                'day'                   => 'required',
-                'month'                 => 'required',
-                'year'                  => 'required',
+                'day'                   => '',
+                'month'                 => '',
+                'year'                  => '',
+                'comission'             => '',
                 'pin'                   => 'required|min:4|max:4',
             ],
             [
@@ -136,8 +136,12 @@ class UserController extends Controller
           $parent_id = 0;
         }
 
-      
+
         $uuid = $this->generateUUID($request->input('role'));
+
+        if($request->input('year') != '' && $request->input('month') != '' && $request->input('day') != '') {
+          $dob = date('Y-m-d', strtotime($request->input('year').'-'.$request->input('month').'-'.$request->input('day')));
+        }
 
         $user = User::create([
             'first_name'       => $request->input('first_name'),
@@ -154,8 +158,8 @@ class UserController extends Controller
             'patti'            => $request->input('patti'),
             'status'           => $request->input('status'),
             'pin'              => $request->input('pin'),
-            'dob'              => date('Y-m-d', strtotime($request->input('year').'-'.$request->input('month').'-'.$request->input('day'))),
-            'uuid'             => $uuid,
+            'dob'              => $dob,
+            'user_account'     => $uuid,
             'token'            => str_random(64),
             'activated'        => 1,
         ]);
@@ -228,12 +232,12 @@ class UserController extends Controller
         if ($emailCheck) {
             $validator = Validator::make($request->all(), [
                 'first_name'     => 'required|max:255',
-                'email'    => 'email|max:255',
+                'email'    => 'nullable|email|max:255',
                 'password' => 'nullable|confirmed|min:6',
                 'pin'      => 'nullable|min:4|max:4',
-                'day'      => 'required',
-                'month'    => 'required',
-                'year'     => 'required',
+                'day'      => '',
+                'month'    => '',
+                'year'     => '',
             ]);
         } else {
             $validator = Validator::make($request->all(), [
@@ -255,7 +259,11 @@ class UserController extends Controller
         $user->role_id = $request->input('role');
         $user->comission = $request->input('comission');
         $user->patti = $request->input('patti');
-        $user->dob = date('Y-m-d', strtotime($request->input('year').'-'.$request->input('month').'-'.$request->input('day')));
+
+        if($request->input('year') != '' && $request->input('month') != '' && $request->input('day') != '') {
+          $dob = date('Y-m-d', strtotime($request->input('year').'-'.$request->input('month').'-'.$request->input('day')));
+          $user->dob = $dob;
+        }
 
         $user->active = ($request->input('status') != '')?$request->input('status'):0;
 
@@ -316,6 +324,14 @@ class UserController extends Controller
      */
     public function search(Request $request)
     {
+        DB::enableQueryLog();
+        $userid = $request->input('userid');
+        $name = $request->input('name');
+        $emailid = $request->input('emailid');
+        $phone = $request->input('phone');
+        $status = $request->input('status');
+        $joineddate = $request->input('joineddate');
+        /*
         $searchTerm = $request->input('user_search_box');
         $searchRules = [
             'user_search_box' => 'required|string|max:255',
@@ -328,28 +344,85 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), $searchRules, $searchMessages);
 
+
         if ($validator->fails()) {
             return response()->json([
                 json_encode($validator),
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $results = User::where('id', 'like', $searchTerm.'%')
+
+        $results = User::where('uuid', 'like', $searchTerm.'%')
                             ->orWhere('name', 'like', $searchTerm.'%')
                             ->orWhere('uuid', 'like', $searchTerm.'%')
                             ->orWhere('email', 'like', $searchTerm.'%')->get();
 
+        */
+        $filters = [];
+        if($userid != '')
+          $filters['user_account'] = $userid;
+        if($name != '')
+            $filters['first_name'] = $name;
+        if($emailid != '')
+            $filters['email'] = $emailid;
+        if($phone != '')
+          $filters['phone'] = $phone;
+        if($joineddate != '')
+            $filters['created_at'] = $joineddate;
+       //print_r($filters);
+       if($status != '')
+          $users = User::where('active', '=', $status);
+       foreach($filters as $key=>$val) {
+         $users = $users->where("$key", 'like', $val.'%');
+       }
+
+       /*
+       exit;
+       if($status != '')
+          $results = User::where('status', '=', $status);
+
+        if($userid != '')
+          $results = User::where('uuid', 'like', $userid.'%');
+        else
+          $results = User::where('uuid', 'like', 'nope%');
+
+        if($name != '')
+          $results = $results->orWhere('first_name', 'like', $name.'%');
+        if($emailid != '')
+          $results = $results->orWhere('email', 'like', $emailid.'%');
+        if($phone != '')
+          $results = $results->orWhere('phone', 'like', $phone.'%');
+        if($joineddate != '')
+          $results = $results->orWhere('created_at', 'like', $joineddate.'%');
+
+          */
+
+        $users = $users->get();
+        /*
+        echo '<pre>';
+        print_r($users);
+        dd(
+            DB::getQueryLog()
+        );
+       exit;
+       */
+
         // Attach roles to results
-        foreach ($results as $result) {
-            $roles = [
-                'roles' => $result->roles,
-            ];
-            $result->push($roles);
+        $roles = Role::all();
+        $filteredRoles = [];
+        foreach ($roles as $key=> $val) {
+          $filteredRoles[$val->id] = $val->name;
         }
 
-        return response()->json([
-            json_encode($results),
-        ], Response::HTTP_OK);
+        foreach ($users as $key=> $val) {
+          $val->role_name = '';
+          if($val->role_id) {
+            $val->role_name = $filteredRoles[$val->role_id];
+          }
+            $users[$key] = $val;
+        }
+
+        return View('admin/userManage', compact('users', 'roles'));
     }
 
     public function generateUUID($role_id){

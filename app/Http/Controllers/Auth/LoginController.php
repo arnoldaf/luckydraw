@@ -56,7 +56,7 @@ class LoginController extends Controller
             return response()->json(['result' => false, 'msg' => $responseMsg]);
         }
 
-        if (Auth::attempt(['uuid' => $request->email, 'password' => $request->password, 'status' => '1'])) {
+        if (Auth::attempt(['user_account' => $request->email, 'password' => $request->password, 'status' => '1'])) {
             $user = Auth::user();
             $user->last_login = date('Y-m-d h:i:s');
             $user->is_login = 1;
@@ -91,7 +91,7 @@ class LoginController extends Controller
 
         protected function credentials(Request $request)
         {
-            return ['uuid'=>$request->get('email'),'password'=>$request->get('password')];
+            return ['user_account'=>$request->get('email'),'password'=>$request->get('password')];
         }
 
 

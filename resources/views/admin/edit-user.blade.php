@@ -2,41 +2,11 @@
 
 @section('content')
 
-<!--
-<div class="container-fluid">
-
-  <!-- Breadcrumbs-->
-  <!--
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a href="#">User Management </a>
-    </li>
-    <li class="breadcrumb-item active">Create User</li>
-  </ol>
-
-      <form>
-       <div class="form-group row">
-         <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-         <div class="col-sm-10">
-           <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
-         </div>
-       </div>
-       <div class="form-group row">
-         <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-         <div class="col-sm-10">
-           <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-         </div>
-       </div>
-    </form>
-
-</div>
--->
-<!-- /.container-fluid -->
 
 <div class="container-fluid">
                 <div class="animated fadeIn">
                     <div class="content-header">
-                                            </div><!--content-header-->
+                    </div><!--content-header-->
 
        {!! Form::open(array('route' => ['users.update', $user->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'needs-validation')) !!}
       {!! csrf_field() !!}
@@ -46,7 +16,7 @@
                     <div class="col-sm-5">
                         <h4 class="card-title mb-0">
                             User Management
-                            <small class="text-muted">Edit User(<span style="color:green;">{{$user->uuid}})</span></small>
+                            <small class="text-muted">Edit User(<span style="color:green;">{{$user->user_account}})</span></small>
                         </h4>
                     </div><!--col-->
                 </div><!--row-->
@@ -64,10 +34,10 @@
                 <div class="row mt-4 mb-4">
                     <div class="col">
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="first_name">Name</label>
+                            <label class="col-md-2 form-control-label required-field" for="first_name">First Name</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="name" id="name" placeholder="Name" maxlength="191" required="" autofocus=""> -->
+
                                 {!! Form::text('first_name', $user->first_name, array('id' => 'first_name', 'class' => 'form-control', 'placeholder' => 'First Name', 'required'=>"true", 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
@@ -76,7 +46,6 @@
                             <label class="col-md-2 form-control-label" for="first_name">Last Name</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="name" id="name" placeholder="Name" maxlength="191" required="" autofocus=""> -->
                                 {!! Form::text('last_name', $user->last_name, array('id' => 'last_name', 'class' => 'form-control', 'placeholder' => 'Last Name', 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
@@ -85,23 +54,21 @@
                             <label class="col-md-2 form-control-label" for="first_name">Street Address</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="address" id="address" placeholder="Address" maxlength="191" autofocus="">-->
-                                {!! Form::text('address', $user->address, array('id' => 'address', 'class' => 'form-control', 'placeholder' => 'Address', 'required'=>"true", 'autofocus'=> "" )) !!}
+                                {!! Form::text('address', $user->address, array('id' => 'address', 'class' => 'form-control', 'placeholder' => 'Address', 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
 
 
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="first_name">City</label>
+                            <label class="col-md-2 form-control-label required-field" for="first_name">City</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="name" id="name" placeholder="Name" maxlength="191" required="" autofocus=""> -->
                                 {!! Form::text('city', $user->city, array('id' => 'city', 'class' => 'form-control', 'placeholder' => 'City',  'autofocus'=> "" , 'required'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
 
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="country">Country</label>
+                            <label class="col-md-2 form-control-label required-field" for="country">Country</label>
 
                             <div class="col-md-10">
                               <select class="custom-select form-control required" name="country" id="country">
@@ -115,28 +82,28 @@
                         <div class="form-group row">
                             <label class="col-md-2 form-control-label" for="first_name">Birthday</label>
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="name" id="name" placeholder="Name" maxlength="191" required="" autofocus=""> -->
                                 <?php
-                                  $a = $user->dob;
-                                  $day = date('d', strtotime($user->dob));
-                                  $month = date('m', strtotime($user->dob));
-                                  $year = date('Y', strtotime($user->dob));
+                                  $day = $month = $year = '';
+                                  if($user->dob != NULL) {
+                                      $day = date('d', strtotime($user->dob));
+                                      $month = date('m', strtotime($user->dob));
+                                      $year = date('Y', strtotime($user->dob));
+                                  }
                                 ?>
-                                <select class="custom-select form-control required" name="day" id="day" style="width: 10%;" required="true">
-
+                                <select class="custom-select form-control" name="day" id="day" style="width: 10%;">
                                             <option value="">Day</option>
                                             @for ($i = 1; $i <= 31; $i++)
                                                 <option value="{{ sprintf('%02d', $i) }}"  {{ intval($i) == intval($day) ? 'selected="selected"' : '' }} >{{ sprintf('%02d', $i) }}</option>
                                             @endfor
                                  </select> /
-                                 <select class="custom-select form-control required" name="month" id="month"  style="width: 10%;" required="true">
+                                 <select class="custom-select form-control" name="month" id="month"  style="width: 10%;">
                                              <option value="">Month</option>
                                              @for ($i = 1; $i <= 12; $i++)
                                                  <option value="{{ sprintf('%02d', $i) }}" {{ intval($i) == intval($month) ? 'selected="selected"' : '' }}>{{ sprintf('%02d', $i) }}</option>
                                              @endfor
                                   </select> /
 
-                                  <select class="custom-select form-control required" name="year" id="year"  style="width: 10%;" required="true">
+                                  <select class="custom-select form-control" name="year" id="year"  style="width: 10%;">
                                               <option value="">Year</option>
                                               @for ($i = 2018; $i >1950; $i--)
                                                   <option value="{{ sprintf('%02d', $i) }}" {{ intval($i) == intval($year) ? 'selected="selected"' : '' }}>{{sprintf('%02d', $i) }}</option>
@@ -151,8 +118,7 @@
                             <label class="col-md-2 form-control-label" for="first_name">Phone No.</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="phone" id="phone" placeholder="Phone" maxlength="191" autofocus="">-->
-                                {!! Form::text('phone', $user->phone, array('id' => 'phone', 'class' => 'form-control', 'placeholder' => 'Phone', 'required'=>"true", 'autofocus'=> "" )) !!}
+                                {!! Form::text('phone', $user->phone, array('id' => 'phone', 'class' => 'form-control', 'placeholder' => 'Phone', 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
 
@@ -160,8 +126,7 @@
                             <label class="col-md-2 form-control-label" for="email">Email Id</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="email" name="email" id="email" value="" placeholder="E-mail Address" maxlength="191">-->
-                                {!! Form::text('email', $user->email, array('id' => 'emailid', 'class' => 'form-control', 'placeholder' => 'Email Id', 'required'=>"true", 'autofocus'=> "" )) !!}
+                                {!! Form::text('email', $user->email, array('id' => 'emailid', 'class' => 'form-control', 'placeholder' => 'Email Id', 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
 
@@ -170,15 +135,7 @@
                               <label class="col-md-2 form-control-label" for="password">Password</label>
 
                               <div class="col-md-10">
-                                  <!--<input class="form-control" type="password" name="password" id="password" placeholder="Password">-->
                                   {!! Form::password('password', array('id' => 'password', 'class' => 'form-control ', 'placeholder' => 'Password')) !!}
-                                  <!--
-                                  @if ($errors->has('password'))
-                                      <span class="help-block error-mgs">
-                                          <strong>{{ $errors->first('password') }}</strong>
-                                      </span>
-                                  @endif
-                                -->
                               </div><!--col-->
                           </div><!--form-group-->
 
@@ -186,7 +143,6 @@
                             <label class="col-md-2 form-control-label" for="password_confirmation">Password Confirmation</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="password" name="password_confirmation" id="password_confirmation" placeholder="Password Confirmation">-->
                                 {!! Form::password('password_confirmation', array('id' => 'password_confirmation', 'class' => 'form-control', 'placeholder' => 'Password Confirmation' )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
@@ -195,15 +151,8 @@
                             <label class="col-md-2 form-control-label" for="password">PIN</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="password" name="password" id="password" placeholder="Password">-->
                                 {!! Form::password('pin', array('id' => 'pin', 'class' => 'form-control ', 'placeholder' => 'PIN', 'maxlength' => '4', 'onkeypress'=>'validate(event)' )) !!}
-                                <!--
-                                @if ($errors->has('password'))
-                                    <span class="help-block error-mgs">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                              -->
+
                             </div><!--col-->
                         </div><!--form-group-->
 
@@ -256,21 +205,18 @@
 
 
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="first_name">Comission(%)</label>
+                            <label class="col-md-2 form-control-label required-field" for="first_name">Comission(%)</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="comission" id="comission" placeholder="Comission" maxlength="191" autofocus="">-->
                                 {!! Form::text('comission', $user->comission, array('id' => 'email', 'class' => 'form-control required','placeholder' => 'Comission', 'required'=>"", 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
                         <div class="form-group row patti"  style="{{ $user->role_id == 2 ? '': 'display:none;' }}">
                             <label class="col-md-2 form-control-label" for="first_name">Patti(%)</label>
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="patti" id="patti" placeholder="Patti" maxlength="191" autofocus="">-->
                                 {!! Form::text('patti', $user->patti, array('id' => 'patti', 'class' => 'form-control required', 'placeholder' => 'Patti', 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
-
 
                         <div class="form-group row">
                             <label class="col-md-2 form-control-label" for="active">Active</label>

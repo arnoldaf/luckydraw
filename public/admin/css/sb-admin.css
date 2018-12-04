@@ -377,5 +377,9 @@ body.sidebar-toggled footer.sticky-footer {
 
 /* New css */
  .error-mgs {color:red;}
+ .required-field::after {
+    content: "*";
+    color: red;
+}
 
 /* new css end here

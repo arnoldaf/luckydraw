@@ -36,7 +36,7 @@
 <div class="container-fluid">
                 <div class="animated fadeIn">
                     <div class="content-header">
-                                            </div><!--content-header-->
+                    </div><!--content-header-->
 
       {!! Form::open(array('route' => 'users.store', 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
       {!! csrf_field() !!}
@@ -64,10 +64,10 @@
                 <div class="row mt-4 mb-4">
                     <div class="col">
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="first_name">First Name</label>
+                            <label class="col-md-2 form-control-label required-field" for="first_name">First Name</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="name" id="name" placeholder="Name" maxlength="191" required="" autofocus=""> -->
+
                                 {!! Form::text('first_name', NULL, array('id' => 'first_name', 'class' => 'form-control', 'placeholder' => 'First Name', 'required'=>"true", 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
@@ -84,13 +84,13 @@
                             <label class="col-md-2 form-control-label" for="first_name">Street Address</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="address" id="address" placeholder="Address" maxlength="191" autofocus="">-->
-                                {!! Form::text('address', NULL, array('id' => 'address', 'class' => 'form-control', 'placeholder' => 'Street Address', 'required'=>"true", 'autofocus'=> "" )) !!}
+
+                                {!! Form::text('address', NULL, array('id' => 'address', 'class' => 'form-control', 'placeholder' => 'Street Address', 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
 
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="first_name">City</label>
+                            <label class="col-md-2 form-control-label required-field" for="first_name">City</label>
 
                             <div class="col-md-10">
                                 <!--<input class="form-control" type="text" name="name" id="name" placeholder="Name" maxlength="191" required="" autofocus=""> -->
@@ -99,7 +99,7 @@
                         </div><!--form-group-->
 
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="country">Country</label>
+                            <label class="col-md-2 form-control-label required-field" for="country">Country</label>
 
                             <div class="col-md-10">
                               <select class="custom-select form-control required" name="country" id="country">
@@ -113,22 +113,20 @@
                         <div class="form-group row">
                             <label class="col-md-2 form-control-label" for="first_name">Birthday</label>
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="name" id="name" placeholder="Name" maxlength="191" required="" autofocus=""> -->
-
-                                <select class="custom-select form-control required" name="day" id="day" style="width: 10%;" required="true">
+                                <select class="custom-select form-control required" name="day" id="day" style="width: 10%;">
                                             <option value="">Day</option>
                                             @for ($i = 1; $i <= 31; $i++)
                                                 <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
                                             @endfor
                                  </select> /
-                                 <select class="custom-select form-control required" name="month" id="month"  style="width: 10%;" required="true">
+                                 <select class="custom-select form-control required" name="month" id="month"  style="width: 10%;" >
                                              <option value="">Month</option>
                                              @for ($i = 1; $i <= 12; $i++)
                                                  <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
                                              @endfor
                                   </select> /
 
-                                  <select class="custom-select form-control required" name="year" id="year"  style="width: 10%;" required="true">
+                                  <select class="custom-select form-control required" name="year" id="year"  style="width: 10%;" >
                                               <option value="">Year</option>
                                               @for ($i = 2018; $i >1950; $i--)
                                                   <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
@@ -142,8 +140,7 @@
                             <label class="col-md-2 form-control-label" for="first_name">Phone No.</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="phone" id="phone" placeholder="Phone" maxlength="191" autofocus="">-->
-                                {!! Form::text('phone', NULL, array('id' => 'phone', 'class' => 'form-control', 'placeholder' => 'Phone', 'required'=>"true", 'autofocus'=> "" )) !!}
+                                {!! Form::text('phone', NULL, array('id' => 'phone', 'class' => 'form-control', 'placeholder' => 'Phone', 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
 
@@ -151,33 +148,29 @@
                             <label class="col-md-2 form-control-label" for="email">Email Id</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="email" name="email" id="email" value="" placeholder="E-mail Address" maxlength="191">-->
-                                {!! Form::text('email', NULL, array('id' => 'email1', 'class' => 'form-control', 'placeholder' => 'Email Id', 'required'=>"true", 'autofocus'=> "" )) !!}
+                                {!! Form::text('email', NULL, array('id' => 'email1', 'class' => 'form-control', 'placeholder' => 'Email Id', 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
 
 
                           <div class="form-group row">
-                              <label class="col-md-2 form-control-label" for="password">Password</label>
-
+                              <label class="col-md-2 form-control-label required-field" for="password">Password</label>
                               <div class="col-md-10">
-
                                   {!! Form::password('password', array('id' => 'password', 'class' => 'form-control ', 'placeholder' => 'Password', 'required'=> '', 'pattern'=>".{5,10}", 'title'=>"6 to 15 characters")) !!}
 
                               </div><!--col-->
                           </div><!--form-group-->
 
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="password_confirmation">Password Confirmation</label>
+                            <label class="col-md-2 form-control-label required-field" for="password_confirmation">Password Confirmation</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="password" name="password_confirmation" id="password_confirmation" placeholder="Password Confirmation">-->
                                 {!! Form::password('password_confirmation', array('id' => 'password_confirmation', 'class' => 'form-control required', 'placeholder' => 'Password Confirmation' , 'required'=> '', 'pattern'=>".{5,10}", 'title'=>"6 to 15 characters")) !!}
                             </div><!--col-->
                         </div><!--form-group-->
 
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="password">PIN</label>
+                            <label class="col-md-2 form-control-label required-field" for="password">PIN</label>
 
                             <div class="col-md-10">
 
@@ -187,7 +180,7 @@
                         </div><!--form-group-->
 
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="first_name">Role</label>
+                            <label class="col-md-2 form-control-label required-field" for="first_name">Role</label>
 
                             <div class="col-md-10">
                                 <select class="custom-select form-control" name="role" id="role">
@@ -235,17 +228,15 @@
 
 
                         <div class="form-group row">
-                            <label class="col-md-2 form-control-label" for="first_name">Comission(%)</label>
+                            <label class="col-md-2 form-control-label required-field" for="first_name">Comission(%)</label>
 
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="comission" id="comission" placeholder="Comission" maxlength="191" autofocus="">-->
                                 {!! Form::number('comission', NULL, array('id' => 'email', 'class' => 'form-control required data-min_max','data-min' =>"0", 'data-max'=>"100", 'data-toggle' => 'just_number', 'onkeypress'=>'validate(event)', 'placeholder' => 'Comission', 'required'=>"", 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->
                         <div class="form-group row patti"  style="display:none;">
                             <label class="col-md-2 form-control-label" for="patti">Patti(%)</label>
                             <div class="col-md-10">
-                                <!--<input class="form-control" type="text" name="patti" id="patti" placeholder="Patti" maxlength="191" autofocus="">-->
                                 {!! Form::number('patti', NULL, array('id' => 'patti', 'class' => 'form-control required data-min_max', 'data-min' =>"0", 'data-max'=>"100", 'autocomplete'=>"off", 'data-toggle' => 'just_number', 'onkeypress'=>'validate(event)', 'placeholder' => 'Patti', 'autofocus'=> "" )) !!}
                             </div><!--col-->
                         </div><!--form-group-->

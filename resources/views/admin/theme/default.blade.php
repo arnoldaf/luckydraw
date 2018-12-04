@@ -356,7 +356,7 @@
 }
 </style>
 
-    <title>SB Admin - Dashboard</title>
+    <title>Administrator Panel</title>
 
     <!-- Bootstrap core CSS-->
     <link href="{!! asset('admin/vendor/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
@@ -368,8 +368,10 @@
     <link href="{!! asset('admin/vendor/datatables/dataTables.bootstrap4.css') !!}" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{!! asset('admin/css/sb-admin.css') !!}" rel="stylesheet">
+    <link href="{!! asset('admin/css/sb-admin.css') !!}?a=aa" rel="stylesheet">
     <link href="{!! asset('admin/css/backend.css') !!}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+
 
   </head>
 
@@ -397,7 +399,7 @@
       -->
       <footer class="app-footer">
               <span class="float-left">
-                  <strong>Copyright © 2018 <a href="http://finovics.com">Finovics</a></strong> All Rights Reserved.
+                  <strong>Copyright © 2018 <a href="#">Finovics</a></strong> All Rights Reserved.
               </span>
               <div class="clearfix"></div>
      </footer>
@@ -452,6 +454,15 @@
     <!-- Demo scripts for this page-->
     <script src="{!! asset('admin/js/demo/datatables-demo.js') !!} "></script>
     <script src="{!! asset('admin/js/demo/chart-area-demo.js') !!} "></script>
+
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+
+
+
 @include('admin.scripts.search-users')
   </body>
 
