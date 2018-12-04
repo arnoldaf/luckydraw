@@ -34,6 +34,14 @@ $(document).on('click', '.member-bid-delete', function () {
     let gameWrapper = $('.game-wrapper[data-id="'+selectedGameId+'"]');
     gameWrapper.find('.user-selected-num[data-id="'+bidNum+'"]').removeClass('Selected');
     gameWrapper.find('.user-selected-num[data-id="'+bidNum+'"] .value').addClass('hidden').text('0');
+    console.log(wrapper.find('.bid-num').text());
+    if(wrapper.find('.bid-num').text().split('-')[0] == "A") {
+        console.log("andar w" + bidNum);
+        gameWrapper.find('.andar-bid[data-id="'+wrapper.find('.bid-num').text().split('-')[1]+'"]').removeClass('Selected');
+    }
+    if(wrapper.find('.bid-num').text().split('-')[0] == "B") {
+        gameWrapper.find('.bahar-bid[data-id="'+wrapper.find('.bid-num').text().split('-')[1]+'"]').removeClass('Selected');
+    }
     setGameBidAmount(selectedGameId, -bidAmount);
     wrapper.remove();
     setSerialNum();
