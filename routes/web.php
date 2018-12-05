@@ -14,7 +14,8 @@ Auth::routes();
 
 Route::get('/', 'MemberController@index');
 Route::get('/game', 'UserBidController@getGame');
-
+Route::get('/point-transfer', 'TransactionController@pointTransfer');
+Route::post('/point-transfer-request', 'TransactionController@pointTransferRequest');
 
 Route::get('admin/dashboard', 'DashboardController@myHome')->name('dashboard');;
 Route::get('admin/test', 'DashboardController@test');
