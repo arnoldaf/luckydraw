@@ -36,11 +36,12 @@ $(document).on('click', '.member-bid-delete', function () {
     gameWrapper.find('.user-selected-num[data-id="'+bidNum+'"] .value').addClass('hidden').text('0');
     console.log(wrapper.find('.bid-num').text());
     if(wrapper.find('.bid-num').text().split('-')[0] == "A") {
-        console.log("andar w" + bidNum);
         gameWrapper.find('.andar-bid[data-id="'+wrapper.find('.bid-num').text().split('-')[1]+'"]').removeClass('Selected');
+        gameWrapper.find('.andar-bid[data-id="'+wrapper.find('.bid-num').text().split('-')[1]+'"]').find('.value').addClass('hidden').text(0);
     }
     if(wrapper.find('.bid-num').text().split('-')[0] == "B") {
         gameWrapper.find('.bahar-bid[data-id="'+wrapper.find('.bid-num').text().split('-')[1]+'"]').removeClass('Selected');
+        gameWrapper.find('.bahar-bid[data-id="'+wrapper.find('.bid-num').text().split('-')[1]+'"]').find('.value').addClass('hidden').text(0);
     }
     setGameBidAmount(selectedGameId, -bidAmount);
     wrapper.remove();
@@ -56,9 +57,12 @@ $('.andar-bid').on('click', function () {
     let bidNumber = _this.data('id');
     let gameWrapper = _this.closest('.game-wrapper');
     _this.addClass('Selected');
+
     gameId = gameWrapper.data('id');
     gameName = gameWrapper.attr("data-name");
     totalBidAmountOnNum = parseInt(denominationVal);
+    let existedValue = parseInt(_this.find('.value').text());
+    _this.find('.value').removeClass('hidden').text(totalBidAmountOnNum + existedValue);
     setBidNumberPointsHalf(gameId, "A-"+bidNumber);
     setGameBidAmount(gameId, denominationVal)
 });
@@ -75,6 +79,8 @@ $('.bahar-bid').on('click', function () {
     gameId = gameWrapper.data('id');
     gameName = gameWrapper.attr("data-name");
     totalBidAmountOnNum = parseInt(denominationVal);
+    let existedValue = parseInt(_this.find('.value').text());
+    _this.find('.value').removeClass('hidden').text(totalBidAmountOnNum + existedValue);
     setBidNumberPointsHalf(gameId, "B-"+bidNumber);
     setGameBidAmount(gameId, denominationVal)
 });

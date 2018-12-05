@@ -187,13 +187,13 @@
 
                                                             <h3>A - Ander </h3>
                                                             @for($i = 0; $i <=9; $i++)
-                                                                <a href="javascript:;" id="B0ID_{{$i}}" class="ball andar-bid" data-id="{{$i}}"><span>{{$i}}</span></a>
+                                                                <a href="javascript:;" id="B0ID_{{$i}}" class="ball andar-bid" data-id="{{$i}}"><span>{{$i}}</span><p class="value hidden"> 0</p></a>
                                                             @endfor
                                                         </div>
                                                         <div class="tablebox checker__grid">
                                                             <h3>B - Bahar </h3>
                                                             @for($i = 0; $i <= 9; $i++)
-                                                                <a href="javascript:;" id="B0ID_{{$i}}" class="ball bahar-bid" data-id="{{$i}}"><span>{{$i}}</span></a>
+                                                                <a href="javascript:;" id="B0ID_{{$i}}" class="ball bahar-bid" data-id="{{$i}}"><span>{{$i}}</span><p class="value hidden"> 0</p></a>
                                                             @endfor
                                                         </div>
                                                     </div>
