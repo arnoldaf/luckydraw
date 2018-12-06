@@ -13,7 +13,6 @@ class TransactionController extends Controller
     }
 
     public function pointTransferRequest(Request $request) {
-        dd($request);
         $result = (new TransactionService())->pointTransferRequest($request);
     }
 }
