@@ -11,9 +11,10 @@ class TransactionController extends Controller
     //
     public function pointTransfer() {
         $userId = 1; //TODO logged in id
-        $receivables['receivables'] = (new TransactionService())->getReceivableRecords($userId);
-        //dd($receivables);
-        return view('member.point-transfer')->with($receivables);
+        $requests['receivables'] = (new TransactionService())->getReceivableRecords($userId);
+        $requests['transferable'] = (new TransactionService())->getTransferableRecords($userId);
+        //dd($requests['transferable']);
+        return view('member.point-transfer')->with($requests);
     }
 
     public function pointTransferRequest(Request $request) {

@@ -71,4 +71,8 @@ class TransactionService {
     public function getReceivableRecords($userId) {
         return (new Transaction())->getReceivableRecords($userId);
     }
+
+    public function getTransferableRecords($userId) {
+        return (new Transaction())->getTransferableRecords($userId);
+    }
 }

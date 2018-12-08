@@ -28,4 +28,12 @@ class Transaction extends Model
                     ->where(['to_user_id' => $userId, 'request_status' => 0])
                     ->get();
     }
+
+    public function getTransferableRecords($userId) {
+        return DB::table('transactions')
+            ->join('users', 'transactions.to_user_id', '=', 'users.id')
+            ->select('transactions.id', 'transactions.amount', 'transactions.created_at', 'users.user_account')
+            ->where(['from_user_id' => $userId, 'request_status' => 0])
+            ->get();
+    }
 }

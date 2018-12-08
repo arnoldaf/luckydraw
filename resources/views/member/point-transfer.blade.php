@@ -75,90 +75,21 @@
                                         <thead>
                                         <tr>
                                             <th class="one"><h3>Select</h3></th>
-                                            <th class="two"><h3>From Member ID</h3></th>
+                                            <th class="four"><h3>Account</h3></th>
                                             <th class="three"><h3>Amount </h3></th>
-                                            <th class="four"><h3>Type</h3></th>
+                                            <th class="two"><h3>Type</h3></th>
 
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($transferable as $trnsf)
                                         <tr class="evenrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
+                                            <td class="one"><input type="checkbox" name="" value="{{$trnsf->id}}"></td>
+                                            <td class="four" >{{$trnsf->user_account}}</td>
+                                            <td class="three">{{$trnsf->amount}}</td>
+                                            <td class="two">{{$trnsf->created_at}}</td>
                                         </tr>
-
-                                        <tr class="oddrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
-                                        </tr>
-                                        <tr class="evenrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
-                                        </tr>
-
-                                        <tr class="oddrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
-                                        </tr>
-                                        <tr class="evenrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
-                                        </tr>
-
-                                        <tr class="oddrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
-                                        </tr>
-                                        <tr class="evenrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
-                                        </tr>
-
-                                        <tr class="oddrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
-                                        </tr>   <tr class="evenrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
-                                        </tr>
-
-                                        <tr class="oddrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
-                                        </tr>
-                                        <tr class="evenrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
-                                        </tr>
-
-                                        <tr class="oddrow">
-                                            <td class="one"><input type="checkbox" name=""></td>
-                                            <td class="two" >Dishawar</td>
-                                            <td class="three">44</td>
-                                            <td class="four">1000</td>
-                                        </tr>
+                                        @endforeach
                                         </tbody>
                                         <thead>
                                         <tr class="points-all">
