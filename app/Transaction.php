@@ -20,4 +20,12 @@ class Transaction extends Model
             ->first()
             ->toArray();
     }
+
+    public function getReceivableRecords($userId) {
+        return DB::table('transactions')
+                    ->join('users', 'transactions.from_user_id', '=', 'users.id')
+                    ->select('transactions.id', 'transactions.amount', 'transactions.created_at', 'users.user_account')
+                    ->where(['to_user_id' => $userId, 'request_status' => 0])
+                    ->get();
+    }
 }

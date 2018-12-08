@@ -22,31 +22,31 @@ class TransactionService {
             $userTotalAmount = 4000; //TODO from logged in user
             $userAccount = $request->user_account;
             if ($request->pin != $storedPin) { //to validate pin
-                return ['result' => false, 'data' => 'Invalid PIN'];
+                return ['result' => false, 'message' => 'Invalid PIN'];
             }
             $toUser = (new User())->findByFieldName('user_account', $userAccount);
             if (empty($toUser)) {
-                return ['result' => false, 'data' => 'Invalid User Account'];
+                return ['result' => false, 'message' => 'Invalid User Account'];
             }
-            $toUserId = $toUser['id'];
+            $toUserId = $toUser[0]['id'];
             $bool = $this->isValidUserAccount($fromUserId, $toUserId);
             if (!$bool || $toUserId == $fromUserId) {
-                return ['result' => false, 'data' => 'Invalid User Account'];
+                return ['result' => false, 'message' => 'Invalid User Account'];
             }
             $pendingAmountResult = (new Transaction())->getTotalRequestedAmount($fromUserId);
             if (($pendingAmountResult['total_amount'] + $request->amount) > $userTotalAmount) { // validate amount
-                return ['result' => false, 'data' => 'Insufficient Balance'];
+                return ['result' => false, 'message' => 'Insufficient Balance'];
             }
             $transaction = new Transaction();
             $transaction->from_user_id = $fromUserId;
             $transaction->to_user_id = $toUserId;
-            $transaction->amount = $request->amount();
+            $transaction->amount = $request->amount;
             $transaction->request_status = 0;
             $transaction->save();
 
-            return ['result' => true, 'data' => 'Request made successfully'];
+            return ['result' => true, 'message' => 'Request made successfully'];
         } catch (\Exception $exception) {
-            return ['result' => true, 'data' => $exception->getMessage()];
+            return ['result' => false, 'message' => $exception->getMessage()];
         }
 
 
@@ -59,12 +59,16 @@ class TransactionService {
         $user = new User();
         $directUser = $user->checkDirectUplineOrDownline($fromUserId, $toUserId);
         if (!empty($directUser)) {
-            return false;
+            return true;
         }
-        if (!$user->isOnSameLevel($fromUserId, $toUserId)) {
-            return false;
+        if ($user->isOnSameLevel($fromUserId, $toUserId)) {
+            return true;
         }
 
-        return true;
+        return false;
+    }
+
+    public function getReceivableRecords($userId) {
+        return (new Transaction())->getReceivableRecords($userId);
     }
 }

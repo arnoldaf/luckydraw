@@ -6,15 +6,15 @@
     background-image: url(../images/bingo.svg);
 } */
 .head-row{
-width: 100%;
+    width: 100%;
     float: left;
     background: rgba(0, 0, 0, 0.6);
     margin-top:58px;
-    padding: 10px 0 6px;   
+    padding: 10px 0 6px;
 }
 .jackport{background: url(../images/jackpot.png) right top no-repeat;
- width:100%;
- float:left;
+    width:100%;
+    float:left;
     color:#fff;
 }
 .number-game{max-height: 130px;}
@@ -29,8 +29,8 @@ width: 100%;
 .left-column #ttabs{margin-top:0;}
 .poker-tabs > ul {
 
-     border-top: 0px solid #ccc; 
-     border-bottom: 0px solid #ccc; 
+    border-top: 0px solid #ccc;
+    border-bottom: 0px solid #ccc;
 }
 .poker-tabs>ul>li {
     background: none;
@@ -68,28 +68,28 @@ width: 100%;
     z-index: 9999;
 }
 .point-1{background: url(../images/point-1.png) center top no-repeat;
- width:71px;
- float:left;
+    width:71px;
+    float:left;
     color:#fff;
     height:71px;
     position: relative;
-     padding-top: 16px !important;
+    padding-top: 16px !important;
 }
 .point-2{background: url(../images/point-2.png) center top no-repeat;
- width:71px;
- float:left;
+    width:71px;
+    float:left;
     color:#fff;
     height:71px;
     position: relative;
     padding-top: 35px !important;
 }
 .point-3{background: url(../images/point-3.png) center top no-repeat;
- width:71px;
- float:left;
+    width:71px;
+    float:left;
     color:#fff;
     height:71px;
     position: relative;
-     padding-top: 16px !important;
+    padding-top: 16px !important;
 }
 
 .stepbystep .rightsection ul {
@@ -115,10 +115,10 @@ width: 100%;
 }
 .stepbystep .rightsection li.icon {
     float: left;
-  width: 71px !important;
-  height: 71px !important;
+    width: 71px !important;
+    height: 71px !important;
     margin-right: 30px;
-   
+
     box-sizing: border-box;
     font-weight: bold;
     transition: all ease-in-out 0.3s;
@@ -144,10 +144,10 @@ width: 100%;
 
 .stepbystep .rightsection ul li:hover {
 
- /*   background: rgba(0, 0, 0, 0.5);
-    -webkit-transition: background 0.2s, color 0.2s;
-    -moz-transition: background 0.2s, color 0.2s;
-    transition: background 0.2s, color 0.2s;*/
+    /*   background: rgba(0, 0, 0, 0.5);
+       -webkit-transition: background 0.2s, color 0.2s;
+       -moz-transition: background 0.2s, color 0.2s;
+       transition: background 0.2s, color 0.2s;*/
     /*transform: scale(1.1);*/
     /*color: #fff;*/
 }
@@ -180,32 +180,32 @@ width: 100%;
 }
 */
 .stepbystep .rightsection ul li:after {
-        background:url(../images/hover-light.png) center center no-repeat;
-      background-size: 88%;
-     width: 122px;
+    background:url(../images/hover-light.png) center center no-repeat;
+    background-size: 88%;
+    width: 122px;
     height: 112px;
     content: '';
     position: absolute;
-   top: -21px;
+    top: -21px;
     left: -26px;
     z-index: -1;
     opacity: 0;
     transition: all ease 0.5s;
 }
 .stepbystep .rightsection ul li.selected:after {
-        background:url(../images/hover-light.png) center center no-repeat;
-   background-size: 88%;
+    background:url(../images/hover-light.png) center center no-repeat;
+    background-size: 88%;
     width: 122px;
     height: 112px;
     content: '';
     position: absolute;
-top: -21px;
+    top: -21px;
     left: -26px;
     z-index: -1;
 
     transition: all ease 0.5s;
-     opacity: 1;
-     -webkit-animation: spinAround 9s linear infinite;
+    opacity: 1;
+    -webkit-animation: spinAround 9s linear infinite;
     -moz-animation: spinAround 9s linear infinite;
     animation: spinAround 9s linear infinite;
 
@@ -213,7 +213,7 @@ top: -21px;
 .stepbystep .rightsection ul li:hover:after {
 
     opacity: 1;
-     -webkit-animation: spinAround 9s linear infinite;
+    -webkit-animation: spinAround 9s linear infinite;
     -moz-animation: spinAround 9s linear infinite;
     animation: spinAround 9s linear infinite;
 
@@ -305,23 +305,23 @@ ul.tabs li a.active {
     justify-content: space-around;
 }
 .tinytable tbody {
-        height: 375px;
-    }
- .tinytable tbody::-webkit-scrollbar {
-        width: 4px;
-    }
-    
-    .tinytable tbody::-webkit-scrollbar-track {
-        background: #d9d9d9;
-    }
-    
-    .tinytable tbody::-webkit-scrollbar-thumb {
-        background: #D4202B;
-    }
-    
-    .tinytable tbody::-webkit-scrollbar-thumb:hover {
-        background: #D4202B;
-    }
+    height: 375px;
+}
+.tinytable tbody::-webkit-scrollbar {
+    width: 4px;
+}
+
+.tinytable tbody::-webkit-scrollbar-track {
+    background: #d9d9d9;
+}
+
+.tinytable tbody::-webkit-scrollbar-thumb {
+    background: #D4202B;
+}
+
+.tinytable tbody::-webkit-scrollbar-thumb:hover {
+    background: #D4202B;
+}
 .table-responsive {
     display: block;
     width: 100%;
@@ -329,21 +329,21 @@ ul.tabs li a.active {
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 .twocol .ball {
-   
+
     width: 47px !important;
-/*border: 1px solid transparent;*/
+    /*border: 1px solid transparent;*/
     position: relative;
     align-items: center;
     display: flex;
     justify-content: center;
-      background: #161a22;
+    background: #161a22;
     height: 47px;
     border-radius: 3px;
     margin: 0 auto 5px !important;
     font-size: 1.6em;
     transition: all .2s ease-in-out;
     color: #fff;
-    
+
 }
 
 .twocol .ball:hover {
@@ -367,7 +367,7 @@ ul.tabs li a.active {
 }
 
 .numberbg h3 {
-  display: block;
+    display: block;
     padding: 0px;
     background: rgba(0,0,0,0.9);
     color: #fff;
@@ -402,8 +402,8 @@ ul.tabs li a.active {
 }
 
 #tablewrapper thead{
-   /* position: absolute;
-    top: -50px;*/
+    /* position: absolute;
+     top: -50px;*/
 }
 .newtab h3{
     background: rgba(0,0,0,0.9);
@@ -418,56 +418,56 @@ ul.tabs li a.active {
     font-size: 16px;
     line-height: 45px;
 }
-  .tinytable  tbody{
+.tinytable  tbody{
     height:600px;
     overflow-y:auto;
     width: 100%;
-    }
+}
 
-  
-  .newtab table {
-            width: 100%;
-        }
 
-        .newtab thead,  .newtab tbody, .newtab tr, .newtab td, .newtab th { display: block; transition: all ease 0.4s;}
+.newtab table {
+    width: 100%;
+}
 
-        .newtab tr:after {
-            content: ' ';
-            display: block;
-            visibility: hidden;
-            clear: both;
-        }
+.newtab thead,  .newtab tbody, .newtab tr, .newtab td, .newtab th { display: block; transition: all ease 0.4s;}
+
+.newtab tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
 
 .newtab tr:hover {
-           background: #D4202B;
-        }
+    background: #D4202B;
+}
 
-  
 
-        .newtab tbody {
-            height: 100%;
-            overflow-y: auto;
-            max-height:374px;
-        }
 
-     
+.newtab tbody {
+    height: 100%;
+    overflow-y: auto;
+    max-height:374px;
+}
 
-        .newtab tbody td, .newtab thead th {
-            width: 19.7%;
-            float: left;
-            color:#fff; 
-            /*padding:10px 0;*/
-        }
-          .newtab thead th:last-child {
-            width: 21%;
-  
-        }
+
+
+.newtab tbody td, .newtab thead th {
+    width: 19.7%;
+    float: left;
+    color:#fff;
+    /*padding:10px 0;*/
+}
+.newtab thead th:last-child {
+    width: 21%;
+
+}
 
 .half-box{width:50%;float: left;}
 .total-box{background:#000;font-size: 20px;font-weight: bold;}
 .redtxt{
     color: #D4202B;
- 
+
 }
 .blackbg{background:#000;font-size: 20px;font-weight: bold;padding:20px 0;}
 
@@ -481,7 +481,7 @@ ul.tabs li a.active {
     font-size: 16px;
     transition: all ease 0.5s;
 }
- .white-bt:hover{background: #000;
+.white-bt:hover{background: #000;
     color: #fff;
     padding: 15px 30px;
     border-radius: 10px;
@@ -489,12 +489,261 @@ ul.tabs li a.active {
     text-transform: uppercase;
     font-size: 16px;}
 
- .inputboxes input[type="text"]:focus{   border-color: rgba(212, 32, 43, 0.8);
+.inputboxes input[type="text"]:focus, #contact_form_points input:focus{   border-color: rgba(212, 32, 43, 0.8);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(212, 32, 43, 0.6);
     outline: 0 none;
     color:#fff;
 }
 .contactinfo{padding-top:1px;}
+
+/*contact form*/
+
+#form-section {margin-top:50px;}
+
+#form-section  .block_title {
+    opacity: 1;
+}
+
+#form-section  h2 {
+    display: inline-block;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    margin-top: 30px;
+    width: 100%;
+}
+
+
+#form-section label, #form-section p, .moveleft {
+    text-align: left;
+    margin-bottom: 5px;
+}
+.birthday select {width:100px;    display: inline-block;
+    text-align: left;}
+.birthday  {color:#fff;}
+
+#form-section form#contact_form {
+    background: rgba(0,0,0,0.4);
+    border: 0px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+    padding: 20px;
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    max-width: 500px;
+}
+form#contact_form input[type="text"] {
+    border: 1px solid rgba(255,255,255,0.3);
+    background-color: transparent;
+    height: 30px;
+    padding: 0 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    color: #fff;
+    box-sizing: border-box;
+}
+form#contact_form select {
+    height: 30px;
+    margin-bottom: 20px;
+
+}
+form#contact_form h3 {
+    color:#fff;margin-bottom: 20px;
+
+}
+
+.divider{  border: 1px solid rgba(255,255,255,0.3); margin: 20px auto;
+    max-width: 500px;
+}
+/*contact form end*/
+
+/* Manage points */
+.boxes{border:1px solid #fff; padding:1em; margin-top: 50px;}
+.greybox{background:rgba(0,0,0,0.3); color:#fff; display: flex; justify-content: space-around;}
+
+.buttons-points{border: 1px solid #BEBEBE;
+    color: #fff;
+    display: inline-block;
+    font-weight: normal;
+    padding: 4px 10px;}
+
+/*.greybox a {
+    border: 1px solid #BEBEBE;
+    color: #777777;
+    display: inline-block;
+    font-weight: 400;
+    padding: 4px 12px;
+    line-height: 1.5;
+}
+*/
+.score-table h3{font-size: 18px;word-wrap:normal;text-transform: capitalize; padding:5px;}
+.score-table table {
+    width: 100%;
+}
+
+.score-table thead,  .score-table tbody, .score-table tr, .score-table td, .score-table th { display: block; transition: all ease 0.4s;}
+
+.score-table tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+
+.score-table tbody tr:hover {
+    background: #D4202B;
+}
+
+
+
+.score-table tbody {
+    height: 100%;
+    overflow-y: auto;
+    max-height:374px;
+}
+
+
+
+.score-table tbody td, .score-table thead th {
+    width: 24%;
+    float: left;
+    color:#fff;
+    padding:10px 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+}
+.score-table thead  {
+    background: rgba(0,0,0,1);
+}
+
+
+.score-table  tbody {
+    height: 175px;
+}
+.score-table  tbody::-webkit-scrollbar {
+    width: 4px;
+}
+
+.score-table  tbody::-webkit-scrollbar-track {
+    background: #d9d9d9;
+}
+
+.score-table  tbody::-webkit-scrollbar-thumb {
+    background: #D4202B;
+}
+
+.score-table  tbody::-webkit-scrollbar-thumb:hover {
+    background: #D4202B;
+}
+
+.score-table .one {width:14%;}
+.score-table .two {width:45%;}
+.score-table .three {width:19%;}
+.score-table .four {width:20%;}
+.points-all {color:#fff;font-size: 16px;}
+.score-table td {
+    padding: 0px 0px;
+    border-bottom: 1px solid #cccccc3b;
+    border-right: 1px solid #cccccc3b;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+}
+.score-table{width:100%;    table-layout: fixed;}
+.refresh-bt{margin-top: 10px;
+    font-size: 20px;
+}
+.threeboxes{width: 100%; display: flex;justify-content: space-between;}
+
+#contact_form_points input{
+    width:100%;box-sizing: border-box;     padding:10px;
+    background: rgba(0, 0, 0, 0.6);color: #fff;
+}
+#contact_form_points input:active, #contact_form_points input:visited{
+    color:#fff;
+}
+#contact_form_points input[type="submit"]{
+    color:#fff;
+    font-size: 18px;
+    max-width: 150px;
+    cursor: pointer;
+}
+#contact_form_points label{font-size: 16px;color:#fff; }
+/* Manage points end*/
+
+/*Transation history*/
+.history
+{margin-top: 60px !important;
+}
+
+.history .title_tab
+{color:#fff;
+}
+.history .block_title{opacity: 1; color: #fff;background: rgba(0,0,0,0.6); padding: 10px;}
+
+.history #tablewrapper {width:100%; margin:0 auto}
+.history #tableheader {height:55px;width:100%;}
+.history #tableheader option{padding-left:4px;font-size:13px; background-color:#ecf2f6;}
+.history .search
+{
+    float:left; padding:6px;
+    border: solid 1px #b60c18;
+    background: #D4202B;
+
+}
+.history #tableheader select {float:left; font-size:13px; width:125px; padding:2px 4px 4px; background-color:#f7fbfe;}
+.history #tableheader input {float:left; font-size:13px; width:225px; padding:2px 4px 4px; margin-left:4px; background-color:#f7fbfe;}
+.history .details {float:right; padding-top:12px}
+.history .details div{float:left; font-family:BebasNeuewebfont, sans-serif; margin-left:15px; font-size:17px}
+.history .tinytable {width:100%; border-left:1px solid #c6d5e1; border-top:1px solid #c6d5e1; border-bottom:none}
+.history .tinytable th {
+    border: solid 1px #b60c18;
+    background: #D4202B;
+    text-align:left; color:#fff;
+    border-right:none
+}
+.history .tinytable th h3 {font-size:18px; padding:8px 8px 8px; line-height: 22px;
+    margin-bottom: 0;}
+.history .tinytable td {padding:4px 6px 6px; border-bottom:1px solid #c6d5e1; border-right:1px solid #c6d5e1}
+.history .tinytable .head h3 {background:url(../../images/tabsresp/sort.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
+.history .tinytable .desc, .sortable .asc {background-color:#b60c18;)}
+.history .tinytable .desc h3 {background:url(../../images/tabsresp/desc.gif) 7px center no-repeat; cursor:pointer; padding-left:18px}
+.history .tinytable .asc h3 {background:url(../../images/tabsresp/asc.gif) 7px  center no-repeat; cursor:pointer; padding-left:18px}
+.history .tinytable .head:hover, .tinytable .desc:hover, .tinytable .asc:hover {color:#fff}
+.history .tinytable .evenrow td {background:#fff}
+.history .tinytable .oddrow td {background:#ecf2f6}
+.history .tinytable td.evenselected {background:#ecf2f6}
+.history .tinytable td.oddselected {background:#dce6ee}
+.history .tinytable tfoot {background:#fff; font-weight:bold}
+.history .tinytable tfoot td {padding:6px 8px 8px}
+.history .tinytable td a{color:#0194cb;}
+.history #tablefooter {height:15px; margin-top:20px;width:100%;}
+.history #tablenav {float:left;}
+.history #tablenav img {cursor:pointer}
+.history #tablenav div {float:left;padding: 6px 6px 0 0; color: #ffffff;margin-right:15px}
+.history #tablelocation
+{
+    float:right;
+    font-size:18px;
+    border: solid 1px #b60c18;
+    background: #D4202B;
+    padding: 6px 6px 0 0;
+}
+.history #tablelocation select {margin-right:3px; background-color:#f7fbfe;width:70px;}
+.history #tablelocation option{background-color:#ecf2f6;}
+.history #pagedropdown{width:70px; height:24px;background-color:#f7fbfe;}
+
+.history #pagedropdown option{background-color:#ecf2f6;}
+.history #tablelocation div {float:left; color: #ffffff;margin-left:15px}
+.history .page {margin-top:2px; font-style:normal;}
+.history #selectedrow td {background:#c6d5e1}
+.history .txt-page{font-family:BebasNeuewebfont, sans-serif; font-size:17px;}
+
+
+/*Transation history end*/
+
 @media (max-width: 767px) {
     .checker {
         justify-content: center;
@@ -712,7 +961,7 @@ ul.tabs li a.active {
     /* float: left; */
     background: rgba(0,0,0,0.6);
     padding:0 0 20px ;
- float: left;
+    float: left;
 }
 .jodi-section{width:100%;float: left; background: rgba(0,0,0,0.6); margin:20px 0 0; padding: 20px 20px 0;box-sizing: border-box;}
 
