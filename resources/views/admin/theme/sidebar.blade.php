@@ -6,6 +6,7 @@
       <span>Dashboard </span>
     </a>
   </li>
+  <!--
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       <i class="fas fa-fw fa-folder"></i>
@@ -16,6 +17,31 @@
       <a class="dropdown-item" href="{{ route('users') }}">Manage Users</a>
     </div>
   </li>
+-->
+<li class="nav-item dropdown">
+  <a class="nav-link " href="{{ route('users.create') }}" id="pagesDropdown" role="button">
+    <i class="fas fa-fw fa-user"></i>
+    <span>Add User</span>
+  </a>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link " href="{{ route('users') }}" id="pagesDropdown" role="button">
+    <i class="fas fa-fw fa-users"></i>
+    <span>Client Data</span>
+  </a>
+</li>
+
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fas fa-fw fa-folder"></i>
+    <span>Game Mgmt</span>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+    <a class="dropdown-item" href="#"> Game Setting</a>
+    <a class="dropdown-item" href="#">Game Results</a>
+  </div>
+</li>
+
 <!--
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -137,15 +137,18 @@ class UserController extends Controller
         }
 
 
+
         $uuid = $this->generateUUID($request->input('role'));
 
+
+        $dob = '0000-00-00';
         if($request->input('year') != '' && $request->input('month') != '' && $request->input('day') != '') {
           $dob = date('Y-m-d', strtotime($request->input('year').'-'.$request->input('month').'-'.$request->input('day')));
         }
 
         $user = User::create([
             'first_name'       => $request->input('first_name'),
-            'last_name'        => '',
+            'last_name'        => $request->input('last_name'),
             'email'            => $request->input('email'),
             'password'         => bcrypt($request->input('password')),
             'role_id'          => $request->input('role'),
@@ -324,7 +327,7 @@ class UserController extends Controller
      */
     public function search(Request $request)
     {
-        DB::enableQueryLog();
+        //DB::enableQueryLog();
         $userid = $request->input('userid');
         $name = $request->input('name');
         $emailid = $request->input('emailid');
@@ -426,12 +429,12 @@ class UserController extends Controller
     }
 
     public function generateUUID($role_id){
-
+      echo $role_id;
        $uuid = '';
        switch ($role_id){
          case '1':
              $amkUsers = User::where('role_id', '1')->OrderBy('id', 'DESC')->first();
-             $lastUUID = $amkUsers['uuid'];
+             $lastUUID = $amkUsers['user_account'];
              if($lastUUID == '') {
                $uuid = env('SAKSERIES_PREFIX').env('SAKSERIES');
              } else {
@@ -441,7 +444,7 @@ class UserController extends Controller
            break;
          case '2':
            $amkUsers = User::where('role_id', '2')->OrderBy('id', 'DESC')->first();
-           $lastUUID = $amkUsers['uuid'];
+           $lastUUID = $amkUsers['user_account'];
            if($lastUUID == '') {
              $uuid = env('AMKSERIES_PREFIX').env('AMKSERIES');
            } else {
@@ -451,7 +454,7 @@ class UserController extends Controller
            break;
          case '3':
              $dmkUsers = User::where('role_id', '3')->OrderBy('id', 'DESC')->first();
-             $lastUUID = $dmkUsers['uuid'];
+             $lastUUID = $dmkUsers['user_account'];
              if($lastUUID == '') {
                $uuid = env('DMKSERIES_PREFIX').env('DMKSERIES');
              } else {
@@ -460,19 +463,45 @@ class UserController extends Controller
              }
            break;
          case '4':
-             $cmkUsers = User::where('role_id', '2')->OrderBy('id', 'DESC')->first();
-             $lastUUID = $cmkUsers['uuid'];
+             $cmkUsers = User::where('role_id', '4')->OrderBy('id', 'DESC')->first();
+             echo $lastUUID = $cmkUsers['user_account'];
+
              if($lastUUID == '') {
-               $uuid = env('CMKSERIES_PREFIX').env('CMKSERIES');
+               echo 'p'.$uuid = env('CMKSERIES_PREFIX').env('CMKSERIES');
              } else {
-               $uuid = substr($lastUUID, 3) ;
-               $uuid = env('CMKSERIES_PREFIX'). ($uuid+1);
+               //echo $uuid =  $uuid + 1;
+                $uuid = substr($lastUUID, 3) ;
+                //$uuid =  $uuid + 1;
+              echo 'q'.  $uuid = env('CMKSERIES_PREFIX').(((int)$uuid)+1);
              }
            break;
        }
 
       return $uuid;
 
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectUser()
+    {
+        $user = Auth::user();
+        //print_r($user);
+        //exit;
+        if( Auth::check() ){
+          $user = Auth::user();
+          if($user->role_id ==1) {
+            return redirect()->route('dashboard');
+          } else {
+            return redirect()->route('game');
+          }
+        } else {
+
+           return redirect()->route('home111');
+        }
     }
 
 }

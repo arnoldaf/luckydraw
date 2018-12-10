@@ -428,7 +428,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
           </div>
         </div>
       </div>
@@ -464,6 +464,8 @@
 
 
 @include('admin.scripts.search-users')
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"><input type="hidden" name="_token" value="{{ csrf_token() }}"></form>
   </body>
 
 </html>

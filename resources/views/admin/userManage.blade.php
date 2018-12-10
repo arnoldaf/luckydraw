@@ -92,8 +92,9 @@
 
              <div class="col-md-4">
                <select class="custom-select form-control" name="status"    id="status" style="height: auto;" >
-                           <option value="1" {{ (Request::get('status') == 1||Request::get('status') =='')? 'selected':''}} >Active</option>
-                           <option value="0" {{ Request::get('status') == 0 && Request::get('status') !=''? 'selected':''}}>InActive</option>
+                           <option value="" {{ (Request::get('status') =='')? 'selected':''}} >Select</option>
+                           <option value="1" {{ (Request::get('status') == 1)? 'selected':''}} >Active</option>
+                           <option value="0" {{ Request::get('status') == 0 && Request::get('status') !=''? 'selected':''}}>Inactive</option>
                 </select>
 
              </div><!--col-->
@@ -151,8 +152,7 @@
                         <thead>
                         <tr>
                             <th>User ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Name</th>
                             <th>E-mail</th>
                             <th>Confirmed</th>
                             <th>Phone</th>
@@ -167,8 +167,7 @@
                           @foreach($users as $user)
                               <tr>
                                     <td>{{$user->user_account}}</td>
-                                    <td>{{$user->first_name}}</td>
-                                    <td>{{$user->last_name}}</td>
+                                    <td>{{$user->first_name}} {{$user->last_name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>
                                       <span class="badge badge-success">{{$user->active?"Yes":"No"}}</span>

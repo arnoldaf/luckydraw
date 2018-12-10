@@ -11,6 +11,7 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{!! asset('member/css/base2.css')!!}" />
 
     <link href="{!! asset('member/css/jquery.bxslider_index.css') !!}" rel="stylesheet" type="text/css" />
@@ -84,6 +85,13 @@
                 </li>
                 <li><a class="link_onepages" href="#section-4"><i class="fa fa-bullhorn"></i>Events</a></li>
                 <li><a class="link_onepages" href="#section-6"><i class="fa fa-single fa-envelope"></i></a></li>
+                @if( Auth::check() )
+                    <li aria-haspopup="true" class="right last">
+                      <a data-toggle="modal" onclick="event.preventDefault();document.getElementById('logout-form').submit();" href="{{ route('logout') }}"><i class="fa fa-sign-in"></i>Logout</a>
+
+                    </li>
+                @endif
+                <!--
                 <li aria-haspopup="true" class="right">
                     <a href="#"><i class="fa fa-lock"></i>Register</a>
                     <div class="grid-container5">
@@ -112,7 +120,7 @@
                             </fieldset>
                         </form>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
@@ -125,7 +133,7 @@
             <article class="">
                 <div class="container">
                     <section>
-                       
+
                             <div class="stepbystep ">
                                 <div class="rightsection denominations">
                                     <ul>
@@ -138,10 +146,10 @@
                                     </ul>
                                 </div>
                             </div>
-                       
-                   
+
+
                     <br/>
-                   
+
                         <article>
                             <div class="main">
                                 <div class="alert alert-danger denomination-warning">  </div>
@@ -215,7 +223,7 @@
                                                                             <th>
                                                                                 <h3>Actions</h3>
                                                                             </th>
-                                    
+
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -248,13 +256,13 @@
                                                                                 </a>
                                                                             </td>
                                                                         </tr>
-                                    
+
                                                                         <tr class="">
                                                                             <td colspan="3">Total Bid Points</td>
-                                    
+
                                                                             <td class="total-bid-amount"><strong> 0 </strong></td>
                                                                             <td>
-                                    
+
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -264,12 +272,12 @@
                                                             <form method="post" name="form_checker">
                                                                 <div class="checker__buttons">
                                                                     <a href="javascript:void(0)" id="reset_checker" onclick="ClearForm()" class="">
-                                    
+
                                                                         <span class="btn  btn-lg btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</span>
                                                                     </a>
                                                                     <input type="submit" value="Confirm Bid" class="btn btn-lg  btn-primary">
                                                                 </div>
-                                    
+
                                                             </form>
                                                         </div>
                                             </div>
@@ -284,7 +292,7 @@
                                                                 <li><input type="radio">
                                                                     <span id="empty02">without Jodi</span>
                                                                 </li>
-                                        
+
                                                             </ul>
                                                         </div>
                                                         <div class="checker__numbers">
@@ -302,19 +310,19 @@
                                                                 @endfor
                                                                 <h3>1000</h3>
                                                             </div>
-                                        
-                                        
+
+
                                                         </div>
                                                         <div class="container">
                                                             <form method="post" name="form_checker">
                                                                 <div class="checker__buttons">
                                                                     <a href="javascript:void(0)" id="reset_checker" onclick="ClearForm()" class="btn">
-                                        
+
                                                                         <span class="btn btn-primary">Calculate</span>
                                                                     </a>
-                                        
+
                                                                 </div>
-                                        
+
                                                             </form>
                                                         </div>
                                                     </div>
@@ -504,7 +512,7 @@
             });
         });
     </script>
-
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"><input type="hidden" name="_token" value="{{ csrf_token() }}"></form>
 </body>
 
 </html>

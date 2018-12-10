@@ -41,9 +41,8 @@ class LoginController extends Controller
     }
 
     public function postLogin(Request $request) {
+      Auth::logout();
 
-        echo 'Hii';
-        exit;
         $requiredField = [
             "email" => "required|max:255",
             "password" => "required|min:5",
@@ -83,7 +82,7 @@ class LoginController extends Controller
               //$user=Auth::user();
 
             //  if ( Auth::user()->isAdmin() ) {// do your margic here
-                  return redirect()->route('dashboard');
+                  return redirect()->route('home');
             //  }
 
             // return redirect('/home');

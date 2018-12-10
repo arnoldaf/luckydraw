@@ -181,7 +181,7 @@
                                     <option value="">Select Area Manager</option>
                                     @if ($amkUsers)
                                         @foreach($amkUsers as $amk)
-                                            <option value="{{ $amk->id }}" {{ $user->parent_id == $amk->id ? 'selected="selected"' : '' }}>{{ $amk->first_name }}({{$amk->uuid}})</option>
+                                            <option value="{{ $amk->id }}" {{ $user->parent_id == $amk->id ? 'selected="selected"' : '' }}>{{ $amk->first_name }}({{$amk->user_account}})</option>
                                         @endforeach
                                     @endif
                                 </select>
@@ -196,7 +196,7 @@
                                     <option value="">Select Distributor Manager</option>
                                     @if ($dmkUsers)
                                         @foreach($dmkUsers as $dmk)
-                                            <option value="{{ $dmk->id }}" {{ $user->parent_id == $dmk->id ? 'selected="selected"' : '' }}>{{ $dmk->first_name }}({{$dmk->uuid}})</option>
+                                            <option value="{{ $dmk->id }}" {{ $user->parent_id == $dmk->id ? 'selected="selected"' : '' }}>{{ $dmk->first_name }}({{$dmk->user_account}})</option>
                                         @endforeach
                                     @endif
                                 </select>

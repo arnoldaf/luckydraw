@@ -12,13 +12,14 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <link rel="stylesheet" href="{!! asset('member/css/base2.css') !!}"/>
 <link href="{!! asset('member/css/jquery.bxslider_index.css')!!}" rel="stylesheet" type="text/css" />
 <link href="{!! asset('member/css/jquery.fancybox-1.3.4_2.css" rel="stylesheet') !!}" type="text/css" />
 <link href="{!! asset('member/css/slide/settings.css')!!}" rel="stylesheet" type="text/css" />
-<link rel="shortcut icon" href="images/favicon.png">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+<link rel="shortcut icon" href="member/images/favicon.png">
+<link rel="apple-touch-icon" href="member/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="member/images/apple-touch-icon-72x72.png">
 <link href="{!! asset('member/css/tabs.css')!!}" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="{!! asset('member/css/screen3.css')!!}"/>
 <link rel="apple-touch-icon" sizes="114x114" href="{!! asset('member/images/apple-touch-icon-114x114.png')!!}">
@@ -52,50 +53,120 @@
     <img src="{!! ('member/images/logo2.jpg') !!}" alt="log" />
   </div>
   <!-- mega menu -->
+    @if( !Auth::check() )
 			<ul id="navmenu" class="poker-mega-menu poker-mega-menu-anim-scale poker-mega-menu-response-to-icons">
-				<li class="menu-first-li">
-					<a class="link_onepage" href="#toplineright"><i class="fa fa-single fa-home"></i></a>
-                    <div class="grid-container2">
-						<ul><li><a href="index2.html"><i class="fa fa-globe"></i>Home Page 1</a></li></ul>
-					</div>
-				</li>
-			    <li>
-			        <a href="#"><i class="fa fa-eye"></i>Game</a>
-			        <div class="grid-container3">
-			            <ul>
-			                <li><a class="link_onepage" href="#texas"><i class="fa fa-check"></i>Texas Hold 'em</a></li>
-			                <li><a class="link_onepage" href="#game"><i class="fa fa-check"></i>Other Games</a></li>
-			            </ul>
-			        </div>
-			    </li>
-                <li><a class="link_onepage" href="#tournaments"><i class="fa fa-briefcase"></i>Tournaments</a></li>
-                <li aria-haspopup="true">
-					<a class="link_onepage" href="#section-3"><i class="fa fa-star"></i>About us</a>
-					<div class="grid-container4">
-						<ul>
-							<li><a href="more_details.html"><i class="fa fa-check"></i>Page Details 1</a></li>
-							<li><a href="more_details2.html"><i class="fa fa-check"></i>Page Details 2</a></li>
-                            <li><a href="blog.html"><i class="fa fa-check"></i>Blog Simple</a></li>
-                            <li><a href="blog_column.html"><i class="fa fa-check"></i>Blog Column Right</a></li>
-						</ul>
-					</div>
-				</li>
-				<li><a class="link_onepage" href="#section-4"><i class="fa fa-bullhorn"></i>Events</a></li>
-				<li><a class="link_onepage" href="#section-6"><i class="fa fa-single fa-envelope"></i></a></li>
+        <li class="menu-first-li">
+            <a class="link_onepages" href="{{ route('sitehome') }}"><i class="fa fa-single fa-home"></i></a>
 
-				<li aria-haspopup="true" class="right last">
-					<a href="#"><i class="fa fa-sign-in"></i>Login</a>
-					<div class="grid-container4">
-						<form action="#">
-							<fieldset>
-								<section><label class="input"><i class="fa fa-append fa-user"></i><input type="text" placeholder="Login or E-mail"></label></section>
-								<section><label class="input"><i class="fa fa-append fa-lock"></i><input type="password" placeholder="Password"></label></section>
-								<button type="submit" class="button">Login</button>
-							</fieldset>
-						</form>
-					</div>
+        </li>
+        <li ><a class="link_onepages" href="#section-3"><i class="fa fa-eye"></i>Play Game</a>
+            <div class="grid-container4">
+                <ul>
+                    <li><a href="#"><i class="fa fa-check"></i>Number Game </a></li>
+                </ul>
+            </div>
+        </li>
+
+        <li ><a class="link_onepages" href="#section-3"><i class="fa fa-futbol"></i>Game Results</a>
+        </li>
+
+        <li aria-haspopup="true">
+					<a class="link_onepage" href="#section-3"><i class="fa fa-eye"></i>About us</a>
 				</li>
+
+        <li aria-haspopup="true">
+					<a class="link_onepage" href="#section-3"><i class="fa fa-envelope"></i>Contact us</a>
+				</li>
+  			<!--
+  				<li><a class="link_onepage" href="#section-6"><i class="fa fa-single fa-envelope"></i></a></li>
+        -->
+
+        <li aria-haspopup="true" class="right">
+            <a href="#"><i class="fa fa-lock"></i>Register</a>
+            <div class="grid-container5">
+                <form action="#">
+                    <fieldset>
+                        <section><label class="input"><i class="fa fa-append fa-envelope-o"></i><input type="text" placeholder="Email address"></label></section>
+                        <div class="row">
+                            <section class="col col-6"><label class="input"><i class="fa fa-append fa-user"></i><input type="text" placeholder="First Name"></label></section>
+                            <section class="col col-6"><label class="input"><i class="fa fa-append fa-user"></i><input type="text" placeholder="Last Name"></label></section>
+                        </div>
+                        <section><label class="input"><i class="fa fa-append fa-lock"></i><input type="password" placeholder="Password"></label></section>
+                        <section><label class="input"><i class="fa fa-append fa-lock"></i><input type="password" placeholder="Confirm password"></label></section>
+                        <button type="submit" class="button">Register</button>
+                    </fieldset>
+                </form>
+            </div>
+        </li>
+        <li aria-haspopup="true" class="right last">
+          <a data-toggle="modal" href="#loginModal"><i class="fa fa-sign-in"></i>Login</a>
+
+        </li>
+
 			</ul>
+      @endif
+      @if( Auth::check() )
+
+      <ul id="navmenu" class="poker-mega-menu poker-mega-menu-anim-scale poker-mega-menu-response-to-icons">
+
+          <li class="menu-first-li">
+              <a class="link_onepages" href="{{ route('sitehome') }}"><i class="fa fa-single fa-home"></i></a>
+
+          </li>
+          <li ><a class="link_onepages" href="#section-3"><i class="fa fa-eye"></i>Play Game</a>
+              <div class="grid-container4">
+                  <ul>
+                      <li><a href="#"><i class="fa fa-check"></i>Number Game </a></li>
+                  </ul>
+              </div>
+          </li>
+
+          <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Game Results</a>
+              <div class="grid-container4">
+                  <ul>
+                      <li><a href="#"><i class="fa fa-check"></i>My Bid Result </a></li>
+                      <li><a href="#"><i class="fa fa-check"></i>Game Results </a></li>
+                      <li><a href="#"><i class="fa fa-check"></i>Transaction History </a></li>
+                  </ul>
+              </div>
+          </li>
+          <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Manage My Points</a>
+              <div class="grid-container4">
+                  <ul>
+                      <li><a href="#"><i class="fa fa-check"></i>Receive </a></li>
+                      <li><a href="#"><i class="fa fa-check"></i>Transfer </a></li>
+                      <li><a href="#"><i class="fa fa-check"></i>Transaction History </a></li>
+                  </ul>
+              </div>
+          </li>
+
+          <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Comission</a>
+              <div class="grid-container4">
+                  <ul>
+                      <li><a href="#"><i class="fa fa-check"></i>Commission History</a></li>
+                  </ul>
+              </div>
+          </li>
+
+          <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Balance: &#8377;{{(Auth::user()->last_balance == 0 ? '0.00':Auth::user()->last_balance) }}</a>
+
+          </li>
+              <li aria-haspopup="true" class="right last"><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Welcome: {{Auth::user()->first_name }}</a>
+                  <div class="grid-container4">
+                      <ul>
+                          <li><a href="#"><i class="fa fa-check"></i>Profile</a></li>
+                          <li><a href="#"><i class="fa fa-check"></i>Change Password</a></li>
+                          <li><a href="#"><i class="fa fa-check"></i>Change PIN</a></li>
+                          <li><a data-toggle="modal" onclick="event.preventDefault();document.getElementById('logout-form').submit();" href="{{ route('logout') }}"><i class="fa fa-sign-in"></i>Logout</a></li>
+                      </ul>
+                  </div>
+              </li>
+      </ul>
+
+
+
+      @endif
+
      </div>
 </div>
 <!-- Slider -->
@@ -108,43 +179,43 @@
                             <div class="fullwidthbanner">
                                 <ul>
                                     <li data-transition="fade" data-slotamount="10" data-thumb="#">
-                                        <img src="images/slides/1.jpg" alt=""/>
-                                        <div class="caption lfl small_text img-arleft" data-x="-60" data-y="150" data-speed="600" data-start="1600" data-easing="easeOutExpo"><img src="images/slides/power.png" alt=""/></div>
-                                        <div class="caption lfl small_text img-arleft" data-x="-40" data-y="210" data-speed="900" data-start="1300" data-easing="easeOutExpo"><img src="images/rb.png" alt=""/></div>
+                                        <img src="member/images/slides/1.jpg" alt=""/>
+                                        <div class="caption lfl small_text img-arleft" data-x="-60" data-y="150" data-speed="600" data-start="1600" data-easing="easeOutExpo"><img src="member/images/slides/power.png" alt=""/></div>
+                                        <div class="caption lfl small_text img-arleft" data-x="-40" data-y="210" data-speed="900" data-start="1300" data-easing="easeOutExpo"><img src="member/images/rb.png" alt=""/></div>
                                         <div class="caption lft medium_black" data-x="70" data-y="190" data-speed="400" data-start="1000" data-easing="easeOutExpo"><p class="blackbold">RESPONSIVE</p></div>
                                         <div class="caption fade medium_black" data-x="70" data-y="300" data-speed="600" data-start="1500" data-easing="easeInOutElastic"><p>TOUCH SWIPE NAVIGATION</p></div>
-                                        <div class="caption sfb small_text" data-x="80" data-y="390" data-speed="1200" data-start="2400" data-easing="easeOutExpo"><img src="images/ipad1.png" alt=""/></div>
-                                        <div class="caption sfb small_text" data-x="180" data-y="510" data-speed="1200" data-start="3400" data-easing="easeOutExpo"><img src="images/hand.png" alt=""/></div>
-                                        <div class="caption sfr small_text" data-x="410" data-y="350" data-speed="900" data-start="2500" data-easing="easeOutExpo"><img src="images/slides/line1.png" alt=""/></div>
+                                        <div class="caption sfb small_text" data-x="80" data-y="390" data-speed="1200" data-start="2400" data-easing="easeOutExpo"><img src="member/images/ipad1.png" alt=""/></div>
+                                        <div class="caption sfb small_text" data-x="180" data-y="510" data-speed="1200" data-start="3400" data-easing="easeOutExpo"><img src="member/images/hand.png" alt=""/></div>
+                                        <div class="caption sfr small_text" data-x="410" data-y="350" data-speed="900" data-start="2500" data-easing="easeOutExpo"><img src="member/images/slides/line1.png" alt=""/></div>
                                         <div class="caption sfr small_text_desc" data-x="530" data-y="350" data-speed="900" data-start="2500" data-easing="easeOutExpo">
                                             <p>Limited-time offer : </p>
                                             <p>Deposit and free $20!</p>
                                         </div>
-                                        <div class="caption fade" data-x="580" data-y="450" data-speed="2000" data-start="3300" data-easing="easeInOutElastic"><img class="guarantee" src="images/guarantee.png" alt="guarantee"/></div>
+                                        <div class="caption fade" data-x="580" data-y="450" data-speed="2000" data-start="3300" data-easing="easeInOutElastic"><img class="guarantee" src="member/images/guarantee.png" alt="guarantee"/></div>
                                     </li>
                                     <li data-transition="slideright" data-slotamount="6" data-thumb="#">
-                                        <img src="images/slides/2.jpg" alt=""/>
+                                        <img src="member/images/slides/2.jpg" alt=""/>
                                         <div class="caption sfb medium_text" data-x="40" data-y="420" data-speed="1200" data-start="2400" data-easing="easeOutExpo"><p>RESPONSIVE DESIGN</p></div>
                                         <div class="caption sfb medium_text" data-x="40" data-y="470" data-speed="1200" data-start="2600" data-easing="easeOutExpo"><p>Parallax version</p></div>
                                         <div class="caption sfb medium_text" data-x="40" data-y="520" data-speed="1200" data-start="2800" data-easing="easeOutExpo"><p>CSS3 Animation</p></div>
-                                        <div class="caption sfr small_text imgimac" data-x="440" data-y="320" data-speed="500" data-start="1200" data-easing="easeOutExpo"><img src="images/imac.png" alt=""/></div>
-                                         <div class="caption sfr small_text imgipad" data-x="420" data-y="430" data-speed="600" data-start="1800" data-easing="easeOutExpo"><img src="images/ipad.png" alt=""/></div>
+                                        <div class="caption sfr small_text imgimac" data-x="440" data-y="320" data-speed="500" data-start="1200" data-easing="easeOutExpo"><img src="member/images/imac.png" alt=""/></div>
+                                         <div class="caption sfr small_text imgipad" data-x="420" data-y="430" data-speed="600" data-start="1800" data-easing="easeOutExpo"><img src="member/images/ipad.png" alt=""/></div>
                                         <div class="caption lft medium_black" data-x="40" data-y="150" data-speed="400" data-start="2800" data-easing="easeOutExpo"><p class="blackbold">Your poker web site </p></div>
                                         <div class="caption lft medium_black" data-x="40" data-y="255" data-speed="600" data-start="3000" data-easing="easeOutExpo"><p>Business solution</p></div>
                                     </li>
                                     <li id="money" data-transition="slideright" data-slotamount="6" data-thumb="#">
-                                        <img src="images/slides/3.jpg" alt=""/>
-                                        <div class="caption sfb small_text" data-x="100" data-y="420" data-speed="1200" data-start="2400" data-easing="easeOutExpo"><img src="images/banner1-man.png" alt=""/></div>
+                                        <img src="member/images/slides/3.jpg" alt=""/>
+                                        <div class="caption sfb small_text" data-x="100" data-y="420" data-speed="1200" data-start="2400" data-easing="easeOutExpo"><img src="member/images/banner1-man.png" alt=""/></div>
                                         <div class="caption lft medium_black" data-x="70" data-y="150" data-speed="400" data-start="2800" data-easing="easeOutExpo"><p class="blackbold">Your game your money</p></div>
                                         <div class="caption lft medium_black" data-x="70" data-y="255" data-speed="600" data-start="3000" data-easing="easeOutExpo"><p>Million solution</p></div>
-                                        <div class="caption lfl small_text" data-x="150" data-y="320" data-speed="900" data-start="1400" data-easing="easeOutExpo"><img src="images/slides/rb.png" alt=""/></div>
-                                        <div class="caption lfl small_text" data-x="-20" data-y="500" data-speed="900" data-start="1200" data-easing="easeOutExpo"><img src="images/slides/ru.png" alt=""/></div>
-                                        <div class="caption lfr small_text" data-x="600" data-y="320" data-speed="900" data-start="1400" data-easing="easeOutExpo"><img src="images/slides/lb.png" alt=""/></div>
-                                        <div class="caption lfr small_text" data-x="800" data-y="500" data-speed="900" data-start="1200" data-easing="easeOutExpo"><img src="images/slides/lu.png" alt=""/></div>
-                                        <div class="caption lfl small_text" data-x="110" data-y="270" data-speed="900" data-start="1600" data-easing="easeOutExpo"><img src="images/slides/b.png" alt=""/></div>
-                                        <div class="caption lfl small_text" data-x="-70" data-y="570" data-speed="900" data-start="1500" data-easing="easeOutExpo"><img src="images/slides/a.png" alt=""/></div>
-                                        <div class="caption lfr small_text" data-x="620" data-y="270" data-speed="900" data-start="1600" data-easing="easeOutExpo"><img src="images/slides/a.png" alt=""/></div>
-                                        <div class="caption lfr small_text" data-x="840" data-y="570" data-speed="900" data-start="1500" data-easing="easeOutExpo"><img src="images/slides/c.png" alt=""/></div>
+                                        <div class="caption lfl small_text" data-x="150" data-y="320" data-speed="900" data-start="1400" data-easing="easeOutExpo"><img src="member/images/slides/rb.png" alt=""/></div>
+                                        <div class="caption lfl small_text" data-x="-20" data-y="500" data-speed="900" data-start="1200" data-easing="easeOutExpo"><img src="member/images/slides/ru.png" alt=""/></div>
+                                        <div class="caption lfr small_text" data-x="600" data-y="320" data-speed="900" data-start="1400" data-easing="easeOutExpo"><img src="member/images/slides/lb.png" alt=""/></div>
+                                        <div class="caption lfr small_text" data-x="800" data-y="500" data-speed="900" data-start="1200" data-easing="easeOutExpo"><img src="member/images/slides/lu.png" alt=""/></div>
+                                        <div class="caption lfl small_text" data-x="110" data-y="270" data-speed="900" data-start="1600" data-easing="easeOutExpo"><img src="member/images/slides/b.png" alt=""/></div>
+                                        <div class="caption lfl small_text" data-x="-70" data-y="570" data-speed="900" data-start="1500" data-easing="easeOutExpo"><img src="member/images/slides/a.png" alt=""/></div>
+                                        <div class="caption lfr small_text" data-x="620" data-y="270" data-speed="900" data-start="1600" data-easing="easeOutExpo"><img src="member/images/slides/a.png" alt=""/></div>
+                                        <div class="caption lfr small_text" data-x="840" data-y="570" data-speed="900" data-start="1500" data-easing="easeOutExpo"><img src="member/images/slides/c.png" alt=""/></div>
                                     </li>
                                 </ul>
                                 <div class="tp-bannertimer"></div>
@@ -210,7 +281,7 @@
       </div>
        <div class="container texas-space">
            <div class="grid_item content-item hidden fadeInUp">
-               <img class="img_holdem" src="images/design_multitouch.jpg" alt="" />
+               <img class="img_holdem" src="member/images/design_multitouch.jpg" alt="" />
            </div>
            <div class="clear"></div>
            <!-- tabs -->
@@ -218,7 +289,7 @@
            <ul class="ca-menu">
                     <li>
                         <a href="#">
-                            <div class="img-content"><img class="ca-icon" src="images/2.jpg" alt="" /></div>
+                            <div class="img-content"><img class="ca-icon" src="member/images/2.jpg" alt="" /></div>
                             <div class="clear"></div>
                             <div class="ca-content">
                                 <h2 class="ca-main">House Rules</h2>
@@ -229,7 +300,7 @@
                     </li>
                     <li class="select">
                         <a href="#">
-                            <div class="img-content"><img class="ca-icon" src="images/1.jpg" alt="" /></div>
+                            <div class="img-content"><img class="ca-icon" src="member/images/1.jpg" alt="" /></div>
                             <div class="clear"></div>
                             <div class="ca-content">
                                 <h2 class="ca-main">Cash Games</h2>
@@ -240,7 +311,7 @@
                     </li>
                     <li>
                         <a href="#">
-                            <div class="img-content"><img class="ca-icon" src="images/3.jpg" alt="" /></div>
+                            <div class="img-content"><img class="ca-icon" src="member/images/3.jpg" alt="" /></div>
                             <div class="clear"></div>
                             <div class="ca-content">
                                 <h2 class="ca-main">Shedule</h2>
@@ -251,7 +322,7 @@
                     </li>
                     <li>
                         <a href="#">
-                            <div class="img-content"><img class="ca-icon" src="images/4.jpg" alt="" /></div>
+                            <div class="img-content"><img class="ca-icon" src="member/images/4.jpg" alt="" /></div>
                             <div class="ca-content">
                                 <h2 class="ca-main">Poker Parties</h2>
                                 <p>Once you’ve made your deposit, you need to earn VIP Player Points (VPPs) by playing real money games on PokerClub.</p>
@@ -341,14 +412,14 @@
           <div class="clear"></div>
           <div class="game-ipad-img">
               <div class="luxe-animate hidden fadeInUp" ><br>
-                  <img class="aligncenter" alt="iPad Retina display (white)" src="images/imac2.png"/>
+                  <img class="aligncenter" alt="iPad Retina display (white)" src="member/images/imac2.png"/>
                   </div>
               <p></p>
           </div><div class="clear"></div>
           <h3 class="bxslider_title">Recent News & Blog</h3>
           <div class="slider1">
               <div class="slide">
-                  <img src="images/carusel1.jpg" alt=""/>
+                  <img src="member/images/carusel1.jpg" alt=""/>
                      <div class="desc"><span>24</span><br>
                       <em>May 2014</em>
                       <h2>Night in <strong>Manhattan</strong></h2>
@@ -356,7 +427,7 @@
                     </div>
               </div>
               <div class="slide">
-                  <img src="images/carusel2.jpg" alt=""/>
+                  <img src="member/images/carusel2.jpg" alt=""/>
                   <div class="desc"><span>21</span><br>
                       <em>May 2014</em>
                       <h2>Night in <strong>Manhattan</strong></h2>
@@ -364,7 +435,7 @@
                     </div>
               </div>
               <div class="slide">
-                  <img src="images/carusel3.jpg" alt=""/>
+                  <img src="member/images/carusel3.jpg" alt=""/>
                   <div class="desc"><span>18</span><br>
                       <em>May 2014</em>
                       <h2>Night in <strong>Manhattan</strong></h2>
@@ -372,7 +443,7 @@
                     </div>
               </div>
               <div class="slide">
-                  <img src="images/carusel3.jpg" alt=""/>
+                  <img src="member/images/carusel3.jpg" alt=""/>
                   <div class="desc"><span>16</span><br>
                       <em>May 2013</em>
                       <h2>Night in <strong>Manhattan</strong></h2>
@@ -380,7 +451,7 @@
                     </div>
               </div>
               <div class="slide">
-                  <img src="images/carusel3.jpg" alt=""/>
+                  <img src="member/images/carusel3.jpg" alt=""/>
                   <div class="desc"><span>05</span><br>
                       <em>May 2013</em>
                       <h2>Night in <strong>Manhattan</strong></h2>
@@ -388,7 +459,7 @@
                     </div>
               </div>
               <div class="slide">
-                  <img src="images/carusel3.jpg" alt=""/>
+                  <img src="member/images/carusel3.jpg" alt=""/>
                   <div class="desc"><span>06</span><br>
                       <em>May 2012</em>
                       <h2>Night in <strong>Manhattan</strong></h2>
@@ -396,7 +467,7 @@
                     </div>
               </div>
               <div class="slide">
-                  <img src="images/carusel3.jpg" alt=""/>
+                  <img src="member/images/carusel3.jpg" alt=""/>
                   <div class="desc"><span>12</span><br>
                       <em>May 2012</em>
                       <h2>Night in <strong>Manhattan</strong></h2>
@@ -404,7 +475,7 @@
                     </div>
               </div>
               <div class="slide">
-                  <img src="images/carusel3.jpg" alt=""/>
+                  <img src="member/images/carusel3.jpg" alt=""/>
                   <div class="desc"><span>14</span><br>
                       <em>May 2011</em>
                       <h2>Night in <strong>Manhattan</strong></h2>
@@ -412,7 +483,7 @@
                     </div>
               </div>
               <div class="slide">
-                  <img src="images/carusel3.jpg" alt=""/>
+                  <img src="member/images/carusel3.jpg" alt=""/>
                   <div class="desc"><span>09</span><br>
                       <em>May 2011</em>
                       <h2>Night in <strong>Manhattan</strong></h2>
@@ -425,7 +496,7 @@
   </div>
 <!-- Tournament Table Intro -->
   <section id="tournaments">
-   <div class="quote-icon"><img src="images/icon_logo2.png" alt="" /></div>
+   <div class="quote-icon"><img src="member/images/icon_logo2.png" alt="" /></div>
   <div class="parallax">
     <article class="clearfix">
         <div class="container">
@@ -782,7 +853,7 @@
                                 <a href="more_details.html" class="icon-effect"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                        <img class="" src="images/event2.jpg" alt="alt" />
+                        <img class="" src="member/images/event2.jpg" alt="alt" />
                     </figure>
                 </li>
 				<li class="mix category_3 one_third_gallery_wild" data-cat="3">
@@ -797,7 +868,7 @@
                                 <a href="more_details.html" class="icon-effect"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                        <img class="" src="images/event5.jpg" alt="alt" />
+                        <img class="" src="member/images/event5.jpg" alt="alt" />
                     </figure>
                 </li>
 				<li class="mix category_2 one_third_gallery_wild" data-cat="2">
@@ -812,7 +883,7 @@
                                 <a href="more_details.html" class="icon-effect"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                         <img class="" src="images/event4.jpg" alt="alt" />
+                         <img class="" src="member/images/event4.jpg" alt="alt" />
                     </figure>
                 </li>
 				<li class="mix category_3 one_third_gallery_wild" data-cat="3">
@@ -827,7 +898,7 @@
                                 <a href="more_details.html" class="icon-effect"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                        <img class="" src="images/event1.jpg" alt="alt" />
+                        <img class="" src="member/images/event1.jpg" alt="alt" />
                     </figure>
                 </li>
 				<li class="mix category_2 one_third_gallery_wild" data-cat="2">
@@ -842,7 +913,7 @@
                                 <a href="more_details.html" class="icon-effect"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                        <img class="" src="images/event6.jpg" alt="alt" />
+                        <img class="" src="member/images/event6.jpg" alt="alt" />
                     </figure>
                  </li>
 				<li class="mix category_1 one_third_gallery_wild" data-cat="1">
@@ -857,7 +928,7 @@
                                 <a href="more_details.html" class="icon-effect"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                        <img class="" src="images/event7.jpg" alt="alt" />
+                        <img class="" src="member/images/event7.jpg" alt="alt" />
                     </figure>
                 </li>
                 <li class="mix category_3 one_third_gallery_wild" data-cat="3">
@@ -872,7 +943,7 @@
                                 <a href="more_details.html" class="icon-effect"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                        <img class="" src="images/event6.jpg" alt="alt" />
+                        <img class="" src="member/images/event6.jpg" alt="alt" />
                     </figure>
                 </li>
 				<li class="mix category_2 one_third_gallery_wild" data-cat="2">
@@ -887,7 +958,7 @@
                                 <a href="more_details.html" class="icon-effect"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                        <img class="" src="images/event2.jpg" alt="alt" />
+                        <img class="" src="member/images/event2.jpg" alt="alt" />
                     </figure>
                 </li>
                 <li class="mix category_3 one_third_gallery_wild" data-cat="3">
@@ -902,7 +973,7 @@
                                 <a href="more_details.html" class="icon-effect"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                        <img class="" src="images/event5.jpg" alt="alt" />
+                        <img class="" src="member/images/event5.jpg" alt="alt" />
                     </figure>
                 </li>
 				<li class="mix category_2 one_third_gallery_wild" data-cat="2">
@@ -917,7 +988,7 @@
                                 <a href="more_details.html" class="icon-effect"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
-                        <img class="" src="images/event4.jpg" alt="alt" />
+                        <img class="" src="member/images/event4.jpg" alt="alt" />
                     </figure>
                 </li>
 				<li class="gap"></li>
@@ -932,12 +1003,12 @@
        <hr class="separator2"/>
        <section class="sponsors">
         <article id="sponsorpoker">
-          <div class="one_sixth_sponsor"> <a href="#"><img class="" src="images/brand-logo2.png" alt="" /></a> </div>
-          <div class="one_sixth_sponsor"> <a href="#"><img class="" src="images/brand-logo3.png" alt="" /></a> </div>
-          <div class="one_sixth_sponsor"> <a href="#"><img class="" src="images/brand-logo4.png" alt="" /></a> </div>
-          <div class="one_sixth_sponsor"> <a href="#"><img class="" src="images/brand-logo7.png" alt="" /></a> </div>
-          <div class="one_sixth_sponsor"> <a href="#"><img class="" src="images/brand-logo5.png" alt="" /></a> </div>
-          <div class="one_sixth_sponsor lastcolumn"> <a href="#"><img class="" src="images/brand-logo1.png" alt="" /></a> </div>
+          <div class="one_sixth_sponsor"> <a href="#"><img class="" src="member/images/brand-logo2.png" alt="" /></a> </div>
+          <div class="one_sixth_sponsor"> <a href="#"><img class="" src="member/images/brand-logo3.png" alt="" /></a> </div>
+          <div class="one_sixth_sponsor"> <a href="#"><img class="" src="member/images/brand-logo4.png" alt="" /></a> </div>
+          <div class="one_sixth_sponsor"> <a href="#"><img class="" src="member/images/brand-logo7.png" alt="" /></a> </div>
+          <div class="one_sixth_sponsor"> <a href="#"><img class="" src="member/images/brand-logo5.png" alt="" /></a> </div>
+          <div class="one_sixth_sponsor lastcolumn"> <a href="#"><img class="" src="member/images/brand-logo1.png" alt="" /></a> </div>
         </article>
       </section>
     </div>
@@ -986,7 +1057,7 @@
                                 <div class="email">
                                     <label for="email">Your Email:</label>
                                     <p> Please enter your email address</p>
-                                    <input id="email" name="emai" type="text" placeholder="example@domain.com" required />
+                                    <input id="emailid" name="emai" type="text" placeholder="example@domain.com" required />
                                 </div>
                                 <div class="message">
                                     <label for="message">Your Message:</label>
@@ -1009,7 +1080,7 @@
                     <div id="footer" class="footer_content">
                         <div class="two_third_contact">
                             <div class="one_fourth">
-                                <img src="images/logo_footer.png" alt="log" />
+                                <img src="member/images/logo_footer.png" alt="log" />
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nibh magna, fringilla sit amet lobortis id, posuere sit amet metus.</p>
                                 <p>Lorem ipsum dolor sit amet, consectetur Aenean nibh magna, fringilla sit amet.</p>
                             </div>
@@ -1025,7 +1096,7 @@
                             </div>
                             <div class="one_fourth">
                                 <h3>Flickr Photos</h3>
-                                <script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?show_name=1&amp;count=6&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=35244330@N00"></script>
+                                <!--<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?show_name=1&amp;count=6&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=35244330@N00"></script> -->
                             </div>
                             <div class="cleartags"></div>
                             <div class="one_fourth">
@@ -1051,6 +1122,47 @@
     </div>
   </div>
 </div>
+<!--
+<form method="post" action="/login" id="login-form">
+  <fieldset>
+    <section><label class="input"><i class="fa fa-append fa-user"></i><input type="text" id="email" required="required" name="email" placeholder="User Id"></label></section>
+    <section><label class="input"><i class="fa fa-append fa-lock"></i><input type="password" id="password" type="password" name="password" required="required"  placeholder="Password"></label></section>
+    <button type="submit" class="button">Login</button>
+  </fieldset>
+</form>
+-->
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"><input type="hidden" name="_token" value="{{ csrf_token() }}"></form>
+
+
+
+<div class="modal hide" id="loginModal">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">x</button>
+            <h3>Login to Account</h3>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-danger error-message hide">
+              <strong>Error!</strong> These credentials do not match our records..
+            </div>
+            <div class="alert alert-success success-message show">
+              <strong>Success!</strong> Login successfull. Redirecting to dashboard...
+            </div>
+            <form method="post" action="{{ route('login') }}" id="login-form1">
+              <p><input type="text" class="span3" type="text" id="email" required="required" name="email" placeholder="User Id"></p>
+              <p><input type="password" class="span3" id="password" type="password" name="password" required="required"  placeholder="Password"></p>
+              <p>
+                <button type="reset" class="btn btn-primary">Reset</button>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <a href="#">Forgot Password?</a>
+              </p>
+            </form>
+          </div>
+          <div class="modal-footer">
+            New To MyWebsite.com?
+            <a href="#" class="">Register</a>
+          </div>
+        </div>
+
     <script type="text/javascript" src="{!! asset('member/js/jquery.easing.1.3.js')!!}"></script>
     <script src="{!! asset('member/js/jquery.fancybox-1.3.4.pack.js')!!}" type="text/javascript"></script>
     <script src="{!! asset('member/js/scroll/jquery.bxslider.js')!!}" type="text/javascript"></script>
@@ -1073,6 +1185,8 @@
     <script src="{!! asset('member/js/screen.js')!!}" type="text/javascript"></script>
 
     <script src="{!! asset('member/js/jquery.nav1.js')!!}" type="text/javascript"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function () { "use strict"; $('#Grid_top').mixitup(); });
         $(function () { "use strict"; $('#Grid').mixitup(); });
@@ -1080,36 +1194,68 @@
 
     <!-- Contact Form -->
     <script type="text/javascript">
+
+
         $(document).ready(function () {
-            $(function () {
-                "use strict";
-                $('#contact_form').submit(function (e) {
-                    e.preventDefault();
-                    var form = $(this);
-                    var name = $("#name").val();
-                    var email = $("#email").val();
-                    var text = $("#message").val();
-                    var dataString = 'name=' + name + '&email=' + email + '&message=' + text;
-                    function isValidEmail(emailAddress) {
-                        var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
-                        return pattern.test(emailAddress);
-                    };
-                    if (isValidEmail(email) && (text.length > 20) && (name.length > 1)) {
-                        $.ajax({
-                            type: 'POST',
-                            url: "contact_form/contact_process.php",
-                            data: dataString,
-                            success: function () {
-                                $('.success').fadeIn(1000);
-                            }
-                        });
-                    } else {
-                        $('.error').fadeIn(1000);
-                    }
-                });
+          $(".right").click(function(){
+            $(".success-message").hide()
+            $(".error-message").hide()
+          });
+
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+
+
+
+          $("#login-form1").submit(function(e) {
+
+            e.preventDefault();
+            var $form = $(this);
+            $.post($form.attr("action"), $form.serialize())
+            .done(function(data) {
+              console.log(data);
+              // Some stuff there
+              $(".success-message").show()
+              $(".error-message").hide()
+              window.location.href = '{{ route('redirect') }}';
+            })
+            .fail(function(xhr, status, error) {
+              $(".success-message").hide()
+              $(".error-message").show()
+              /*
+              if (xhr.responseText != "") {
+                  var jsonResponseText = $.parseJSON(xhr.responseText);
+                  var jsonResponseStatus = '';
+                  var message = '';
+                  $.each(jsonResponseText, function(name, val) {
+                      if (name == "ResponseStatus") {
+                          jsonResponseStatus = $.parseJSON(JSON.stringify(val));
+                           $.each(jsonResponseStatus, function(name2, val2) {
+                               if (name2 == "Message") {
+                                   message = val2;
+                               }
+                           });
+                      }
+                  });
+              } */
+
+              // Dispatch errors in modal
             });
+          });
+
         });
     </script>
+    <style>
+    .btn-primary {background: #D4202B;}
+    .modal-dialog {
+        margin: 40vh auto 0px auto
+    }
+    .modal {top:30%;}
+
+    </style>
 
 </body>
 </html>
