@@ -36,4 +36,25 @@ class Transaction extends Model
             ->where(['from_user_id' => $userId, 'request_status' => 0])
             ->get();
     }
+
+    public function cancelTransferRequest($ids, $fromUserId) {
+        return $this::whereIn('id', $ids)
+                    ->where('from_user_id', $fromUserId)
+                    ->delete();
+    }
+
+    public function updateTransferRequest($ids, $toUserId, $status) {
+        $statusBool = ($status == 'accept') ? 1 : 2;
+        return $this::whereIn('id', $ids)
+            ->where('to_user_id', $toUserId)
+            ->update(['request_status' => $statusBool]);
+    }
+
+    public function getSumRequestedPoint($toUserId, $ids) {
+        return $this::select(DB::raw("sum(amount) as total_amount"))
+                ->whereIn('id', $ids)
+                ->where(['to_user_id' => $toUserId, 'request_status' => 0])
+                ->first()
+                ->toArray();
+    }
 }

@@ -16,6 +16,8 @@ Route::get('/', 'MemberController@index')->name('sitehome');
 Route::get('/game', 'UserBidController@getGame')->name('game');
 Route::get('/point-transfer', 'TransactionController@pointTransfer');
 Route::post('/point-transfer-request', 'TransactionController@pointTransferRequest');
+Route::post('/point-transfer-cancel', 'TransactionController@pointTransferCancel');
+Route::post('/point-transfer-update', 'TransactionController@pointTransferUpdate');
 
 Route::get('admin/dashboard', 'DashboardController@myHome')->name('dashboard');
 Route::get('admin/test', 'DashboardController@test');

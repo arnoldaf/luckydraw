@@ -186,6 +186,7 @@ $('#contact_form_points').on('submit', function (e) {
     e.preventDefault();
     let _this = $(this);
     let data = _this.serialize();
+    let accNum = _this.find('#acc-num').val();
     let _errorWrap = _this.find('.error-msg');
     _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success').html('Processing....');
     $.ajax({
@@ -197,6 +198,13 @@ $('#contact_form_points').on('submit', function (e) {
                 _errorWrap.removeClass('alert-success').removeClass('hidden').addClass('alert-danger').html(resp.message);
             } else {
                 _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success').html('Request has been sent.');
+                let transferableWrapper = $('.transferable-amount-wrap');
+                let newRow = transferableWrapper.find('.transferable-record.snippet').clone().removeClass('snippet').removeClass('hidden');
+                newRow.find('.transactionId').val(resp.data.id);
+                newRow.find('.userAccount').text(accNum);
+                newRow.find('.amount').text(resp.data.amount);
+                newRow.find('.createdAt').text(resp.data.created_at);
+                newRow.insertBefore('.transferable-record.snippet');
                 _this[0].reset();
             }
             setTimeout(function () {
@@ -208,4 +216,95 @@ $('#contact_form_points').on('submit', function (e) {
         }
     });
    //console.log($(this).serialize());
+});
+
+$('.select-all').on('click', function () {
+   let _this = $(this);
+   let wrapper = _this.closest('.table');
+   if (_this.prop("checked") == true) {
+       wrapper.find('.transactionId').prop("checked", true);
+   } else {
+       wrapper.find('.transactionId').prop("checked", false);
+   }
+});
+
+$('.cancel-transaction').on('click', function () {
+    let _this = $(this);
+    let wrapper = _this.closest('.table');
+    let ids = new Array();
+    wrapper.find('.transactionId').each(function () {
+       if ($(this).prop("checked") == true) {
+           ids.push($(this).val());
+       }
+    });
+
+    if (ids.length > 0) {
+        let _errorWrap = $('.transfer-error-msg');
+        _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success').html('Processing....');
+        $.ajax({
+            url: sit_url + '/point-transfer-cancel',
+            type: 'POST',
+            data: {ids: ids, _token: $("meta[name=csrf-token]").attr("content")},
+            success: function (resp) {
+                _errorWrap.html(resp.message);
+                if (resp.result) {
+                    _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success');
+                } else {
+                    _errorWrap.removeClass('alert-success').removeClass('hidden').addClass('alert-danger');
+                }
+                for (i =0; i < ids.length; i++) { // to remove selected records
+                    wrapper.find(".transactionId[value='" + ids[i] + "']").closest('.transferable-record').remove();
+                }
+                setTimeout(function () {
+                    _errorWrap.removeClass('alert-danger').removeClass('alert-success').addClass('hidden').html('');
+                }, 4000);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    } else {
+        return;
+    }
+});
+
+$('.request-update').on('click', function () {
+    let _this = $(this);
+    let status = _this.attr('data-status');
+    let wrapper = _this.closest('.table');
+    let ids = new Array();
+    wrapper.find('.transactionId').each(function () {
+        if ($(this).prop("checked") == true) {
+            ids.push($(this).val());
+        }
+    });
+
+    if (ids.length > 0) {
+        let _errorWrap = $('.receive-error-msg');
+        _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success').html('Processing....');
+        $.ajax({
+            url: sit_url + '/point-transfer-update',
+            type: 'POST',
+            data: {ids: ids, status: status, _token: $("meta[name=csrf-token]").attr("content")},
+            success: function (resp) {
+                _errorWrap.html(resp.message);
+                if (resp.result) {
+                    _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success');
+                } else {
+                    _errorWrap.removeClass('alert-success').removeClass('hidden').addClass('alert-danger');
+                }
+                for (i =0; i < ids.length; i++) { // to remove selected records
+                    wrapper.find(".transactionId[value='" + ids[i] + "']").closest('.receivable-record').remove();
+                }
+                setTimeout(function () {
+                    _errorWrap.removeClass('alert-danger').removeClass('alert-success').addClass('hidden').html('');
+                }, 4000);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    } else {
+        return;
+    }
 });

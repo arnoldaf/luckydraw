@@ -21,7 +21,8 @@
                                     <h3>Receivables</h3> <a href="#" class="refresh-bt">  <i class="fa fa-refresh" aria-hidden="true"></i> Refresh </a>
                                 </div>
                                 <div class="score-table">
-                                    <table class="table table-striped ">
+                                    <div class="receive-error-msg alert hidden">  </div>
+                                    <table class="table table-striped receivable-amount-wrap">
                                         <thead>
                                         <tr>
                                             <th class="one"><h3>Select</h3></th>
@@ -33,24 +34,24 @@
                                         </thead>
                                         <tbody>
                                         @foreach($receivables as $rcv)
-                                        <tr class="evenrow">
-                                            <td class="one"><input type="checkbox" name="" value="{{$rcv->id}}"></td>
-                                            <td class="four" >{{$rcv->user_account}}</td>
-                                            <td class="three">{{$rcv->amount}}</td>
-                                            <td class="two">{{$rcv->created_at}}</td>
+                                        <tr class="evenrow receivable-record">
+                                            <td class="one"><input type="checkbox" name="" class="transactionId" value="{{$rcv->id}}"></td>
+                                            <td class="four userAccount">{{$rcv->user_account}}</td>
+                                            <td class="three amount">{{$rcv->amount}}</td>
+                                            <td class="two createdAt">{{$rcv->created_at}}</td>
                                         </tr>
                                         @endforeach
                                         </tbody>
                                         <thead>
                                         <tr class="points-all">
                                             <td >
-                                                <div class="half-box blackbg" style="width:40%;"><input type="checkbox" name=""> Select All</div>
+                                                <div class="half-box blackbg" style="width:40%;"><input type="checkbox" name="" class="select-all"> Select All</div>
 
                                                 <div class="half-box blackbg" style="width:60%;">
-                                                    <a href="javascript:void(0)" id="reset_checker"  class="buttons-points">
+                                                    <a href="javascript:void(0)" id="reset_checker"  data-status="accept" class="buttons-points request-update">
                                                         <i class="fa fa-credit-card" aria-hidden="true"></i> Receive
                                                     </a>
-                                                    <a href="javascript:void(0)" id="reset_checker"  class="buttons-points">
+                                                    <a href="javascript:void(0)" id="reset_checker" data-status="reject" class="buttons-points request-update">
                                                         <i class="fa fa-times" aria-hidden="true"></i> Reject
                                                     </a>
                                                 </div>
@@ -71,36 +72,47 @@
                                     <h3>Transferable</h3> <a href="#" class="refresh-bt"> Point Transfer </a>
                                 </div>
                                 <div class="score-table">
-                                    <table class="table table-striped ">
+                                    <div class="transfer-error-msg alert hidden">  </div>
+                                    <table class="table table-striped transferable-amount-wrap">
                                         <thead>
                                         <tr>
                                             <th class="one"><h3>Select</h3></th>
                                             <th class="four"><h3>Account</h3></th>
                                             <th class="three"><h3>Amount </h3></th>
-                                            <th class="two"><h3>Type</h3></th>
+                                            <th class="two"><h3> Date </h3></th>
 
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($transferable as $trnsf)
-                                        <tr class="evenrow">
-                                            <td class="one"><input type="checkbox" name="" value="{{$trnsf->id}}"></td>
-                                            <td class="four" >{{$trnsf->user_account}}</td>
-                                            <td class="three">{{$trnsf->amount}}</td>
-                                            <td class="two">{{$trnsf->created_at}}</td>
+                                        <tr class="evenrow transferable-record">
+                                            <td class="one">
+                                                <input type="checkbox" name="transaction_id[]" class="transactionId" value="{{$trnsf->id}}">
+                                            </td>
+                                            <td class="four userAccount">{{$trnsf->user_account}}</td>
+                                            <td class="three amount">{{$trnsf->amount}}</td>
+                                            <td class="two createdAt">{{$trnsf->created_at}}</td>
                                         </tr>
                                         @endforeach
+                                        <tr class="evenrow transferable-record snippet hidden">
+                                            <td class="one">
+                                                <input type="checkbox" name="" value="" class="transactionId">
+                                            </td>
+                                            <td class="four userAccount"></td>
+                                            <td class="three amount"> </td>
+                                            <td class="two createdAt"> </td>
+                                        </tr>
                                         </tbody>
                                         <thead>
                                         <tr class="points-all">
                                             <td >
-                                                <div class="half-box blackbg" style="width:40%;"><input type="checkbox" name=""> Select All</div>
-
+                                                <div class="half-box blackbg" style="width:40%;">
+                                                    <input type="checkbox" name="" class="select-all"> Select All
+                                                </div>
                                                 <div class="half-box blackbg" style="width:60%;">
-
-                                                    <a href="javascript:void(0)" id="reset_checker"  class="buttons-points">
+                                                    <a href="javascript:void(0)" id="reset_checker"  class="buttons-points cancel-transaction">
                                                         <i class="fa fa-times" aria-hidden="true"></i> Cancel
-                                                    </a> <a href="#" class="refresh-bt"> Close </a>
+                                                    </a>
                                                 </div>
 
                                             </td>

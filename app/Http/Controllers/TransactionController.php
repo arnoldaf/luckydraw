@@ -20,4 +20,12 @@ class TransactionController extends Controller
     public function pointTransferRequest(Request $request) {
         return response()->json((new TransactionService())->pointTransferRequest($request));
     }
+
+    public function pointTransferCancel(Request $request) {
+        return response()->json((new TransactionService())->pointTransferCancel($request));
+    }
+
+    public function pointTransferUpdate(Request $request) {
+        return response()->json((new TransactionService())->pointTransferUpdate($request));
+    }
 }
