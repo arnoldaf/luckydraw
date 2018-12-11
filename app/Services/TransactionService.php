@@ -117,6 +117,15 @@ class TransactionService {
                     $fromUserDetail->last_balance = $fromUserDetail->last_balance - $fromUser->amount;
                     $fromUserDetail->save();
                 }
+            } else { // case of reject
+                // need to add back amount to sender account
+                for ($i=0; $i < count($ids); $i++) {
+                    $fromUser = Transaction::where(['id' =>$ids[$i], 'to_user_id' => $toUserId])
+                        ->first();
+                    $fromUserDetail = User::find($fromUser->from_user_id);
+                    $fromUserDetail->last_balance = $fromUserDetail->last_balance + $fromUser->amount;
+                    $fromUserDetail->save();
+                }
             }
 
             return ['result' => true, 'message' => 'Request updated successfully'];
