@@ -39,7 +39,7 @@ class Transaction extends Model
 
     public function cancelTransferRequest($ids, $fromUserId) {
         return $this::whereIn('id', $ids)
-                    ->where('from_user_id', $fromUserId)
+                    ->where(['from_user_id' => $fromUserId, 'request_status' => 0])
                     ->delete();
     }
 

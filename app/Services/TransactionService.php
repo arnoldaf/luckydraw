@@ -89,7 +89,7 @@ class TransactionService {
     }
 
     public function pointTransferUpdate($request) {
-        $toUserId = (new UserController())->getCurrentUserId(); //TODO logged In userId
+        $toUserId = (new UserController())->getCurrentUserId();
         $ids = $request->ids;
         $status = $request->status;
         if ($status == 'accept') { // need to update user's balance
@@ -100,6 +100,14 @@ class TransactionService {
                 $user = User::find($toUserId);
                 $user->last_balance = $user->last_balance + $sumAmount['total_amount'];
                 $user->save();
+                // need to deduct amount from sender
+                for ($i=0; $i < count($ids); $i++) {
+                    $fromUser = Transaction::where(['id' =>$ids[$i], 'to_user_id' => $toUserId])
+                                            ->first();
+                    $fromUserDetail = User::find($fromUser->from_user_id);
+                    $fromUserDetail->last_balance = $fromUserDetail->last_balance - $fromUser->amount;
+                    $fromUserDetail->save();
+                }
             }
 
             return ['result' => true, 'message' => 'Request updated successfully'];
