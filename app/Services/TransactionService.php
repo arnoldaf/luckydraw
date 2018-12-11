@@ -19,9 +19,9 @@ class TransactionService {
     public function pointTransferRequest($request) {
         try {
             $currentUser = (new UserController())->getCurrentUser();
-            $fromUserId  = $currentUser->id; //TODO userId of logged in user
-            $storedPin = $currentUser->pin; //TODO pin of logged in user
-            $userTotalAmount = $currentUser->last_balance; //TODO total_balance of logged in user
+            $fromUserId  = $currentUser->id;
+            $storedPin = $currentUser->pin;
+            $userTotalAmount = $currentUser->last_balance;
             $userAccount = $request->user_account;
             if ($request->pin != $storedPin) { //to validate pin
                 return ['result' => false, 'message' => 'Invalid PIN'];
@@ -35,8 +35,8 @@ class TransactionService {
             if (!$bool || $toUserId == $fromUserId) {
                 return ['result' => false, 'message' => 'Invalid User Account'];
             }
-            $pendingAmountResult = (new Transaction())->getTotalRequestedAmount($fromUserId);
-            if (($pendingAmountResult['total_amount'] + $request->amount) > $userTotalAmount) { // validate amount
+            //$pendingAmountResult = (new Transaction())->getTotalRequestedAmount($fromUserId);
+            if ( $request->amount > $userTotalAmount) { // validate amount
                 return ['result' => false, 'message' => 'Insufficient Balance'];
             }
             $transaction = new Transaction();
@@ -45,6 +45,10 @@ class TransactionService {
             $transaction->amount = $request->amount;
             $transaction->request_status = 0;
             $transaction->save();
+            //to deduct this requested amount from user account
+            $user = User::find($fromUserId);
+            $user->last_balance = $user->last_balance - $request->amount;
+            $user->save();
 
             return ['result' => true, 'message' => 'Request made successfully', 'data' => $transaction];
         } catch (\Exception $exception) {
@@ -79,9 +83,14 @@ class TransactionService {
     }
 
     public function pointTransferCancel($request) {
-        $fromUserId = (new UserController())->getCurrentUserId(); //TODO logged In userId
+        $fromUserId = (new UserController())->getCurrentUserId();
         $ids = $request->ids;
+        $sumTransferAmountObj = (new Transaction())->getSumTransferRequestedPoint($fromUserId, $ids);
         if ((new Transaction())->cancelTransferRequest($ids, $fromUserId) > 0) {
+            $user = User::find($fromUserId);
+            $user->last_balance = $user->last_balance + $sumTransferAmountObj['total_amount'];
+            $user->save();
+
             return ['result' => true, 'message' => 'Request canceled successfully'];
         }
 

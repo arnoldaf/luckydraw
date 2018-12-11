@@ -57,4 +57,12 @@ class Transaction extends Model
                 ->first()
                 ->toArray();
     }
+
+    public function getSumTransferRequestedPoint($fromUserId, $ids) {
+        return $this::select(DB::raw("sum(amount) as total_amount"))
+            ->whereIn('id', $ids)
+            ->where(['from_user_id' => $fromUserId, 'request_status' => 0])
+            ->first()
+            ->toArray();
+    }
 }
