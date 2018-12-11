@@ -373,6 +373,9 @@ class UserController extends Controller
         if($joineddate != '')
             $filters['created_at'] = $joineddate;
        //print_r($filters);
+       if($status == '') {
+         $status = 1;
+       }
        if($status != '')
           $users = User::where('active', '=', $status);
        foreach($filters as $key=>$val) {
@@ -429,7 +432,6 @@ class UserController extends Controller
     }
 
     public function generateUUID($role_id){
-      echo $role_id;
        $uuid = '';
        switch ($role_id){
          case '1':
@@ -464,15 +466,15 @@ class UserController extends Controller
            break;
          case '4':
              $cmkUsers = User::where('role_id', '4')->OrderBy('id', 'DESC')->first();
-             echo $lastUUID = $cmkUsers['user_account'];
+            $lastUUID = $cmkUsers['user_account'];
 
              if($lastUUID == '') {
-               echo 'p'.$uuid = env('CMKSERIES_PREFIX').env('CMKSERIES');
+               $uuid = env('CMKSERIES_PREFIX').env('CMKSERIES');
              } else {
                //echo $uuid =  $uuid + 1;
                 $uuid = substr($lastUUID, 3) ;
                 //$uuid =  $uuid + 1;
-              echo 'q'.  $uuid = env('CMKSERIES_PREFIX').(((int)$uuid)+1);
+                $uuid = env('CMKSERIES_PREFIX').(((int)$uuid)+1);
              }
            break;
        }
@@ -502,6 +504,34 @@ class UserController extends Controller
 
            return redirect()->route('home111');
         }
+    }
+    /**
+     * Get the currently authenticated user...
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCurrentUser()
+    {
+      if( Auth::check() ){
+        $user = Auth::user();
+        return $user;
+      } else {
+        return null;
+      }
+    }
+    /**
+     * Get the currently authenticated user...
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCurrentUserId()
+    {
+      if( Auth::check() ){
+        $user = Auth::user();
+        return $user->id;
+      } else {
+        return null;
+      }
     }
 
 }

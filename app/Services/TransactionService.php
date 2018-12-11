@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\User;
 use App\Transaction;
+use App\Http\Controllers\UserController;
 
 
 class TransactionService {
@@ -17,9 +18,10 @@ class TransactionService {
 
     public function pointTransferRequest($request) {
         try {
-            $fromUserId  = 1; //TODO userId of logged in user
-            $storedPin = 1234; //TODO pin of logged in user
-            $userTotalAmount = 4000; //TODO total_balance of logged in user
+            $currentUser = (new UserController())->getCurrentUser();
+            $fromUserId  = $currentUser->id; //TODO userId of logged in user
+            $storedPin = $currentUser->pin; //TODO pin of logged in user
+            $userTotalAmount = $currentUser->last_balance; //TODO total_balance of logged in user
             $userAccount = $request->user_account;
             if ($request->pin != $storedPin) { //to validate pin
                 return ['result' => false, 'message' => 'Invalid PIN'];
@@ -77,7 +79,7 @@ class TransactionService {
     }
 
     public function pointTransferCancel($request) {
-        $fromUserId = 1; //TODO logged In userId
+        $fromUserId = (new UserController())->getCurrentUserId(); //TODO logged In userId
         $ids = $request->ids;
         if ((new Transaction())->cancelTransferRequest($ids, $fromUserId) > 0) {
             return ['result' => true, 'message' => 'Request canceled successfully'];
@@ -87,7 +89,7 @@ class TransactionService {
     }
 
     public function pointTransferUpdate($request) {
-        $toUserId = 1; //TODO logged In userId
+        $toUserId = (new UserController())->getCurrentUserId(); //TODO logged In userId
         $ids = $request->ids;
         $status = $request->status;
         if ($status == 'accept') { // need to update user's balance

@@ -82,7 +82,7 @@
         -->
 
         <li aria-haspopup="true" class="right">
-            <a href="#"><i class="fa fa-lock"></i>Register</a>
+
             <div class="grid-container5">
                 <form action="#">
                     <fieldset>
@@ -148,10 +148,10 @@
               </div>
           </li>
 
-          <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Balance: &#8377;{{(Auth::user()->last_balance == 0 ? '0.00':Auth::user()->last_balance) }}</a>
+          <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Balance:&#8377;{{(Auth::user()->last_balance == 0 ? '0.00':Auth::user()->last_balance) }}</a>
 
           </li>
-              <li aria-haspopup="true" class="right last"><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Welcome: {{Auth::user()->first_name }}</a>
+              <li aria-haspopup="true" class="right last" style="border-left-width: 0px;"><a class="link_onepages" href="#section-3"><i class=""></i>Welcome: {{Auth::user()->first_name }}</a>
                   <div class="grid-container4">
                       <ul>
                           <li><a href="#"><i class="fa fa-check"></i>Profile</a></li>

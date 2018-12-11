@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Services\TransactionService;
+use App\Http\Controllers\UserController;
 
 class TransactionController extends Controller
 {
     //
     public function pointTransfer() {
-        $userId = 1; //TODO logged in id
+        $userId = (new UserController())->getCurrentUserId(); //TODO logged in id
         $requests['receivables'] = (new TransactionService())->getReceivableRecords($userId);
         $requests['transferable'] = (new TransactionService())->getTransferableRecords($userId);
         //dd($requests['transferable']);
