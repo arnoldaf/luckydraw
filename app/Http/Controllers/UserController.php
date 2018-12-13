@@ -327,13 +327,16 @@ class UserController extends Controller
      */
     public function search(Request $request)
     {
-        //DB::enableQueryLog();
+        DB::enableQueryLog();
         $userid = $request->input('userid');
         $name = $request->input('name');
         $emailid = $request->input('emailid');
         $phone = $request->input('phone');
         $status = $request->input('status');
-        $joineddate = $request->input('joineddate');
+        $reportrange = $request->input('reportrange');
+        $dates =  explode(' - ', $reportrange);
+        $fromDate =  date('Y-m-d', strtotime($dates[0]));
+        $toDate =  date('Y-m-d', strtotime($dates[1]));
         /*
         $searchTerm = $request->input('user_search_box');
         $searchRules = [
@@ -370,8 +373,7 @@ class UserController extends Controller
             $filters['email'] = $emailid;
         if($phone != '')
           $filters['phone'] = $phone;
-        if($joineddate != '')
-            $filters['created_at'] = $joineddate;
+
        //print_r($filters);
        if($status == '') {
          $status = 1;
@@ -381,6 +383,8 @@ class UserController extends Controller
        foreach($filters as $key=>$val) {
          $users = $users->where("$key", 'like', $val.'%');
        }
+       if($reportrange != '')
+           $users->whereBetween('created_at', array($fromDate, $toDate));
 
        /*
        exit;

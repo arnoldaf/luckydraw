@@ -105,10 +105,8 @@
 
              <div class="col-md-4">
 
-               <input class="form-control" type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
-
-
-                 <input class="form-control" type="text" name="joineddate" id="joineddate" placeholder="YYYY-MM-DD" maxlength="191" autofocus="">
+               <input class="form-control" type="text" autocomplete="off" name="reportrange" onkeydown="no_backspaces(event);" value="01/01/2018 - 01/15/2018" />
+               <!--<input class="form-control" type="text" name="joineddate" id="joineddate" placeholder="YYYY-MM-DD" maxlength="191" autofocus="">-->
 
              </div><!--col-->
 
