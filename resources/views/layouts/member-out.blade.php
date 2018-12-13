@@ -127,7 +127,7 @@
                 </div>
             </li>
             <!--<li><a class="link_onepages" href="#section-6"><i class="fa fa-single fa-envelope"></i></a></li>-->
-            <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Balance: &#8377;{{(Auth::user()->last_balance == 0 ? '0.00':Auth::user()->last_balance) }}</a>
+            <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Balance: &#8377; <span class="user-balance">{{(Auth::user()->last_balance == 0 ? '0.00':Auth::user()->last_balance) }} </span></a>
                 <!--<div class="grid-container4">
                     <ul>
                         <li><a href="#"><i class="fa fa-check"></i>INR {{(Auth::user()->last_balance == 0 ? '0.00':Auth::user()->last_balance) }}</a></li>

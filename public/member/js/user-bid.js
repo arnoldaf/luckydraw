@@ -206,6 +206,9 @@ $('#contact_form_points').on('submit', function (e) {
                 newRow.find('.createdAt').text(resp.data.created_at);
                 newRow.insertBefore('.transferable-record.snippet');
                 _this[0].reset();
+                //to update user's balance
+                let userBalance = parseInt($('.user-balance').text());
+                $('.user-balance').text(userBalance - resp.data.amount);
             }
             setTimeout(function () {
                 _errorWrap.removeClass('alert-danger').removeClass('alert-success').addClass('hidden').html('');
@@ -232,9 +235,11 @@ $('.cancel-transaction').on('click', function () {
     let _this = $(this);
     let wrapper = _this.closest('.table');
     let ids = new Array();
+    let canceledBalance = 0;
     wrapper.find('.transactionId').each(function () {
        if ($(this).prop("checked") == true) {
            ids.push($(this).val());
+           canceledBalance = parseInt($(this).closest('.transferable-record').find('.amount').text()) + canceledBalance;
        }
     });
 
@@ -249,6 +254,9 @@ $('.cancel-transaction').on('click', function () {
                 _errorWrap.html(resp.message);
                 if (resp.result) {
                     _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success');
+                    //to update user balance
+                    let userBalance = parseInt($('.user-balance').text());
+                    $('.user-balance').text(userBalance + canceledBalance);
                 } else {
                     _errorWrap.removeClass('alert-success').removeClass('hidden').addClass('alert-danger');
                 }
@@ -273,9 +281,13 @@ $('.request-update').on('click', function () {
     let status = _this.attr('data-status');
     let wrapper = _this.closest('.table');
     let ids = new Array();
+    let acceptedAmount = 0;
     wrapper.find('.transactionId').each(function () {
         if ($(this).prop("checked") == true) {
             ids.push($(this).val());
+            if (status == "accept") {
+                acceptedAmount = parseInt($(this).closest('.receivable-record').find('.amount').text()) + acceptedAmount;
+            }
         }
     });
 
@@ -290,6 +302,11 @@ $('.request-update').on('click', function () {
                 _errorWrap.html(resp.message);
                 if (resp.result) {
                     _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success');
+                    //to update user balance
+                    if (status == "accept") {
+                        let userBalance = parseInt($('.user-balance').text());
+                        $('.user-balance').text(userBalance + acceptedAmount);
+                    }
                 } else {
                     _errorWrap.removeClass('alert-success').removeClass('hidden').addClass('alert-danger');
                 }
