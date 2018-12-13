@@ -37,9 +37,29 @@
     <span>Game Mgmt</span>
   </a>
   <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-    <a class="dropdown-item" href="#"> Game Setting</a>
-    <a class="dropdown-item" href="#">Game Results</a>
+    <a class="dropdown-item" href="#"> Game Creation</a>
+    <a class="dropdown-item" href="#">Game Time Settings </a>
+    <a class="dropdown-item" href="#">Game Bids </a>
+    <a class="dropdown-item" href="#">Result Declaration </a>
   </div>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fas fa-fw fa-folder"></i>
+    <span>Reports</span>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+    <a class="dropdown-item" href="#"> Bid</a>
+    <a class="dropdown-item" href="#">Result</a>
+    <a class="dropdown-item" href="#">Comission </a>
+    <a class="dropdown-item" href="#">Patti </a>
+  </div>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link " href="#" id="pagesDropdown" role="button">
+    <i class="fas fa-fw fa-folder"></i>
+    <span>Logout</span>
+  </a>
 </li>
 
 <!--
