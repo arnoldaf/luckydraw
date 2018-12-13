@@ -53,25 +53,25 @@
     <img src="{!! ('member/images/logo2.jpg') !!}" alt="log" />
   </div>
   <!-- mega menu -->
-    @if( !Auth::check() )
+    @if( !Auth::check() || Auth::user()->role_id ==1)
 			<ul id="navmenu" class="poker-mega-menu poker-mega-menu-anim-scale poker-mega-menu-response-to-icons">
         <li class="menu-first-li">
             <a class="link_onepages" href="{{ route('sitehome') }}"><i class="fa fa-single fa-home"></i></a>
 
         </li>
-        <li ><a class="link_onepages" href="#section-3"><i class="fa fa-eye"></i>Play Game</a>
+        <li ><a class="link_onepages" href="#section-3"><i class="fa fa-gamepad"></i>Play Game</a>
             <div class="grid-container4">
                 <ul>
-                    <li><a href="#"><i class="fa fa-check"></i>Number Game </a></li>
+                    <li><a href="#"><i class="fa fa-money"></i>Number Game </a></li>
                 </ul>
             </div>
         </li>
 
-        <li ><a class="link_onepages" href="#section-3"><i class="fa fa-futbol"></i>Game Results</a>
+        <li ><a class="link_onepages" href="#section-3"><i class="fa fa-bar-chart"></i>Game Results</a>
         </li>
 
         <li aria-haspopup="true">
-					<a class="link_onepage" href="#section-3"><i class="fa fa-eye"></i>About us</a>
+					<a class="link_onepage" href="#section-3"><i class="fa fa-users"></i>About us</a>
 				</li>
 
         <li aria-haspopup="true">
@@ -80,7 +80,7 @@
   			<!--
   				<li><a class="link_onepage" href="#section-6"><i class="fa fa-single fa-envelope"></i></a></li>
         -->
-
+        <!--
         <li aria-haspopup="true" class="right">
 
             <div class="grid-container5">
@@ -98,6 +98,7 @@
                 </form>
             </div>
         </li>
+      -->
         <li aria-haspopup="true" class="right last">
           <a data-toggle="modal" href="#loginModal"><i class="fa fa-sign-in"></i>Login</a>
 
@@ -105,7 +106,7 @@
 
 			</ul>
       @endif
-      @if( Auth::check() )
+      @if( Auth::check() && Auth::user()->role_id !=1)
 
       <ul id="navmenu" class="poker-mega-menu poker-mega-menu-anim-scale poker-mega-menu-response-to-icons">
 
@@ -126,16 +127,15 @@
                   <ul>
                       <li><a href="#"><i class="fa fa-check"></i>My Bid Result </a></li>
                       <li><a href="#"><i class="fa fa-check"></i>Game Results </a></li>
-                      <li><a href="#"><i class="fa fa-check"></i>Transaction History </a></li>
                   </ul>
               </div>
           </li>
           <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Manage My Points</a>
               <div class="grid-container4">
                   <ul>
-                      <li><a href="#"><i class="fa fa-check"></i>Receive </a></li>
-                      <li><a href="#"><i class="fa fa-check"></i>Transfer </a></li>
-                      <li><a href="#"><i class="fa fa-check"></i>Transaction History </a></li>
+                    <li><a href="{{ route('point-transfer') }}"><i class="fa fa-check"></i>Receive </a></li>
+                    <li><a href="{{ route('point-transfer') }}"><i class="fa fa-check"></i>Transfer </a></li>
+                    <li><a href="{{ route('point-transfer') }}"><i class="fa fa-check"></i>Transaction History </a></li>
                   </ul>
               </div>
           </li>
@@ -147,6 +147,18 @@
                   </ul>
               </div>
           </li>
+          @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 3)
+          <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Downline</a>
+              <div class="grid-container4">
+                  <ul>
+                      <li><a href="#"><i class="fa fa-check"></i>Downline  List</a></li>
+                  </ul>
+                  <ul>
+                      <li><a href="#"><i class="fa fa-check"></i>Downline  Client Data</a></li>
+                  </ul>
+              </div>
+          </li>
+          @endif
 
           <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Balance:&#8377;{{(Auth::user()->last_balance == 0 ? '0.00':Auth::user()->last_balance) }}</a>
 
@@ -155,8 +167,7 @@
                   <div class="grid-container4">
                       <ul>
                           <li><a href="#"><i class="fa fa-check"></i>Profile</a></li>
-                          <li><a href="#"><i class="fa fa-check"></i>Change Password</a></li>
-                          <li><a href="#"><i class="fa fa-check"></i>Change PIN</a></li>
+                          <li><a href="#"><i class="fa fa-check"></i>Change Password & PIN</a></li>
                           <li><a data-toggle="modal" onclick="event.preventDefault();document.getElementById('logout-form').submit();" href="{{ route('logout') }}"><i class="fa fa-sign-in"></i>Logout</a></li>
                       </ul>
                   </div>

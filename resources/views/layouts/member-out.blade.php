@@ -105,16 +105,15 @@
                     <ul>
                         <li><a href="#"><i class="fa fa-check"></i>My Bid Result </a></li>
                         <li><a href="#"><i class="fa fa-check"></i>Game Results </a></li>
-                        <li><a href="#"><i class="fa fa-check"></i>Transaction History </a></li>
                     </ul>
                 </div>
             </li>
             <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Manage My Points</a>
                 <div class="grid-container4">
                     <ul>
-                        <li><a href="#"><i class="fa fa-check"></i>Receive </a></li>
-                        <li><a href="#"><i class="fa fa-check"></i>Transfer </a></li>
-                        <li><a href="#"><i class="fa fa-check"></i>Transaction History </a></li>
+                        <li><a href="{{ route('point-transfer') }}"><i class="fa fa-check"></i>Receive </a></li>
+                        <li><a href="{{ route('point-transfer') }}"><i class="fa fa-check"></i>Transfer </a></li>
+                        <li><a href="{{ route('point-transfer') }}"><i class="fa fa-check"></i>Transaction History </a></li>
                     </ul>
                 </div>
             </li>
@@ -126,6 +125,18 @@
                     </ul>
                 </div>
             </li>
+            @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 3)
+            <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Downline</a>
+                <div class="grid-container4">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-check"></i>Downline  List</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-check"></i>Downline  Client Data</a></li>
+                    </ul>
+                </div>
+            </li>
+            @endif
             <!--<li><a class="link_onepages" href="#section-6"><i class="fa fa-single fa-envelope"></i></a></li>-->
             <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Balance: &#8377;{{(Auth::user()->last_balance == 0 ? '0.00':Auth::user()->last_balance) }}</a>
                 <!--<div class="grid-container4">

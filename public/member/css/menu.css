@@ -12,7 +12,7 @@
 	outline: none;
 	border: 0;
 	background: none;
-	
+
 }
 .poker-mega-menu {
 	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -49,6 +49,8 @@
 	line-height: 45px;
 	text-align: left;
 	white-space: nowrap;
+	padding-left: 2px;
+  padding-right: 2px;
 }
 .poker-mega-menu li a {
 	display: block;
@@ -86,7 +88,7 @@
 	left: 0;
 	width: 100%;
 	height: 8px;
-	background: transparent;	
+	background: transparent;
 }
 .poker-mega-menu li > div:before {
 	content: '';
@@ -228,7 +230,7 @@
 	border-left: 5px solid transparent;
 }
 .poker-mega-menu-pos-bottom li li > div {
-	top: auto;	
+	top: auto;
 	bottom: 0;
 }
 .poker-mega-menu-pos-bottom li li > div:before {
@@ -253,7 +255,7 @@
 }
 .poker-mega-menu-pos-left li > div,
 .poker-mega-menu-pos-right li > div {
-	top: 0;	
+	top: 0;
 }
 .poker-mega-menu-pos-left li > div {
 	margin: 0 0 0 8px;
@@ -362,7 +364,7 @@
 	-o-transform: translate(0, 60px);
 	-ms-transform: translate(0, 60px);
 	-moz-transform: translate(0, 60px);
-	-webkit-transform: translate(0, 60px);	
+	-webkit-transform: translate(0, 60px);
 }
 .poker-mega-menu-pos-bottom.poker-mega-menu-anim-slide li > div {
 	-o-transform: translate(0, -60px);
@@ -374,7 +376,7 @@
 	-o-transform: translate(0, 0);
 	-ms-transform: translate(0, 0);
 	-moz-transform: translate(0, 0);
-	-webkit-transform: translate(0, 0);	
+	-webkit-transform: translate(0, 0);
 }
 
 .poker-mega-menu-anim-scale li > div {
@@ -512,7 +514,7 @@
 /* forms */
 /**/
 .poker-mega-menu form fieldset {
-	display: block;	
+	display: block;
 	padding: 25px 30px;
 }
 .poker-mega-menu form fieldset + fieldset {
@@ -642,7 +644,7 @@
 	right: 0;
 	margin: 0;
 }
-@media only screen and (max-width: 1280px) 
+@media only screen and (max-width: 1280px)
 {
     .poker-mega-menu .right{
         float: left;
@@ -664,14 +666,14 @@
 	.poker-mega-menu li a > .fa-indicator {
 		margin-right: -5px;
 	}
-	
+
 	 .poker-mega-menu li a{padding: 0 15px;}
 	 .poker-mega-menu .right {
             border-left-width: 0;
             border-right-width: 1px;
             float: left;
         }
-        
+
 	.poker-mega-menu .grid-column2,
 	.poker-mega-menu .grid-container2 {
 		width: 147px;
@@ -718,7 +720,7 @@
 	}
 }
 
-@media only screen and (min-width: 768px) and (max-width: 959px) 
+@media only screen and (min-width: 768px) and (max-width: 959px)
 {
     .poker-mega-menu .right {
             border-left-width: 0;
@@ -766,7 +768,7 @@
 		padding-right: 10px;
 		padding-left: 10px;
 	}
-	
+
 	.poker-mega-menu .last
 	{
 	    margin-right:20px;
@@ -790,10 +792,10 @@
 	}
 	.poker-mega-menu-response-to-switcher:hover > li {
 		display: block;
-		border-top: 1px solid #d9d9d9;		
+		border-top: 1px solid #d9d9d9;
 	}
 	.poker-mega-menu-response-to-switcher:hover > .switcher {
-		display: none;	
+		display: none;
 	}
 	.poker-mega-menu-response-to-stack li > div,
 	.poker-mega-menu-response-to-stack li > [class^="grid-container"],
@@ -802,7 +804,7 @@
 		top: 100%;
 		bottom: auto;
 		width: auto;
-		margin: 8px 0 0 0;		
+		margin: 8px 0 0 0;
 		-o-transform-origin: 0 0;
 		-ms-transform-origin: 0 0;
 		-moz-transform-origin: 0 0;
@@ -855,8 +857,8 @@
 	.poker-mega-menu-response-to-stack .search .input input,
 	.poker-mega-menu-response-to-switcher .search .input input {
 		width: 100%;
-	}	
-	
+	}
+
   .poker-mega-menu-response-to-icons li {
   	position: static;
   	font-size: 0;
@@ -873,7 +875,7 @@
 	}
 	.poker-mega-menu-response-to-icons li a > .fa {
 		margin: 0;
-	}	
+	}
 	.poker-mega-menu-response-to-icons li a > .fa-indicator {
 		position: static;
 		display: block;
@@ -923,25 +925,25 @@
 		top: auto;
 		bottom: 100%;
 		margin: 0 0 8px 0;
-	}	
+	}
 	.poker-mega-menu-pos-bottom.poker-mega-menu-response-to-icons li li > div:after {
 		top: 100%;
 		bottom: auto;
 	}
 }
-@media only screen and (min-width: 480px) and (max-width: 767px) 
+@media only screen and (min-width: 480px) and (max-width: 767px)
 {
-    
+
 
 }
-@media screen and (max-width: 600px) 
+@media screen and (max-width: 600px)
 {
     .content-menu{width:100%;}
     .poker-mega-menu li{ padding: 3px;}
 
 }
-@media (max-width: 480px) and (orientation: landscape) 
-{ 
+@media (max-width: 480px) and (orientation: landscape)
+{
   .poker-mega-menu-response-to-icons li a {padding: 0 5px;}
     .poker-mega-menu li{ padding: 2px;}
     .poker-mega-menu .right {
@@ -950,13 +952,13 @@
             float: left;
         }
      .poker-mega-menu .last{margin-right:0px;}
-     
+
   }
-@media only screen (max-width: 481px) and (orientation: portrait) 
-{ 
-    .poker-mega-menu-response-to-icons li a {padding: 0 9px;}  
+@media only screen (max-width: 481px) and (orientation: portrait)
+{
+    .poker-mega-menu-response-to-icons li a {padding: 0 9px;}
   }
-@media only screen and (max-width: 385px) 
+@media only screen and (max-width: 385px)
 {
     .poker-mega-menu .right {
         border-left-width: 0px;
@@ -967,7 +969,7 @@
     .poker-mega-menu-response-to-icons li a {padding: 0 8px;}
     .poker-mega-menu li {padding: 3px;}
 }
-@media only screen and (max-width: 321px) 
+@media only screen and (max-width: 321px)
 {
     .poker-mega-menu-response-to-icons li a {padding: 0 7px;}
     .poker-mega-menu li{ padding: 3px;}

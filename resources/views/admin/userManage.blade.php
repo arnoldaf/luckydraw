@@ -104,9 +104,14 @@
              <label class="col-md-2 float-sm-right form-control-label" for="first_name">Joined Date</label>
 
              <div class="col-md-4">
+
+               <input class="form-control" type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+
+
                  <input class="form-control" type="text" name="joineddate" id="joineddate" placeholder="YYYY-MM-DD" maxlength="191" autofocus="">
 
              </div><!--col-->
+
 
 
          </div><!--form-group-->
@@ -177,19 +182,23 @@
                                     <td>{{$user->last_balance}}</td>
                                     <td>{{$user->created_at}}</td>
                                     <td>
+                                      <i class="fas fa-cog"></i>
 
                                       {!! Form::open(array('url' => 'admin/users/' . $user->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                                           {!! Form::hidden('_method', 'DELETE') !!}
                                           {!! Form::button('Delete', array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user ?')) !!}
                                       {!! Form::close() !!}
+
                                       <!--
                                       <a class="btn btn-sm btn-success btn-block" href="{{ URL::to('users/' . $user->id) }}" data-toggle="tooltip" title="Show">
                                           {!! trans('usersmanagement.buttons.show') !!}
                                       </a>
                                     -->
+
                                       <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('admin/users/' . $user->id . '/edit') }}" data-toggle="tooltip" title="Edit">
                                           Edit
                                       </a>
+
                                     </td>
                                 </tr>
                           @endforeach
