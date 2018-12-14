@@ -113,9 +113,4 @@ $(document).on('keydown', '.data-min_max', function (e) {
 });
 
 
-
-$('#datetimepicker1').datetimepicker();
-
-
-
 });

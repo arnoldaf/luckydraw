@@ -8,7 +8,7 @@
                     <div class="content-header">
                     </div><!--content-header-->
 
-       {!! Form::open(array('route' => ['users.update', $user->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'needs-validation')) !!}
+      {!! Form::open(array('route' => ['users.update', $user->id], 'method' => 'PUT', 'role' => 'form', 'class' => 'needs-validation')) !!}
       {!! csrf_field() !!}
         <div class="card">
             <div class="card-body">

@@ -359,7 +359,7 @@
     <title>Administrator Panel</title>
 
     <!-- Bootstrap core CSS-->
-    <link href="{!! asset('admin/vendor/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
+   <link href="{!! asset('admin/vendor/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
     <link href="{!! asset('admin/vendor/fontawesome-free/css/all.min.css') !!}" rel="stylesheet" type="text/css">
@@ -369,7 +369,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{!! asset('admin/css/sb-admin.css') !!}?a=aa" rel="stylesheet">
-    <link href="{!! asset('admin/css/backend.css') !!}" rel="stylesheet">
+ <link href="{!! asset('admin/css/backend.css') !!}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
 
 
@@ -460,44 +460,88 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <style>
 
+    a:hover,a:focus{
+      text-decoration: none;
+      outline: none;
+  }
+  .tab .nav-tabs{
+      border: none;
+      border-bottom: 2px solid #079fc9;
+      margin: 0;
+  }
+  .tab .nav-tabs li a{
+      padding: 5px 20px;
+      margin: 0 10px -1px 0;
+      font-size: 11px;
+      font-weight: 600;
+      color: #293241;
+      text-transform: uppercase;
+      border: 2px solid #e6e5e1;
+      border-bottom: none;
+      border-radius: 5px 5px 0 0;
+      z-index: 1;
+      position: relative;
+      transition: all 0.3s ease 0s;
+  }
+  .tab .nav-tabs li a:hover,
+  .tab .nav-tabs li.active a{
+      background: #fff;
+      color: #079fc9;
+      border: 2px solid #079fc9;
+      border-bottom-color: transparent;
+  }
+  .tab .nav-tabs li a:before{
+      content: "";
+      display: block;
+      height: 2px;
+      background: #fff;
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      transform: scaleX(0);
+      transition: all 0.3s ease-in-out 0s;
+  }
+  .tab .nav-tabs li.active a:before,
+  .tab .nav-tabs li a:hover:before{ transform: scaleX(1); }
+  .tab .tab-content{
+      padding: 10px;
+      font-size: 17px;
+      color: #6f6f6f;
+      line-height: 30px;
+      letter-spacing: 1px;
+      position: relative;
+  }
+  @media only screen and (max-width: 479px){
+      .tab .nav-tabs{ border: none; }
+      .tab .nav-tabs li{
+          width: 100%;
+          text-align: center;
+          margin-bottom: 15px;
+      }
+      .tab .nav-tabs li a{
+          margin: 0;
+          border-bottom: 2px solid transparent;
+      }
+      .tab .nav-tabs li a:before{
+          content: "";
+          width: 100%;
+          height: 2px;
+          background: #079fc9;
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+      }
+  }
+    </style>
 @include('admin.scripts.search-users')
 
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"><input type="hidden" name="_token" value="{{ csrf_token() }}"></form>
   </body>
-  <script>
-  function no_backspaces(event)
-           {
-               backspace = 8;
-               if (event.keyCode == backspace) event.preventDefault();
-           }
-$(function() {
-    var start = moment().subtract(29, 'days');
-    var end = moment();
-
-    function cb(start, end) {
-        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    }
-
-      $('input[name="reportrange"]').daterangepicker({
-        startDate: start,
-        endDate: end,
-        opens: 'left',
-        ranges: {
-             'Today': [moment(), moment()],
-             'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-             'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-             'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-             'This Month': [moment().startOf('month'), moment().endOf('month')],
-             'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          }
-      }, function(start, end, label) {
-          console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-      });
-});
-</script>
 
 </html>

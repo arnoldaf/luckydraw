@@ -19,6 +19,8 @@ Route::post('/point-transfer-request', 'TransactionController@pointTransferReque
 Route::post('/point-transfer-cancel', 'TransactionController@pointTransferCancel');
 Route::post('/point-transfer-update', 'TransactionController@pointTransferUpdate');
 
+
+
 Route::get('admin/dashboard', 'DashboardController@myHome')->name('dashboard');
 Route::get('admin/test', 'DashboardController@test');
 //Route::get('admin/users/create', 'UserController@userCreate');
@@ -41,3 +43,7 @@ Route::resource('admin/users', 'UserController', [
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('search-users', 'UserController@search')->name('search-users');
+
+
+//Super Admin Routes
+Route::get('admin/userProfile/{id}', 'UserController@userProfile')->name('userprofile');

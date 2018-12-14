@@ -180,7 +180,8 @@
                                     <td>{{$user->last_balance}}</td>
                                     <td>{{$user->created_at}}</td>
                                     <td>
-                                      <i class="fas fa-cog"></i>
+                                      <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('admin/userProfile/' . $user->id ) }}" data-toggle="tooltip" title="Edit">
+                                      <i class="fas fa-cog"></i> </a>
 
                                       {!! Form::open(array('url' => 'admin/users/' . $user->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                                           {!! Form::hidden('_method', 'DELETE') !!}

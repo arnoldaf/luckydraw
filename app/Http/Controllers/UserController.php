@@ -228,73 +228,95 @@ class UserController extends Controller
     {
         $currentUser = Auth::user();
         $user = User::find($id);
-        //$emailCheck = ($request->input('email') != '') && ($request->input('email') != $user->email);
-        //$ipAddress = new CaptureIpTrait();
-        $emailCheck = true;
+        $action = $request->input('action');
+        switch ($action) {
+          case 'profile-settings':
+                $emailCheck = true;
+                if ($emailCheck) {
+                    $validator = Validator::make($request->all(), [
+                        'first_name'     => 'required|max:255',
+                        'email'    => 'nullable|email|max:255',
+                        'password' => 'nullable|confirmed|min:6',
+                        'pin'      => 'nullable|min:4|max:4',
+                        'day'      => '',
+                        'month'    => '',
+                        'year'     => '',
+                    ]);
+                }
 
-        if ($emailCheck) {
-            $validator = Validator::make($request->all(), [
-                'first_name'     => 'required|max:255',
-                'email'    => 'nullable|email|max:255',
-                'password' => 'nullable|confirmed|min:6',
-                'pin'      => 'nullable|min:4|max:4',
-                'day'      => '',
-                'month'    => '',
-                'year'     => '',
-            ]);
-        } else {
-            $validator = Validator::make($request->all(), [
-                'password' => 'nullable|confirmed|min:6',
-            ]);
+                if ($validator->fails()) {
+                    return back()->withErrors($validator)->withInput();
+                }
+
+                $user->first_name = $request->input('first_name');
+                $user->last_name = $request->input('last_name');
+
+                $user->address = $request->input('address');
+                $user->city = $request->input('city');
+                $user->country = $request->input('country');
+                $user->phone = $request->input('phone');
+                //$user->role_id = $request->input('role');
+                $user->comission = $request->input('comission');
+                $user->patti = $request->input('patti');
+
+                if($request->input('year') != '' && $request->input('month') != '' && $request->input('day') != '') {
+                  $dob = date('Y-m-d', strtotime($request->input('year').'-'.$request->input('month').'-'.$request->input('day')));
+                  $user->dob = $dob;
+                }
+                $user->active = ($request->input('status') != '')?$request->input('status'):0;
+                $user->save();
+            break;
+
+            case 'password':
+                $emailCheck = true;
+                $validator = Validator::make($request->all(),
+                    [
+                        'password'              => 'nullable|min:6|max:20|confirmed',
+                        'password_confirmation' => 'nullable|same:password',
+                    ],
+                    [
+                        'password.required'   => trans('auth.passwordRequired'),
+                        'password.min'        => trans('auth.PasswordMin'),
+                        'password.max'        => trans('auth.PasswordMax'),
+                    ]
+                );
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+
+            if ($request->input('password') != null) {
+                $user->password = bcrypt($request->input('password'));
+            }
+
+            $user->save();
+
+            break;
+
+            case 'pin':
+                $emailCheck = true;
+                $validator = Validator::make($request->all(),
+                    [
+                        'pin'      => 'nullable|min:4|max:4',
+                    ],
+                    [
+                        'pin.min'  => "Pin should be of 4 digit",
+                    ]
+                );
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+
+            if ($request->input('pin') != null) {
+                $user->password = $request->input('pin');
+            }
+            $user->save();
+            break;
+
+          default:
+            break;
         }
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-
-        $user->first_name = $request->input('first_name');
-        $user->last_name = $request->input('last_name');
-
-        $user->address = $request->input('address');
-        $user->city = $request->input('city');
-        $user->country = $request->input('country');
-        $user->phone = $request->input('phone');
-        $user->role_id = $request->input('role');
-        $user->comission = $request->input('comission');
-        $user->patti = $request->input('patti');
-
-        if($request->input('year') != '' && $request->input('month') != '' && $request->input('day') != '') {
-          $dob = date('Y-m-d', strtotime($request->input('year').'-'.$request->input('month').'-'.$request->input('day')));
-          $user->dob = $dob;
-        }
-
-        $user->active = ($request->input('status') != '')?$request->input('status'):0;
-
-        /*
-        if($request->input('role') == 4) {
-          $user->parent_id = $request->input('distributor_manager');
-        } else if($request->input('role') == 3) {
-          $user->parent_id = $request->input('distributor_manager');
-        } else {
-          $user->parent_id = 0;
-        }
-        */
-
-        /*
-        if ($emailCheck) {
-            $user->email = $request->input('email');
-        }
-        */
-
-        if ($request->input('password') != null) {
-            $user->password = bcrypt($request->input('password'));
-        }
-        if ($request->input('pin') != null) {
-            $user->password = $request->input('pin');
-        }
-
-
-        $user->save();
 
         return back()->with('success', trans('usersmanagement.updateSuccess'));
     }
@@ -386,26 +408,6 @@ class UserController extends Controller
        if($reportrange != '')
            $users->whereBetween('created_at', array($fromDate, $toDate));
 
-       /*
-       exit;
-       if($status != '')
-          $results = User::where('status', '=', $status);
-
-        if($userid != '')
-          $results = User::where('uuid', 'like', $userid.'%');
-        else
-          $results = User::where('uuid', 'like', 'nope%');
-
-        if($name != '')
-          $results = $results->orWhere('first_name', 'like', $name.'%');
-        if($emailid != '')
-          $results = $results->orWhere('email', 'like', $emailid.'%');
-        if($phone != '')
-          $results = $results->orWhere('phone', 'like', $phone.'%');
-        if($joineddate != '')
-          $results = $results->orWhere('created_at', 'like', $joineddate.'%');
-
-          */
 
         $users = $users->get();
         /*
@@ -537,5 +539,38 @@ class UserController extends Controller
         return null;
       }
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function userProfile($id)
+    {
+
+      $user = User::findOrFail($id);
+      $roles = Role::all();
+      $amkUsers = User::where('role_id', '2')->get();
+      $dmkUsers = User::where('role_id', '3')->get();
+      /*
+      foreach ($user->roles as $user_role) {
+          $currentRole = $user_role;
+      }
+      */
+      $currentRole = '';
+      $data = [
+          'user'        => $user,
+          'roles'       => $roles,
+          'amkUsers'    => $amkUsers,
+          'dmkUsers'    => $dmkUsers,
+          //'currentRole' => $currentRole,
+      ];
+
+      return view('admin.userProfile')->with($data);
+
+
+
+    }
+
 
 }
