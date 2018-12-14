@@ -236,10 +236,10 @@ $('.cancel-transaction').on('click', function () {
     let wrapper = _this.closest('.table');
     let ids = new Array();
     let canceledBalance = 0;
-    wrapper.find('.transactionId').each(function () {
-       if ($(this).prop("checked") == true) {
-           ids.push($(this).val());
-           canceledBalance = parseInt($(this).closest('.transferable-record').find('.amount').text()) + canceledBalance;
+    wrapper.find('.transferable-record').not('.snippet').each(function () {
+       if ($(this).find('.transactionId').prop("checked") == true) {
+           ids.push($(this).find('.transactionId').val());
+           canceledBalance = parseInt($(this).find('.amount').text()) + canceledBalance;
        }
     });
 
