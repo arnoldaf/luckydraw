@@ -73,7 +73,7 @@ class UserController extends Controller
     public function create()
     {
 
-        $roles = Role::all();
+        $roles = Role::where('id', '<>','1')->get();
         $amkUsers = User::where('role_id', '2')->get();
         $dmkUsers = User::where('role_id', '3')->get();
 
