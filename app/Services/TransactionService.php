@@ -43,7 +43,8 @@ class TransactionService {
             $transaction->from_user_id = $fromUserId;
             $transaction->to_user_id = $toUserId;
             $transaction->amount = $request->amount;
-            $transaction->request_status = 0;
+            $transaction->status = 0;
+            $transaction->type = "transfer";
             $transaction->save();
             //to deduct this requested amount from user account
             $user = User::find($fromUserId);
@@ -112,8 +113,7 @@ class TransactionService {
             } else { // case of reject
                 // need to add back amount to sender account
                 for ($i=0; $i < count($ids); $i++) {
-                    $fromUser = Transaction::where(['id' =>$ids[$i], 'to_user_id' => $toUserId])
-                        ->first();
+                    $fromUser = Transaction::where(['id' =>$ids[$i], 'to_user_id' => $toUserId, 'type' => 'transfer'])->first();
                     $fromUserDetail = User::find($fromUser->from_user_id);
                     $fromUserDetail->last_balance = $fromUserDetail->last_balance + $fromUser->amount;
                     $fromUserDetail->save();

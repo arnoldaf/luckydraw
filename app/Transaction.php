@@ -16,7 +16,7 @@ class Transaction extends Model
      */
     public function getTotalRequestedAmount($userId) {
         return $this::select(DB::raw("sum(amount) as total_amount"))
-            ->where(['from_user_id' => $userId, 'request_status' => 0])
+            ->where(['from_user_id' => $userId, 'status' => 0, 'type' => 'transfer'])
             ->first()
             ->toArray();
     }
@@ -25,7 +25,7 @@ class Transaction extends Model
         return DB::table('transactions')
                     ->join('users', 'transactions.from_user_id', '=', 'users.id')
                     ->select('transactions.id', 'transactions.amount', 'transactions.created_at', 'users.user_account')
-                    ->where(['to_user_id' => $userId, 'request_status' => 0])
+                    ->where(['to_user_id' => $userId, 'status' => 0, 'type' => 'transfer'])
                     ->get();
     }
 
@@ -33,27 +33,27 @@ class Transaction extends Model
         return DB::table('transactions')
             ->join('users', 'transactions.to_user_id', '=', 'users.id')
             ->select('transactions.id', 'transactions.amount', 'transactions.created_at', 'users.user_account')
-            ->where(['from_user_id' => $userId, 'request_status' => 0])
+            ->where(['from_user_id' => $userId, 'status' => 0, 'type' => 'transfer'])
             ->get();
     }
 
     public function cancelTransferRequest($ids, $fromUserId) {
         return $this::whereIn('id', $ids)
-                    ->where(['from_user_id' => $fromUserId, 'request_status' => 0])
+                    ->where(['from_user_id' => $fromUserId, 'status' => 0, 'type' => 'transfer'])
                     ->delete();
     }
 
     public function updateTransferRequest($ids, $toUserId, $status) {
         $statusBool = ($status == 'accept') ? 1 : 2;
         return $this::whereIn('id', $ids)
-            ->where('to_user_id', $toUserId)
-            ->update(['request_status' => $statusBool]);
+            ->where(['to_user_id' => $toUserId, 'type' => 'transfer'])
+            ->update(['status' => $statusBool]);
     }
 
     public function getSumRequestedPoint($toUserId, $ids) {
         return $this::select(DB::raw("sum(amount) as total_amount"))
                 ->whereIn('id', $ids)
-                ->where(['to_user_id' => $toUserId, 'request_status' => 0])
+                ->where(['to_user_id' => $toUserId, 'status' => 0, 'type' => 'transfer'])
                 ->first()
                 ->toArray();
     }
@@ -61,7 +61,7 @@ class Transaction extends Model
     public function getSumTransferRequestedPoint($fromUserId, $ids) {
         return $this::select(DB::raw("sum(amount) as total_amount"))
             ->whereIn('id', $ids)
-            ->where(['from_user_id' => $fromUserId, 'request_status' => 0])
+            ->where(['from_user_id' => $fromUserId, 'status' => 0, 'type' => 'transfer'])
             ->first()
             ->toArray();
     }
