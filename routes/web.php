@@ -47,3 +47,10 @@ Route::post('search-users', 'UserController@search')->name('search-users');
 
 //Super Admin Routes
 Route::get('admin/userProfile/{id}', 'UserController@userProfile')->name('userprofile');
+
+//Front end Route
+Route::get('/profile', 'ProfileController@profileUpdate')->name('profile');
+Route::put('/updateProfileRequest', 'ProfileController@updateProfileRequest')->name('updateProfileRequest');
+Route::get('/passwords', 'ProfileController@passwords')->name('passwords');
+Route::post('/update-password-request', 'ProfileController@passwordsUpdateRequest')->name('updatePasswordRequest');
+Route::post('/update-pin-request', 'ProfileController@pinUpdateRequest')->name('updatePinRequest');

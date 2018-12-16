@@ -423,7 +423,7 @@
                                 </div>
                                 <div class="one_fourth">
                                     <h3>Flickr Photos</h3>
-                                    <script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?show_name=1&amp;count=6&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=35244330@N00"></script>
+                                    <!--<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?show_name=1&amp;count=6&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=35244330@N00"></script>-->
                                 </div>
                                 <div class="cleartags"></div>
                                 <div class="one_fourth">

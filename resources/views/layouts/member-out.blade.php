@@ -156,9 +156,8 @@
                 <li aria-haspopup="true" class="right last"><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Welcome: {{Auth::user()->first_name }}</a>
                     <div class="grid-container4">
                         <ul>
-                            <li><a href="#"><i class="fa fa-check"></i>Profile</a></li>
-                            <li><a href="#"><i class="fa fa-check"></i>Change Password</a></li>
-                            <li><a href="#"><i class="fa fa-check"></i>Change PIN</a></li>
+                            <li><a href="{{ route('profile') }}"><i class="fa fa-check"></i>Profile</a></li>
+                            <li><a href="{{ route('passwords') }}"><i class="fa fa-check"></i>Change Password and PIN</a></li>
                             <li><a data-toggle="modal" onclick="event.preventDefault();document.getElementById('logout-form').submit();" href="{{ route('logout') }}"><i class="fa fa-sign-in"></i>Logout</a></li>
                         </ul>
                     </div>
@@ -236,7 +235,7 @@
                             </div>
                             <div class="one_fourth">
                                 <h3>Flickr Photos</h3>
-                                <script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?show_name=1&amp;count=6&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=35244330@N00"></script>
+                                <!--<script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?show_name=1&amp;count=6&amp;display=random&amp;size=s&amp;layout=x&amp;source=user&amp;user=35244330@N00"></script>-->
                             </div>
                             <div class="cleartags"></div>
                             <div class="one_fourth">
@@ -284,6 +283,7 @@
 <script src="{!! asset('member/js/screen2.js')!!}" type="text/javascript"></script>
 <script src="{!! asset('member/js/jquery.nav2.js')!!}" type="text/javascript"></script>
 <script src="{!! asset('member/js/user-bid.js') !!}" type="text/javascript"></script>
+<script src="{!! asset('member/js/profile.js') !!}" type="text/javascript"></script>
 <script type="text/javascript">
     $(function() {
         "use strict";
@@ -297,6 +297,7 @@
 
 <!-- Contact Form -->
 <script type="text/javascript">
+/*
     $(document).ready(function() {
         $(function() {
             "use strict";
@@ -327,9 +328,8 @@
             });
         });
 
-
-
     });
+    */
 </script>
 
 </body>

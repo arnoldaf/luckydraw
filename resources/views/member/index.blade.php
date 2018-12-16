@@ -166,8 +166,8 @@
               <li aria-haspopup="true" class="right last" style="border-left-width: 0px;"><a class="link_onepages" href="#section-3"><i class=""></i>Welcome: {{Auth::user()->first_name }}</a>
                   <div class="grid-container4">
                       <ul>
-                          <li><a href="#"><i class="fa fa-check"></i>Profile</a></li>
-                          <li><a href="#"><i class="fa fa-check"></i>Change Password & PIN</a></li>
+                        <li><a href="{{ route('profile') }}"><i class="fa fa-check"></i>Profile</a></li>
+                        <li><a href="{{ route('passwords') }}"><i class="fa fa-check"></i>Change Password and PIN</a></li>
                           <li><a data-toggle="modal" onclick="event.preventDefault();document.getElementById('logout-form').submit();" href="{{ route('logout') }}"><i class="fa fa-sign-in"></i>Logout</a></li>
                       </ul>
                   </div>

@@ -130,7 +130,7 @@
     <div class="card-body">
 
 
-
+        <?php /*
         <div class="row">
             <div class="col-sm-5">
                 <h4 class="card-title mb-0">
@@ -140,7 +140,7 @@
             </div><!--col-->
 
             <div class="col-sm-7">
-                <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+                 <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
                       <a href="{{ route('users.create') }}" class="btn btn-success ml-1" data-toggle="tooltip" title="" data-original-title="Create New"><svg class="svg-inline--fa fa-plus-circle fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="plus-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"></path></svg><!-- <i class="fas fa-plus-circle"></i> --></a>
                   </div><!--btn-toolbar-->
             </div><!--col-->
@@ -177,26 +177,29 @@
                                     </td>
                                     <td>{{$user->phone}}</td>
                                     <td>{{$user->role_name}}</td>
-                                    <td>{{$user->last_balance}}</td>
+                                    <td>{{$user->last_balance==''?'0':$user->last_balance}}</td>
                                     <td>{{$user->created_at}}</td>
                                     <td>
                                       <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('admin/userProfile/' . $user->id ) }}" data-toggle="tooltip" title="Edit">
                                       <i class="fas fa-cog"></i> </a>
+                                      <!--
 
                                       {!! Form::open(array('url' => 'admin/users/' . $user->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
                                           {!! Form::hidden('_method', 'DELETE') !!}
                                           {!! Form::button('Delete', array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user ?')) !!}
                                       {!! Form::close() !!}
+                                    -->
 
                                       <!--
                                       <a class="btn btn-sm btn-success btn-block" href="{{ URL::to('users/' . $user->id) }}" data-toggle="tooltip" title="Show">
                                           {!! trans('usersmanagement.buttons.show') !!}
                                       </a>
-                                    -->
+
 
                                       <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('admin/users/' . $user->id . '/edit') }}" data-toggle="tooltip" title="Edit">
                                           Edit
                                       </a>
+                                      -->
 
                                     </td>
                                 </tr>
@@ -220,6 +223,95 @@
                 </div>
             </div><!--col-->
         </div><!--row-->
+
+        */?>
+
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            User Management <small class="text-muted" style="color:green !important; {{Request::get('status') != ''?'':'display: none;'}}">Search Results </small>
+
+            <div class="btn-toolbar float-right" role="toolbar" aria-label="Toolbar with button groups">
+                 <a href="{{ route('users.create') }}" class="btn btn-success ml-1" data-toggle="tooltip" title="" data-original-title="Create New"><svg class="svg-inline--fa fa-plus-circle fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="plus-circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z"></path></svg><!-- <i class="fas fa-plus-circle"></i> --></a>
+             </div></div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>Confirmed</th>
+                    <!--<th>Phone</th>-->
+                    <th>Role</th>
+                    <th>Balance</th>
+                    <th>Registration</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>Confirmed</th>
+                    <!--<th>Phone</th>-->
+                    <th>Role</th>
+                    <th>Balance</th>
+                    <th>Registration</th>
+                    <th>Actions</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                  @foreach($users as $user)
+                      <tr>
+                            <td>{{$user->user_account}}</td>
+                            <td>{{$user->first_name}} {{$user->last_name}}</td>
+                            <td>{{$user->email}}</td>
+                            <td>
+                              <span class="badge badge-success">{{$user->active?"Yes":"No"}}</span>
+                            </td>
+                            <!--<td>{{$user->phone}}</td>-->
+                            <td>{{$user->role_name}}</td>
+                            <td>{{$user->last_balance==''?'0':$user->last_balance}}</td>
+                            <td>{{$user->created_at}}</td>
+                            <td>
+                              <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('admin/userProfile/' . $user->id ) }}" data-toggle="tooltip" title="Edit">
+                              <i class="fas fa-cog"></i> </a>
+                              <!--
+
+                              {!! Form::open(array('url' => 'admin/users/' . $user->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => 'Delete')) !!}
+                                  {!! Form::hidden('_method', 'DELETE') !!}
+                                  {!! Form::button('Delete', array('class' => 'btn btn-danger btn-sm','type' => 'button', 'style' =>'width: 100%;' ,'data-toggle' => 'modal', 'data-target' => '#confirmDelete', 'data-title' => 'Delete User', 'data-message' => 'Are you sure you want to delete this user ?')) !!}
+                              {!! Form::close() !!}
+                            -->
+
+                              <!--
+                              <a class="btn btn-sm btn-success btn-block" href="{{ URL::to('users/' . $user->id) }}" data-toggle="tooltip" title="Show">
+                                  {!! trans('usersmanagement.buttons.show') !!}
+                              </a>
+
+
+                              <a class="btn btn-sm btn-info btn-block" href="{{ URL::to('admin/users/' . $user->id . '/edit') }}" data-toggle="tooltip" title="Edit">
+                                  Edit
+                              </a>
+                              -->
+
+                            </td>
+                        </tr>
+                  @endforeach
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card-footer small text-muted">Updated today at {{date('Y-m-d H:i:s')}}</div>
+        </div>
+
+
+
+
     </div><!--card-body-->
 </div><!--card-->
                 </div><!--animated-->
