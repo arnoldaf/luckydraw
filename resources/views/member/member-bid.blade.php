@@ -143,14 +143,14 @@
                                             </tr>
                                             <tr class="">
                                                 <td>
+                                                    <div class="confirm-error-msg alert hidden">  </div>
                                                     <div class="half-box redbg">
-
                                                         <a href="javascript:void(0)" id="reset_checker"  class="white-bt">
                                                             <span class=""><i class="fa fa-refresh" aria-hidden="true"></i> Reset</span>
                                                         </a>
                                                     </div>
                                                     <div class="half-box redbg" >
-                                                        <a href="javascript:void(0)" id="reset_checker"  class="white-bt">
+                                                        <a href="javascript:void(0)" id="reset_checker"  class="white-bt confirm-bid">
                                                             <span class=""><i class="fa fa-check-circle" aria-hidden="true"></i> Confirm Bid</span>
                                                         </a>
                                                     </div>

@@ -341,3 +341,53 @@ $('.request-update').on('click', function () {
         return;
     }
 });
+
+$('.confirm-bid').on('click', function(){
+    let games = new Array();
+    let i = 0;
+    $('.member-bid-history .member-bid-record').not('.snippet').each(function () {
+        let $this = $(this);
+        //to find bid-category id
+        let bidNumArr = $this.find('.bid-num').text().split('-');
+        let bidNum = bidNumArr[0];
+        let categoryId = 1;
+        if (bidNum === "A"){
+            categoryId = 2;
+            bidNum = bidNumArr[1];
+        } 
+        else if(bidNum === "B") {
+            categoryId = 3;
+            bidNum = bidNumArr[1];
+        }
+     
+        games[i] = {
+            'gameId': $this.find('.game-name').data('id'),
+            'categoryId': categoryId,
+            'bidNum': bidNum,
+            'bidAmount': $this.find('.bid-amount').text()
+        };
+        i++;
+    });
+    
+    let _errorWrap = $('.confirm-error-msg');
+        _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success').html('Processing....');
+    $.ajax({
+            url: sit_url + '/confirm-bid',
+            type: 'POST',
+            data: {games: games, _token: $("meta[name=csrf-token]").attr("content")},
+            success: function (resp) {
+                _errorWrap.html(resp.message);
+                if (resp.result) {
+                    _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success');
+                } else {
+                    _errorWrap.removeClass('alert-success').removeClass('hidden').addClass('alert-danger');
+                }
+                setTimeout(function () {
+                    _errorWrap.removeClass('alert-danger').removeClass('alert-success').addClass('hidden').html('');
+                }, 4000);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+});
