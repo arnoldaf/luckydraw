@@ -10,12 +10,17 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+            @include('admin.partials.form-status')
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Basic Tabs
+                    Usre Profile
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -121,20 +126,20 @@
                                                                    }
 
                                                                  ?>
-                                                                 <select class="custom-select form-control" name="day" id="day" style="width: 10%; float:left;margin-right: 8px;">
+                                                                 <select class="custom-select form-control" name="day" id="day" style="width: 12%; float:left;margin-right: 8px;">
                                                                              <option value="">Day</option>
                                                                              @for ($i = 1; $i <= 31; $i++)
                                                                                  <option value="{{ sprintf('%02d', $i) }}"  {{ intval($i) == intval($day) ? 'selected="selected"' : '' }} >{{ sprintf('%02d', $i) }}</option>
                                                                              @endfor
                                                                   </select>&nbsp;
-                                                                  <select class="custom-select form-control" name="month" id="month"  style="width: 10%; float:left;margin-right: 8px;">
+                                                                  <select class="custom-select form-control" name="month" id="month"  style="width: 12%; float:left;margin-right: 8px;">
                                                                               <option value="">Month</option>
                                                                               @for ($i = 1; $i <= 12; $i++)
                                                                                   <option value="{{ sprintf('%02d', $i) }}" {{ intval($i) == intval($month) ? 'selected="selected"' : '' }}>{{ sprintf('%02d', $i) }}</option>
                                                                               @endfor
                                                                    </select> &nbsp;
 
-                                                                   <select class="custom-select form-control" name="year" id="year"  style="width: 10%; float:left;margin-right: 8px;">
+                                                                   <select class="custom-select form-control" name="year" id="year"  style="width: 12%; float:left;margin-right: 8px;">
                                                                                <option value="">Year</option>
                                                                                @for ($i = 2018; $i >1950; $i--)
                                                                                    <option value="{{ sprintf('%02d', $i) }}" {{ intval($i) == intval($year) ? 'selected="selected"' : '' }}>{{sprintf('%02d', $i) }}</option>
@@ -197,7 +202,7 @@
                                                              <label class="col-md-2 form-control-label" for="first_name">Distributor Manager</label>
 
                                                              <div class="col-md-6">
-                                                                 <select name="distributor_manager" id="distributor_manager"  readonly  class="custom-select form-control" >
+                                                                 <select name="distributor_manager" id="distributor_manager"  disabled  class="custom-select form-control" >
                                                                      <option value="">Select Distributor Manager</option>
                                                                      @if ($dmkUsers)
                                                                          @foreach($dmkUsers as $dmk)
@@ -308,7 +313,7 @@
                                                          <label class="col-md-2 form-control-label" for="password">PIN</label>
 
                                                          <div class="col-md-6">
-                                                             {!! Form::password('pin', array('id' => 'pin', 'class' => 'form-control ', 'placeholder' => 'PIN', 'maxlength' => '4', 'onkeypress'=>'validate(event)' )) !!}
+                                                             {!! Form::password('pin', array('id' => 'pin', 'class' => 'form-control ', 'placeholder' => 'PIN', 'maxlength' => '4', 'onkeypress'=>'isNumber(event)' )) !!}
                                                          </div><!--col-->
                                                      </div><!--form-group-->
 
@@ -316,7 +321,7 @@
                                                        <label class="col-md-2 form-control-label" for="password_confirmation">Confirm PIN</label>
 
                                                        <div class="col-md-6">
-                                                           {!! Form::password('pin_confirmation', array('id' => 'pin_confirmation', 'class' => 'form-control', 'placeholder' => 'PIN Confirmation' )) !!}
+                                                           {!! Form::password('pin_confirmation', array('id' => 'pin_confirmation', 'maxlength' => '4', 'class' => 'form-control', 'onkeypress'=>'isNumber(event)', 'placeholder' => 'PIN Confirmation' )) !!}
                                                        </div><!--col-->
                                                    </div><!--form-group-->
                                                    <div class="form-group row">

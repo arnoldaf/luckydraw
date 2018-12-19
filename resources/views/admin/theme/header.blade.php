@@ -282,7 +282,7 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="{{ route('users.create') }}"><i class="fa fa-user fa-fw"></i> Logout</a>
+                    <a href="#" href="#"  data-toggle="modal" data-target="#logoutModal"><i class="fa fa-user fa-fw"></i> Logout</a>
                 </li>
 
             </ul>

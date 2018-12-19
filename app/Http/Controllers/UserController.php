@@ -253,6 +253,7 @@ class UserController extends Controller
 
                 $user->address = $request->input('address');
                 $user->city = $request->input('city');
+                $user->email = $request->input('email');
                 $user->country = $request->input('country');
                 $user->phone = $request->input('phone');
                 //$user->role_id = $request->input('role');
@@ -297,10 +298,12 @@ class UserController extends Controller
                 $emailCheck = true;
                 $validator = Validator::make($request->all(),
                     [
-                        'pin'      => 'nullable|min:4|max:4',
+                        'pin'      => 'required|min:4|max:4',
+                        'confirm_pin' => 'required|same:pin',
                     ],
                     [
-                        'pin.min'  => "Pin should be of 4 digit",
+                        'pin.min'  => "Pin should be of minimum 4 digit",
+                        'pin.max'  => "Pin should be of maximum 4 digit",
                     ]
                 );
 
