@@ -654,10 +654,10 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="{!! asset('admin/bootstrap/vendor/metisMenu/metisMenu.min.js') !!}"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <script src="{!! asset('admin/bootstrap/vendor/raphael/raphael.min.js') !!}"></script>
-    <script src="{!! asset('admin/bootstrap/vendor/morrisjs/morris.min.js') !!}"></script>
-    <script src="{!! asset('admin/bootstrap/data/morris-data.js') !!}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <!-- Custom Theme JavaScript -->
     <script src="{!! asset('admin/bootstrap/dist/js/sb-admin-2.js') !!}"></script>
@@ -665,7 +665,7 @@
     <script src="{!! asset('admin/bootstrap/vendor/datatables/js/jquery.dataTables.min.js') !!}"></script>
     <script src="{!! asset('admin/bootstrap/vendor/datatables-plugins/dataTables.bootstrap.min.js') !!}"></script>
     <script src="{!! asset('admin/bootstrap/vendor/datatables-responsive/dataTables.responsive.js') !!}"></script>
-
+    <script src="{!! asset('admin/js/custom-function.js') !!} "></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
@@ -674,7 +674,207 @@
         });
     });
     </script>
+    <!-- Morris Charts JavaScript -->
+    <script src="{!! asset('admin/bootstrap/vendor/raphael/raphael.min.js') !!}"></script>
+    <script src="{!! asset('admin/bootstrap/vendor/morrisjs/morris.min.js') !!}"></script>
+    <script src="{!! asset('admin/bootstrap/data/morris-data.js') !!}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
 
+
+    <script type="text/javascript">
+		$.validator.setDefaults( {
+			submitHandler: function () {
+				alert( "submitted!" );
+			}
+		} );
+
+		$( document ).ready( function () {
+			$( "#signupForm" ).validate( {
+				rules: {
+					firstname: "required",
+					lastname: "required",
+					username: {
+						required: true,
+						minlength: 2
+					},
+					password: {
+						required: true,
+						minlength: 5
+					},
+					confirm_password: {
+						required: true,
+						minlength: 5,
+						equalTo: "#password"
+					},
+					email: {
+						required: true,
+						email: true
+					},
+					agree: "required"
+				},
+				messages: {
+					firstname: "Please enter your firstname",
+					lastname: "Please enter your lastname",
+					username: {
+						required: "Please enter a username",
+						minlength: "Your username must consist of at least 2 characters"
+					},
+					password: {
+						required: "Please provide a password",
+						minlength: "Your password must be at least 5 characters long"
+					},
+					confirm_password: {
+						required: "Please provide a password",
+						minlength: "Your password must be at least 5 characters long",
+						equalTo: "Please enter the same password as above"
+					},
+					email: "Please enter a valid email address",
+					agree: "Please accept our policy"
+				},
+				errorElement: "em",
+				errorPlacement: function ( error, element ) {
+					// Add the `help-block` class to the error element
+					error.addClass( "help-block" );
+
+					if ( element.prop( "type" ) === "checkbox" ) {
+						error.insertAfter( element.parent( "label" ) );
+					} else {
+						error.insertAfter( element );
+					}
+				},
+				highlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+				},
+				unhighlight: function (element, errorClass, validClass) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+				}
+			} );
+
+			$( "#signupForm1" ).validate( {
+				rules: {
+					firstname1: "required",
+					lastname1: "required",
+					username1: {
+						required: true,
+						minlength: 2
+					},
+					password1: {
+						required: true,
+						minlength: 5
+					},
+					confirm_password1: {
+						required: true,
+						minlength: 5,
+						equalTo: "#password1"
+					},
+					email1: {
+						required: true,
+						email: true
+					},
+					agree1: "required"
+				},
+				messages: {
+					firstname1: "Please enter your firstname",
+					lastname1: "Please enter your lastname",
+					username1: {
+						required: "Please enter a username",
+						minlength: "Your username must consist of at least 2 characters"
+					},
+					password1: {
+						required: "Please provide a password",
+						minlength: "Your password must be at least 5 characters long"
+					},
+					confirm_password1: {
+						required: "Please provide a password",
+						minlength: "Your password must be at least 5 characters long",
+						equalTo: "Please enter the same password as above"
+					},
+					email1: "Please enter a valid email address",
+					agree1: "Please accept our policy"
+				},
+				errorElement: "em",
+				errorPlacement: function ( error, element ) {
+					// Add the `help-block` class to the error element
+					error.addClass( "help-block" );
+
+					// Add `has-feedback` class to the parent div.form-group
+					// in order to add icons to inputs
+					element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+					if ( element.prop( "type" ) === "checkbox" ) {
+						error.insertAfter( element.parent( "label" ) );
+					} else {
+						error.insertAfter( element );
+					}
+
+					// Add the span element, if doesn't exists, and apply the icon classes to it.
+					if ( !element.next( "span" )[ 0 ] ) {
+						$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+					}
+				},
+				success: function ( label, element ) {
+					// Add the span element, if doesn't exists, and apply the icon classes to it.
+					if ( !$( element ).next( "span" )[ 0 ] ) {
+						$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+					}
+				},
+				highlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+					$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+				},
+				unhighlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+					$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+				}
+			} );
+		} );
+	</script>
+
+  <script>
+  function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+    function no_backspaces(event)
+             {
+                 backspace = 8;
+                 if (event.keyCode == backspace) event.preventDefault();
+             }
+  $(function() {
+      var start = moment().subtract(29, 'days');
+      var end = moment();
+
+      function cb(start, end) {
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+      }
+
+        $('input[name="reportrange"]').daterangepicker({
+          startDate: start,
+          endDate: end,
+          opens: 'left',
+          ranges: {
+               'Today': [moment(), moment()],
+               'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+               'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+               'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+               'This Month': [moment().startOf('month'), moment().endOf('month')],
+               'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, function(start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+
+        $('#dataTable1').DataTable( {
+            order: [[ 3, 'desc' ], [ 0, 'asc' ]]
+        } );
+
+  });
+  </script>
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"><input type="hidden" name="_token" value="{{ csrf_token() }}"></form>
 </body>
 
 </html>

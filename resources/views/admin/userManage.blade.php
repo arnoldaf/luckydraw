@@ -10,6 +10,11 @@
       </div>
       <!-- /.col-lg-12 -->
   </div>
+  <div class="row">
+      <div class="col-lg-6">
+          @include('admin.partials.form-status')
+      </div>
+  </div>
 
   <div class="card">
   {!! Form::open(array('route' => 'search-users', 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
@@ -102,7 +107,7 @@
                             <th>User ID</th>
                             <th>Name</th>
                             <th>E-mail</th>
-                            <th>Confirmed</th>
+                            <th>Status</th>
                             <th>Role</th>
                             <th>Balance</th>
                             <th>Registration</th>
@@ -114,7 +119,7 @@
                           <th>User ID</th>
                           <th>Name</th>
                           <th>E-mail</th>
-                          <th>Confirmed</th>
+                          <th>Status</th>
                           <th>Role</th>
                           <th>Balance</th>
                           <th>Registration</th>
@@ -128,7 +133,7 @@
                                   <td>{{$user->first_name}} {{$user->last_name}}</td>
                                   <td>{{$user->email}}</td>
                                   <td>
-                                    <span class="badge badge-success">{{$user->active?"Yes":"No"}}</span>
+                                    <span class="badge badge-success">{{$user->active?"Active":"Inactive"}}</span>
                                   </td>
                                   <td>{{$user->role_name}}</td>
                                   <td>{{$user->last_balance==''?'0':$user->last_balance}}</td>

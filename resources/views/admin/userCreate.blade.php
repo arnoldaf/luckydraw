@@ -9,7 +9,14 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+    <div class="row">
+        <div class="col-lg-8">
+            @include('admin.partials.form-status')
+        </div>
+    </div>
 
+    {!! Form::open(array('route' => 'users.store', 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
+    {!! csrf_field() !!}
     <div class="mt-4 mb-4">
         <div class="col">
             <div class="form-group row">
@@ -123,7 +130,7 @@
 
                 <div class="col-md-6">
 
-                    {!! Form::password('pin', array('id' => 'pin', 'class' => 'form-control ', 'maxlength' => '4', 'onkeypress'=>'validate(event)' ,'placeholder' => 'PIN', 'required'=> '')) !!}
+                    {!! Form::password('pin', array('id' => 'pin', 'class' => 'form-control ', 'maxlength' => '4', 'onkeypress'=>'isNumber(event)' ,'placeholder' => 'PIN', 'required'=> '')) !!}
 
                 </div><!--col-->
             </div><!--form-group-->
@@ -180,13 +187,13 @@
                 <label class="col-md-2 form-control-label required-field" for="first_name">Comission(%)</label>
 
                 <div class="col-md-6">
-                    {!! Form::number('comission', NULL, array('id' => 'email', 'class' => 'form-control required data-min_max','data-min' =>"0", 'data-max'=>"100", 'data-toggle' => 'just_number', 'onkeypress'=>'validate(event)', 'placeholder' => 'Comission', 'required'=>"", 'autofocus'=> "" )) !!}
+                    {!! Form::number('comission', NULL, array('id' => 'email', 'class' => 'form-control required data-min_max','data-min' =>"0", 'data-max'=>"100", 'data-toggle' => 'just_number', 'onkeypress'=>'isNumber(event)', 'placeholder' => 'Comission', 'required'=>"", 'autofocus'=> "" )) !!}
                 </div><!--col-->
             </div><!--form-group-->
             <div class="form-group row patti"  style="display:none;">
                 <label class="col-md-2 form-control-label" for="patti">Patti(%)</label>
-                <div class="col-md-10">
-                    {!! Form::number('patti', NULL, array('id' => 'patti', 'class' => 'form-control required data-min_max', 'data-min' =>"0", 'data-max'=>"100", 'autocomplete'=>"off", 'data-toggle' => 'just_number', 'onkeypress'=>'validate(event)', 'placeholder' => 'Patti', 'autofocus'=> "" )) !!}
+                <div class="col-md-6">
+                    {!! Form::number('patti', NULL, array('id' => 'patti', 'class' => 'form-control required data-min_max', 'data-min' =>"0", 'data-max'=>"100", 'autocomplete'=>"off", 'data-toggle' => 'just_number', 'onkeypress'=>'isNumber(event)', 'placeholder' => 'Patti', 'autofocus'=> "" )) !!}
                 </div><!--col-->
             </div><!--form-group-->
 
@@ -213,7 +220,7 @@
 
         </div><!--col-->
     </div><!--row-->
-
+      {!! Form::close() !!}
 
 </div>
 @endsection

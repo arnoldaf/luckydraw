@@ -56,7 +56,7 @@
   </div>
 </li>
 <li class="nav-item dropdown">
-  <a class="nav-link " href="#" id="pagesDropdown" role="button">
+  <a class="nav-link " href="#" id="pagesDropdown" data-toggle="modal" data-target="#logoutModal" role="button">
     <i class="fas fa-fw fa-folder"></i>
     <span>Logout</span>
   </a>
