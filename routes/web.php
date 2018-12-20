@@ -18,7 +18,7 @@ Route::get('/point-transfer', 'TransactionController@pointTransfer')->name('poin
 Route::post('/point-transfer-request', 'TransactionController@pointTransferRequest');
 Route::post('/point-transfer-cancel', 'TransactionController@pointTransferCancel');
 Route::post('/point-transfer-update', 'TransactionController@pointTransferUpdate');
-
+Route::post('/confirm-bid', 'UserBidController@confirmBid');
 
 
 Route::get('admin/dashboard', 'DashboardController@myHome')->name('dashboard');

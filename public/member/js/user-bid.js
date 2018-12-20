@@ -379,6 +379,7 @@ $('.confirm-bid').on('click', function(){
                 _errorWrap.html(resp.message);
                 if (resp.result) {
                     _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success');
+                    resetBidNum();
                 } else {
                     _errorWrap.removeClass('alert-success').removeClass('hidden').addClass('alert-danger');
                 }
@@ -391,3 +392,32 @@ $('.confirm-bid').on('click', function(){
             }
         });
 });
+
+$('#reset_checker').on('click', function(){
+    $('.member-bid-history .member-bid-record').not('.snippet').each(function () {
+       $(this).find('.member-bid-delete').trigger('click'); 
+    });
+});
+
+function resetBidNum() {
+    $('.member-bid-history .member-bid-record').not('.snippet').each(function () {
+        let wrapper = $(this);
+        let selectedGameId = parseInt(wrapper.find('.game-name').data('id'));
+        let bidNum = parseInt(wrapper.find('.bid-num').text());
+        let bidAmount = parseInt(wrapper.find('.bid-amount').text());
+        let gameWrapper = $('.game-wrapper[data-id="'+selectedGameId+'"]');
+        gameWrapper.find('.user-selected-num[data-id="'+bidNum+'"]').removeClass('Selected');
+        gameWrapper.find('.user-selected-num[data-id="'+bidNum+'"] .value').addClass('hidden').text('0');
+
+        if(wrapper.find('.bid-num').text().split('-')[0] == "A") {
+            gameWrapper.find('.andar-bid[data-id="'+wrapper.find('.bid-num').text().split('-')[1]+'"]').removeClass('Selected');
+            gameWrapper.find('.andar-bid[data-id="'+wrapper.find('.bid-num').text().split('-')[1]+'"]').find('.value').addClass('hidden').text(0);
+        }
+        if(wrapper.find('.bid-num').text().split('-')[0] == "B") {
+            gameWrapper.find('.bahar-bid[data-id="'+wrapper.find('.bid-num').text().split('-')[1]+'"]').removeClass('Selected');
+            gameWrapper.find('.bahar-bid[data-id="'+wrapper.find('.bid-num').text().split('-')[1]+'"]').find('.value').addClass('hidden').text(0);
+        }
+        wrapper.remove();
+    });
+    $('.total-bid-amount').text(0);
+}
