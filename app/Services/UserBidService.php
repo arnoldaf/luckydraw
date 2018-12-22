@@ -47,6 +47,7 @@ class UserBidService {
         $transaction->bid_amount = $totalBidAmount;
         $transaction->amount = $totalBidAmount;
         $transaction->type = 'bid';
+        $transaction->status = 1;
         $transaction->save();
         //to deduct bid amount from user last balance
         $currentUser->last_balance = ($currentUser->last_balance - $totalBidAmount);
