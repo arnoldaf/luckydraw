@@ -9,6 +9,7 @@ $('.game-wrapper').on('click', '.user-selected-num', function(){
     let gameWrapper = _this.closest('.game-wrapper');
     gameId = gameWrapper.data('id');
     if (!setGameBidAmount(gameId, denominationVal)) {
+        fancyAlert("You don't have sufficient balance.");
         return false;
     }
     _this.addClass('Selected');
@@ -62,6 +63,7 @@ $('.andar-bid').on('click', function () {
     gameId = gameWrapper.data('id');
     gameName = gameWrapper.attr("data-name");
     if (!setGameBidAmount(gameId, denominationVal)) {
+        fancyAlert("You don't have sufficient balance.");
         return false;
     }
     _this.addClass('Selected');
@@ -83,6 +85,7 @@ $('.bahar-bid').on('click', function () {
     gameId = gameWrapper.data('id');
     gameName = gameWrapper.attr("data-name");
     if (!setGameBidAmount(gameId, denominationVal)) {
+        fancyAlert("You don't have sufficient balance.");
         return false;
     }
     _this.addClass('Selected');
@@ -420,4 +423,11 @@ function resetBidNum() {
         wrapper.remove();
     });
     $('.total-bid-amount').text(0);
+}
+
+function fancyAlert(msg) {
+    jQuery.fancybox({
+        'modal' : true,
+        'content' : "<div style=\"margin:1px;width:240px;color:#fff\">"+msg+"<div style=\"text-align:right;margin-top:10px;\"><input style=\"margin:3px;padding:3px; width:20%; cursor:pointer\" type=\"button\" onclick=\"jQuery.fancybox.close();\" value=\"Ok\"></div></div>"
+    });
 }
