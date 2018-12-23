@@ -69,20 +69,20 @@
             <div class="form-group row">
                 <label class="col-md-2 form-control-label" for="first_name">Birthday</label>
                 <div class="col-md-6">
-                    <select class="custom-select form-control" name="day" id="day" style="width: 10%;float:left;margin-right: 8px;">
+                    <select class="custom-select form-control" name="day" id="day" style="width: 20%;float:left;margin-right: 8px;">
                                 <option value="">Day</option>
                                 @for ($i = 1; $i <= 31; $i++)
                                     <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
                                 @endfor
                      </select>
-                     <select class="custom-select form-control" name="month" id="month"  style="width: 10%;float:left;margin-right: 8px;" >
+                     <select class="custom-select form-control" name="month" id="month"  style="width: 20%;float:left;margin-right: 8px;" >
                                  <option value="">Month</option>
                                  @for ($i = 1; $i <= 12; $i++)
                                      <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>
                                  @endfor
                       </select>
 
-                      <select class="custom-select form-control" name="year" id="year"  style="width: 10%;float:left;margin-right: 8px;" >
+                      <select class="custom-select form-control" name="year" id="year"  style="width: 20%;float:left;margin-right: 8px;" >
                                   <option value="">Year</option>
                                   @for ($i = 2018; $i >1950; $i--)
                                       <option value="{{ sprintf('%02d', $i) }}">{{ sprintf('%02d', $i) }}</option>

@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 
-<title>Poker Responsive Site Template</title>
+<title>Asia Play</title>
 <meta name="description" content="Place to put your description text"/>
 <meta name="author" content="Corsini Alessio"/>
 <!--[if lt IE 9]>
@@ -50,7 +50,7 @@
 <div class="container-menu">
   <div class="container content-menu">
    <div class="logo">
-    <img src="{!! ('member/images/logo2.jpg') !!}" alt="log" />
+    <img src="{!! ('member/images/asia_play_logo.png') !!}" alt="log" />
   </div>
   <!-- mega menu -->
     @if( !Auth::check() || Auth::user()->role_id ==1)
@@ -114,10 +114,10 @@
               <a class="link_onepages" href="{{ route('sitehome') }}"><i class="fa fa-single fa-home"></i></a>
 
           </li>
-          <li ><a class="link_onepages" href="#section-3"><i class="fa fa-eye"></i>Play Game</a>
+          <li ><a class="link_onepages" href="{{ route('game') }}"><i class="fa fa-eye"></i>Play Game</a>
               <div class="grid-container4">
                   <ul>
-                      <li><a href="#"><i class="fa fa-check"></i>Number Game </a></li>
+                      <li><a href="{{ route('game') }}"><i class="fa fa-check"></i>Number Game </a></li>
                   </ul>
               </div>
           </li>

@@ -672,6 +672,12 @@
         $('#dataTables-example').DataTable({
             responsive: true
         });
+        $('#bid-table').DataTable({
+            responsive: true
+        });
+        $('#transaction-tab').DataTable({
+            responsive: true
+        });
     });
     </script>
     <!-- Morris Charts JavaScript -->
@@ -680,6 +686,26 @@
     <script src="{!! asset('admin/bootstrap/data/morris-data.js') !!}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
 
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"><input type="hidden" name="_token" value="{{ csrf_token() }}"></form>
+    <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+              </div>
+            </div>
+          </div>
+        </div>
 
     <script type="text/javascript">
 		$.validator.setDefaults( {
@@ -845,8 +871,8 @@
                  if (event.keyCode == backspace) event.preventDefault();
              }
   $(function() {
-      var start = moment().subtract(29, 'days');
-      var end = moment();
+      var start = moment().subtract(29, 'days').format('DD/MM/YYYY');
+      var end = moment().format('DD/MM/YYYY');
 
       function cb(start, end) {
           $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
@@ -855,6 +881,9 @@
         $('input[name="reportrange"]').daterangepicker({
           startDate: start,
           endDate: end,
+          locale: {
+              format: 'DD/MM/YYYY'
+            },
           opens: 'left',
           ranges: {
                'Today': [moment(), moment()],
@@ -874,25 +903,29 @@
 
   });
   </script>
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"><input type="hidden" name="_token" value="{{ csrf_token() }}"></form>
-<!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
+
+  <link rel="stylesheet" href="{!! asset('admin/bootstrap/css/bootstrap-treeview.css') !!} ">
+  <script src="{!! asset('admin/bootstrap/js/bootstrap-treeview.js') !!}"></script>
+  <script>
+
+$(function() {
+
+$('#default-tree').treeview({
+  data: myTree,
+  color: "#428bca",
+  expandIcon: "glyphicon glyphicon-stop",
+  collapseIcon: "glyphicon glyphicon-unchecked",
+  nodeIcon: "glyphicon glyphicon-user",
+  showTags: true,
+  levels: 1,
+  enableLinks: true,
+});
+
+
+});
+console.log(11111)
+  </script>
+
 </body>
 
 </html>

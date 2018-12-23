@@ -9,6 +9,7 @@ use Validator;
 use Auth;
 use App\Traits\CaptureIpTrait;
 use Illuminate\Http\Response;
+use App\Services\UserService;
 use DB;
 
 
@@ -131,7 +132,7 @@ class UserController extends Controller
         if($request->input('role') == 4) {
           $parent_id = $request->input('distributor_manager');
         } else if($request->input('role') == 3) {
-          $parent_id = $request->input('distributor_manager');
+          $parent_id = $request->input('area_manager');
         } else {
           $parent_id = 0;
         }
@@ -352,16 +353,17 @@ class UserController extends Controller
      */
     public function search(Request $request)
     {
-        DB::enableQueryLog();
+        //DB::enableQueryLog();
         $userid = $request->input('userid');
         $name = $request->input('name');
         $emailid = $request->input('emailid');
         $phone = $request->input('phone');
         $status = $request->input('status');
         $reportrange = $request->input('reportrange');
-        $dates =  explode(' - ', $reportrange);
+        $dates =  explode(' - ', str_replace('/', '-', $reportrange));
         $fromDate =  date('Y-m-d', strtotime($dates[0]));
         $toDate =  date('Y-m-d', strtotime($dates[1]));
+      //exit;
         /*
         $searchTerm = $request->input('user_search_box');
         $searchRules = [
@@ -408,9 +410,14 @@ class UserController extends Controller
        foreach($filters as $key=>$val) {
          $users = $users->where("$key", 'like', $val.'%');
        }
-       if($reportrange != '')
-           $users->whereBetween('created_at', array($fromDate, $toDate));
 
+       if($reportrange != '') {
+         if($fromDate  == $toDate) {
+           $users = $users->where("created_at", 'like', $fromDate.'%');
+         } else {
+           $users->whereBetween('created_at', array($fromDate, $toDate));
+         }
+       }
 
         $users = $users->get();
         /*
@@ -419,9 +426,7 @@ class UserController extends Controller
         dd(
             DB::getQueryLog()
         );
-       exit;
-       */
-
+        */
         // Attach roles to results
         $roles = Role::all();
         $filteredRoles = [];
@@ -551,6 +556,17 @@ class UserController extends Controller
     public function userProfile($id)
     {
 
+      $tree = (new UserService())->downlineTree($id);
+      $downline = json_encode($tree);
+      $bidHistory = (new UserService())->bidHistory($id);
+      $transHistory =(new UserService())->transactionHistory($id);
+      /*
+      print('<pre>');
+      print_r($downline);
+      print('</pre>');
+      exit;
+      */
+
       $user = User::findOrFail($id);
       $roles = Role::all();
       $amkUsers = User::where('role_id', '2')->get();
@@ -562,17 +578,16 @@ class UserController extends Controller
       */
       $currentRole = '';
       $data = [
-          'user'        => $user,
-          'roles'       => $roles,
-          'amkUsers'    => $amkUsers,
-          'dmkUsers'    => $dmkUsers,
+          'user'         => $user,
+          'roles'        => $roles,
+          'amkUsers'     => $amkUsers,
+          'dmkUsers'     => $dmkUsers,
+          'downline'     => $downline,
+          'bidHistory'   => $bidHistory,
+          'transHistory' => $transHistory,
           //'currentRole' => $currentRole,
       ];
-
       return view('admin.userProfile')->with($data);
-
-
-
     }
 
 

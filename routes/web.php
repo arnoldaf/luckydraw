@@ -41,7 +41,6 @@ Route::resource('admin/users', 'UserController', [
 
 
 Route::get('/home', 'HomeController@index')->name('home');
-
 Route::post('search-users', 'UserController@search')->name('search-users');
 
 
@@ -54,3 +53,6 @@ Route::put('/updateProfileRequest', 'ProfileController@updateProfileRequest')->n
 Route::get('/passwords', 'ProfileController@passwords')->name('passwords');
 Route::post('/update-password-request', 'ProfileController@passwordsUpdateRequest')->name('updatePasswordRequest');
 Route::post('/update-pin-request', 'ProfileController@pinUpdateRequest')->name('updatePinRequest');
+
+//Downline Data
+Route::get('/downline-list', 'DownlineController@downlineList')->name('downline-list');

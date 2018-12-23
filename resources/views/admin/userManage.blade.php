@@ -59,7 +59,7 @@
         <label class="col-md-2 float-sm-right form-control-label" for="first_name">Status</label>
 
         <div class="col-md-4">
-          <select class="custom-select form-control" name="status"    id="status" style="height: auto;" >
+          <select class="custom-select form-control" name="status" id="status">
                       <option value="" {{ (Request::get('status') =='')? 'selected':''}} >Select</option>
                       <option value="1" {{ (Request::get('status') == 1)? 'selected':''}} >Active</option>
                       <option value="0" {{ Request::get('status') == 0 && Request::get('status') !=''? 'selected':''}}>Inactive</option>

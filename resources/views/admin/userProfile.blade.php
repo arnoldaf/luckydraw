@@ -31,15 +31,17 @@
                         </li>
                         <li><a href="#deposit" data-toggle="tab">Deposit Withdraw</a>
                         </li>
-                        <li><a href="#messages" data-toggle="tab">Game History</a>
+                        <li><a href="#game-history" data-toggle="tab">Game History</a>
+                        <li><a href="#bid-history" data-toggle="tab">Bid History</a>
+                        <li><a href="#trans-history" data-toggle="tab">Trans History</a>
                         </li>
-                        <li><a href="#settings" data-toggle="tab">Tree</a>
+                        <li><a href="#downlinetree" data-toggle="tab">Tree</a>
                         </li>
-                        <li><a href="#settings" data-toggle="tab">Comission Reports</a>
+                        <li><a href="#comission-report" data-toggle="tab">Comission Reports</a>
                         </li>
-                        <li><a href="#settings" data-toggle="tab">Patti Reports</a>
+                        <li><a href="#patti-report" data-toggle="tab">Patti Reports</a>
                         </li>
-                        <li><a href="#settings" data-toggle="tab">Net Daily Payouts</a>
+                        <li><a href="#net-daily-payout" data-toggle="tab">Net Daily Payouts</a>
                         </li>
                     </ul>
 
@@ -126,20 +128,20 @@
                                                                    }
 
                                                                  ?>
-                                                                 <select class="custom-select form-control" name="day" id="day" style="width: 12%; float:left;margin-right: 8px;">
+                                                                 <select class="custom-select form-control" name="day" id="day" style="width: 20%; float:left;margin-right: 8px;">
                                                                              <option value="">Day</option>
                                                                              @for ($i = 1; $i <= 31; $i++)
                                                                                  <option value="{{ sprintf('%02d', $i) }}"  {{ intval($i) == intval($day) ? 'selected="selected"' : '' }} >{{ sprintf('%02d', $i) }}</option>
                                                                              @endfor
                                                                   </select>&nbsp;
-                                                                  <select class="custom-select form-control" name="month" id="month"  style="width: 12%; float:left;margin-right: 8px;">
+                                                                  <select class="custom-select form-control" name="month" id="month"  style="width: 20%; float:left;margin-right: 8px;">
                                                                               <option value="">Month</option>
                                                                               @for ($i = 1; $i <= 12; $i++)
                                                                                   <option value="{{ sprintf('%02d', $i) }}" {{ intval($i) == intval($month) ? 'selected="selected"' : '' }}>{{ sprintf('%02d', $i) }}</option>
                                                                               @endfor
                                                                    </select> &nbsp;
 
-                                                                   <select class="custom-select form-control" name="year" id="year"  style="width: 12%; float:left;margin-right: 8px;">
+                                                                   <select class="custom-select form-control" name="year" id="year"  style="width: 20%; float:left;margin-right: 8px;">
                                                                                <option value="">Year</option>
                                                                                @for ($i = 2018; $i >1950; $i--)
                                                                                    <option value="{{ sprintf('%02d', $i) }}" {{ intval($i) == intval($year) ? 'selected="selected"' : '' }}>{{sprintf('%02d', $i) }}</option>
@@ -349,19 +351,103 @@
                         </div>
                         <div class="tab-pane fade in " id="deposit">
                             <h4>Deposit Withdraw</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            <p>Coming soon...</p>
                         </div>
-                        <div class="tab-pane fade" id="home">
-                            <h4>Profile Tab</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <div class="tab-pane fade" id="game-history">
+                            <h4>Game History</h4>
+                            <p>Coming soon...</p>
                         </div>
-                        <div class="tab-pane fade" id="messages">
-                            <h4>Messages Tab</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                        <div class="tab-pane fade" id="bid-history">
+                            <h3  style="padding:5px;">Bid History</h3>
+
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="bid-table">
+                                <thead>
+                                  <tr>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Game Name</th>
+                                    <th>Bid Number</th>
+                                    <th>Quantity</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Date Time</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+
+                                  @foreach($bidHistory as $bid)
+                                      <tr>
+                                            <td>{{$bid->user_account}}</td>
+                                            <td>{{$bid->first_name.' '. $bid->last_name}}</td>
+                                            <td>{{$bid->name}}</td>
+                                            <td>{{$bid->bid_number}}</td>
+                                            <td>*Q</td>
+                                            <td>{{$bid->amount}}</td>
+                                            <td>{{$bid->is_deleted}}</td>
+                                            <td>{{ date('d-m-Y H:i:s', strtotime($bid->created_at))}}</td>
+                                        </tr>
+                                  @endforeach
+
+                                </tbody>
+                            </table>
+                            <!-- /.table-responsive -->
+
                         </div>
-                        <div class="tab-pane fade" id="settings">
-                            <h4>Settings Tab</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <div class="tab-pane fade" id="trans-history">
+                            <h3 style="padding:5px;">Transaction History</h4>
+
+                            <table width="100%" class="table table-striped table-bordered table-hover" id="transaction-tab">
+                                <thead>
+                                  <tr>
+                                    <th>To User Account</th>
+                                    <th>From User Account</th>
+                                    <th>Game Id</th>
+                                    <!--<th>Bid Category</th>-->
+                                    <th>Bid Number</th>
+                                    <th>Bid Amount/Amount</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Date Time</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+
+                                  @foreach($transHistory as $trans)
+                                      <tr>
+                                            <td>{{$trans->to_user_account}}</td>
+                                            <td>{{$trans->from_user_account}}</td>
+                                            <td>{{$trans->game_id}}</td>
+                                            <!--<td>{{$trans->bid_category_id}}</td>-->
+                                            <td>{{$trans->bid_number}}</td>
+                                            <td>{{$trans->amount}}</td>
+                                            <td>{{ucfirst($trans->type)}}</td>
+                                            <td>{{$trans->status==0?'Pending':'Completed' }}</td>
+                                            <td>{{ date('d-m-Y H:i:s', strtotime($trans->created_at))}}</td>
+                                        </tr>
+                                  @endforeach
+
+                                </tbody>
+                            </table>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <div class="tab-pane fade" id="downlinetree">
+                            <h3  style="padding:5px;">Direct Sponsors</h3>
+                            <div id="default-tree"></div>
+
+                        </div>
+                        <div class="tab-pane fade" id="comission-report">
+                            <h4>Comission Reports</h4>
+                            <p>Coming soon...</p>
+                        </div>
+                        <div class="tab-pane fade" id="patti-report">
+                            <h4>Patti Reports</h4>
+                            <p>Coming soon...</p>
+                        </div>
+                        <div class="tab-pane fade" id="net-daily-payout">
+                            <h4>Net Daily Payouts</h4>
+                            <p>Coming soon...</p>
                         </div>
                     </div>
                 </div>
@@ -371,4 +457,62 @@
         </div>
       </div>
 </div>
+
+<script>
+
+
+var myTree = {!! $downline !!};
+
+var myTreeDemo = [
+{
+  text: 'Parent 1',
+  href: '#parent1',
+  tags: ['4'],
+  nodes: [
+    {
+      text: 'Child 1',
+      href: '#child1',
+      tags: ['2'],
+      nodes: [
+        {
+          text: 'Grandchild 1',
+          href: '#grandchild1',
+          tags: ['0']
+        },
+        {
+          text: 'Grandchild 2',
+          href: '#grandchild2',
+          tags: ['0']
+        }
+      ]
+    },
+    {
+      text: 'Child 2',
+      href: '#child2',
+      tags: ['0']
+    }
+  ]
+},
+{
+  text: 'Parent 2',
+  href: '#parent2',
+  tags: ['0']
+},
+{
+  text: 'Parent 3',
+  href: '#parent3',
+   tags: ['0']
+},
+{
+  text: 'Parent 4',
+  href: '#parent4',
+  tags: ['0']
+},
+{
+  text: 'Parent 5',
+  href: '#parent5'  ,
+  tags: ['0']
+}
+];
+</script>
 @endsection

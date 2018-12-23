@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Lucky draw - @yield('title')</title>
+    <title>Asia Play - @yield('title')</title>
     <meta name="description" content="Place to put your description text" />
     <meta name="author" content="Corsini Alessio" />
     <!--[if lt IE 9]>
@@ -35,6 +35,7 @@
     <script src="{!! asset('member/js/jquery-migrate-1.2.1.min.js')!!}" type="text/javascript"></script>
     <link rel="stylesheet" href="{!! asset('member/css/custom.css')!!}" />
     <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
+    <!--<link rel="stylesheet" href="{!! asset('member/css/tabsresp/styleResp.css')!!}" />-->
     <script> var sit_url = "{{url('')}}"; </script>
 </head>
 
@@ -55,7 +56,7 @@
 <div class="container-menu">
     <div class="container content-menu">
         <div class="logo">
-            <img src="{!! asset('member/images/logo2.jpg')!!}" alt="log" />
+            <img src="{!! asset('member/images/asia_play_logo.png')!!}" alt="log" />
         </div>
         <!-- mega menu -->
         <ul id="navmenu" class="poker-mega-menu poker-mega-menu-anim-scale poker-mega-menu-response-to-icons">
@@ -92,10 +93,10 @@
                 <a class="link_onepages" href="{{ route('sitehome') }}"><i class="fa fa-single fa-home"></i></a>
 
             </li>
-            <li ><a class="link_onepages" href="#section-3"><i class="fa fa-eye"></i>Play Game</a>
+            <li ><a class="link_onepages" href="{{ route('game') }}"><i class="fa fa-eye"></i>Play Game</a>
                 <div class="grid-container4">
                     <ul>
-                        <li><a href="#"><i class="fa fa-check"></i>Number Game </a></li>
+                        <li><a href="{{ route('game') }}"><i class="fa fa-check"></i>Number Game </a></li>
                     </ul>
                 </div>
             </li>
@@ -332,6 +333,34 @@
     */
 </script>
 
+<!--<script src="http://127.0.0.1:8081/member/js/tableresp/tabscript.js" type="text/javascript"></script>
+<script type="text/javascript">
+  var sorter = new TINY.table.sorter('sorter', 'table', {
+      headclass: 'head',
+      ascclass: 'asc',
+      descclass: 'desc',
+      evenclass: 'evenrow',
+      oddclass: 'oddrow',
+      evenselclass: 'evenselected',
+      oddselclass: 'oddselected',
+      paginate: true,
+      size: 10,
+      colddid: 'columns',
+      currentid: 'currentpage',
+      totalid: 'totalpages',
+      startingrecid: 'startrecord',
+      endingrecid: 'endrecord',
+      totalrecid: 'totalrecords',
+      hoverid: 'selectedrow',
+      pageddid: 'pagedropdown',
+      navid: 'tablenav',
+      sortcolumn: 1,
+      sortdir: 1,
+      columns: [{ index: 7, format: '%', decimals: 1 }, { index: 8, format: '$', decimals: 0}],
+      init: true
+  });
+</script>
+-->
 </body>
 
 </html>
