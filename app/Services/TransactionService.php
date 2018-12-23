@@ -23,7 +23,7 @@ class TransactionService {
             $storedPin = $currentUser->pin;
             $userTotalAmount = $currentUser->last_balance;
             $userAccount = $request->user_account;
-            if ($request->pin != $storedPin) { //to validate pin
+            if ($request->pin != (String)$storedPin) { //to validate pin
                 return ['result' => false, 'message' => 'Invalid PIN'];
             }
             $toUser = (new User())->findByFieldName('user_account', $userAccount);
@@ -101,7 +101,8 @@ class TransactionService {
     public function pointTransferUpdate($request) {
         $loggedInUser = (new UserController())->getCurrentUser();
         $toUserId = $loggedInUser->id;
-        if ($loggedInUser->pin != $request->pin) {
+        
+        if ((String)$loggedInUser->pin != $request->pin) {
              return ['result' => false, 'message' => 'Please enter valid pin'];
         }
         $ids = $request->ids;
