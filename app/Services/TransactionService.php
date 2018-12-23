@@ -99,9 +99,16 @@ class TransactionService {
     }
 
     public function pointTransferUpdate($request) {
-        $toUserId = (new UserController())->getCurrentUserId();
+        $loggedInUser = (new UserController())->getCurrentUser();
+        $toUserId = $loggedInUser->id;
+        if ($loggedInUser->pin != $request->pin) {
+             return ['result' => false, 'message' => 'Please enter valid pin'];
+        }
         $ids = $request->ids;
         $status = $request->status;
+        if ($status == '') {
+            return ['result' => false, 'message' => 'Status required'];
+        }
         if ($status == 'accept') { // need to update user's balance
             $sumAmount = (new Transaction())->getSumRequestedPoint($toUserId, $ids); //get sum of requested point
         }

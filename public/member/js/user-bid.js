@@ -295,12 +295,48 @@ $('.cancel-transaction').on('click', function () {
     }
 });
 
-$('.request-update').on('click', function () {
+$('.receive-points').on('click', function(){
     let _this = $(this);
-    let status = _this.attr('data-status');
+    let wrapper = _this.closest('.table');
+    let ids = new Array();
+    wrapper.find('.transactionId').each(function () {
+        if ($(this).prop("checked") == true) {
+            ids.push($(this).val());
+        }
+    });
+     if (ids.length > 0) {
+         $('#pinVerifyForm .status').val('accept');
+         $('#pinVerify').show();
+     }
+});
+
+$('.reject-points').on('click', function(){
+    let _this = $(this);
+    let wrapper = _this.closest('.table');
+    let ids = new Array();
+    wrapper.find('.transactionId').each(function () {
+        if ($(this).prop("checked") == true) {
+            ids.push($(this).val());
+        }
+    });
+     if (ids.length > 0) {
+         $('#pinVerifyForm .status').val('reject');
+         $('#pinVerify').show();
+     }
+});
+
+$('#pinVerifyForm').on('submit', function (e) {
+    e.preventDefault();
+    let _this = $(this);
+    let status = _this.find('.status').val();
     let wrapper = _this.closest('.table');
     let ids = new Array();
     let acceptedAmount = 0;
+    let pinVerifyForm = _this.closest('#pinVerify');
+    let pin = pinVerifyForm.find('#userPin').val();
+    if (pin == "" || pin == 0 || pin == null || status == "") {
+        return false;
+    }
     wrapper.find('.transactionId').each(function () {
         if ($(this).prop("checked") == true) {
             ids.push($(this).val());
@@ -316,22 +352,24 @@ $('.request-update').on('click', function () {
         $.ajax({
             url: sit_url + '/point-transfer-update',
             type: 'POST',
-            data: {ids: ids, status: status, _token: $("meta[name=csrf-token]").attr("content")},
+            data: {ids: ids, pin:pin, status: status, _token: $("meta[name=csrf-token]").attr("content")},
             success: function (resp) {
                 _errorWrap.html(resp.message);
                 if (resp.result) {
                     _errorWrap.removeClass('alert-danger').removeClass('hidden').addClass('alert-success');
+                    pinVerifyForm.hide();
                     //to update user balance
                     if (status == "accept") {
                         let userBalance = parseInt($('.user-balance').text());
                         $('.user-balance').text(userBalance + acceptedAmount);
                     }
+                    for (i =0; i < ids.length; i++) { // to remove selected records
+                        wrapper.find(".transactionId[value='" + ids[i] + "']").closest('.receivable-record').remove();
+                    }
                 } else {
                     _errorWrap.removeClass('alert-success').removeClass('hidden').addClass('alert-danger');
                 }
-                for (i =0; i < ids.length; i++) { // to remove selected records
-                    wrapper.find(".transactionId[value='" + ids[i] + "']").closest('.receivable-record').remove();
-                }
+                
                 setTimeout(function () {
                     _errorWrap.removeClass('alert-danger').removeClass('alert-success').addClass('hidden').html('');
                 }, 4000);

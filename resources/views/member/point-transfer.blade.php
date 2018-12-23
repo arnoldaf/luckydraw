@@ -11,10 +11,10 @@
 
 
                     <div id="managepoints">
-                        <div class="jodi-section">
+<!--                        <div class="jodi-section">
                             <div id="checkerStatus" class="checker__status"><h3> Manage Points:  <input type="radio"> GK Points  <input type="radio"> Multiplayer points  </h3>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="threeboxes">
                             <div class="one_third boxes lastcolumn">
                                 <div class="greybox">
@@ -48,12 +48,25 @@
                                                 <div class="half-box blackbg" style="width:40%;"><input type="checkbox" name="" class="select-all"> Select All</div>
 
                                                 <div class="half-box blackbg" style="width:60%;">
-                                                    <a href="javascript:void(0)" id="reset_checker"  data-status="accept" class="buttons-points request-update">
+                                                    <a href="javascript:void(0)" id="reset_checker"  data-status="accept" class="buttons-points receive-points">
                                                         <i class="fa fa-credit-card" aria-hidden="true"></i> Receive
                                                     </a>
-                                                    <a href="javascript:void(0)" id="reset_checker" data-status="reject" class="buttons-points request-update">
+                                                    <a href="javascript:void(0)" id="reset_checker" data-status="reject" class="buttons-points reject-points">
                                                         <i class="fa fa-times" aria-hidden="true"></i> Reject
                                                     </a>
+                                                    
+                                                    <div id="pinVerify" style="display:none">
+                                                        <form action="tbd" id="pinVerifyForm" method="post">
+                                                            <div class="formline">
+                                                                <label for="userPin">Your Pin:</label>
+                                                                <input id="userPin" name="pin" type="password" maxlength="8" placeholder="Your Pin" required />
+                                                                <input type="hidden" name="status" class="status" value="">
+                                                            </div>
+                                                            <div class="formline">
+                                                                <input type="submit" value="Verify" class="buttons-points request-update" style="color:#000"/>
+                                                            </div>
+                                                        </form>
+                                                      </div>
                                                 </div>
 
                                             </td>
@@ -174,4 +187,5 @@
     .alert { height: 20px; padding: 5px; color: #fff;}
     .alert-danger {background-color: #d4202b}
     .alert-success {background-color: #00ff00}
+    #pinVerifyForm {margin: 5px; border: 1px solid; padding: 5px;}
 </style>
