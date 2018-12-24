@@ -93,10 +93,10 @@
                 <a class="link_onepages" href="{{ route('sitehome') }}"><i class="fa fa-single fa-home"></i></a>
 
             </li>
-            <li ><a class="link_onepages" href="{{ route('game') }}"><i class="fa fa-eye"></i>Play Game</a>
+            <li ><a class="link_onepages" href="{{ route('playgame') }}"><i class="fa fa-eye"></i>Play Game</a>
                 <div class="grid-container4">
                     <ul>
-                        <li><a href="{{ route('game') }}"><i class="fa fa-check"></i>Number Game </a></li>
+                        <li><a href="{{ route('playgame') }}"><i class="fa fa-check"></i>Number Game </a></li>
                     </ul>
                 </div>
             </li>

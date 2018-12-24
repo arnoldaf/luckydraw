@@ -12,47 +12,71 @@
 */
 Auth::routes();
 
+
 Route::get('/', 'MemberController@index')->name('sitehome');
-Route::get('/game', 'UserBidController@getGame')->name('game');
-Route::get('/point-transfer', 'TransactionController@pointTransfer')->name('point-transfer');
-Route::post('/point-transfer-request', 'TransactionController@pointTransferRequest');
-Route::post('/point-transfer-cancel', 'TransactionController@pointTransferCancel');
-Route::post('/point-transfer-update', 'TransactionController@pointTransferUpdate');
-Route::post('/confirm-bid', 'UserBidController@confirmBid');
-
-
-Route::get('admin/dashboard', 'DashboardController@myHome')->name('dashboard');
-Route::get('admin/test', 'DashboardController@test');
-//Route::get('admin/users/create', 'UserController@userCreate');
-//Route::get('admin/users', 'UserController@index');
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login1', 'UserBidController@getGame');
 Route::get('/redirect', 'UserController@redirectUser')->name('redirect');
 
+Route::group(['middleware' => ['member']], function() {
+  Route::get('/game', 'UserBidController@getGame')->name('playgame');
+  Route::get('/point-transfer', 'TransactionController@pointTransfer')->name('point-transfer');
+  Route::post('/point-transfer-request', 'TransactionController@pointTransferRequest');
+  Route::post('/point-transfer-cancel', 'TransactionController@pointTransferCancel');
+  Route::post('/point-transfer-update', 'TransactionController@pointTransferUpdate');
+  Route::post('/confirm-bid', 'UserBidController@confirmBid');
 
-Route::resource('admin/users', 'UserController', [
-    'names' => [
-        'index'   => 'users',
-        'destroy' => 'user.destroy',
-    ],
-    'except' => [
-        'deleted',
-    ],
-]);
+  //Front end Route
+  Route::get('/profile', 'ProfileController@profileUpdate')->name('profile');
+  Route::put('/updateProfileRequest', 'ProfileController@updateProfileRequest')->name('updateProfileRequest');
+  Route::get('/passwords', 'ProfileController@passwords')->name('passwords');
+  Route::post('/update-password-request', 'ProfileController@passwordsUpdateRequest')->name('updatePasswordRequest');
+  Route::post('/update-pin-request', 'ProfileController@pinUpdateRequest')->name('updatePinRequest');
+
+  //Downline Data
+  Route::get('/downline-list', 'DownlineController@downlineList')->name('downline-list');
+
+});
+
+Route::group(['middleware' => ['superadmin']], function() {
+  Route::get('admin/dashboard', 'DashboardController@myHome')->name('dashboard');
+  Route::get('admin/test', 'DashboardController@test');
+  Route::resource('admin/users', 'UserController', [
+      'names' => [
+          'index'   => 'users',
+          'destroy' => 'user.destroy',
+      ],
+      'except' => [
+          'deleted',
+      ],
+  ]);
+
+  Route::post('search-users', 'UserController@search')->name('search-users');
+  //Super Admin Routes
+  Route::get('admin/userProfile/{id}', 'UserController@userProfile')->name('userprofile');
 
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::post('search-users', 'UserController@search')->name('search-users');
+
+  //Game Mgmt
+Route::get('/admin/game', 'GameController@index')->name('game');
+Route::post('/admin/addGame', 'GameController@addGame')->name('addGame');
+Route::get('/admin/game/{id}', 'GameController@editGame')->name('editGame');
+Route::post('/admin/update-game/{id}', 'GameController@updateGame')->name('update-game');
 
 
-//Super Admin Routes
-Route::get('admin/userProfile/{id}', 'UserController@userProfile')->name('userprofile');
+Route::get('/admin/game-times', 'GameController@indexGameTimes')->name('game-times');
+Route::post('/admin/addGameTime', 'GameController@addGameTime')->name('addGameTime');
+Route::get('/admin/game-times/{id}', 'GameController@editGameTime')->name('editGameTime');
+Route::post('/admin/update-game-time/{id}', 'GameController@updateGameTime')->name('update-game-time');
 
-//Front end Route
-Route::get('/profile', 'ProfileController@profileUpdate')->name('profile');
-Route::put('/updateProfileRequest', 'ProfileController@updateProfileRequest')->name('updateProfileRequest');
-Route::get('/passwords', 'ProfileController@passwords')->name('passwords');
-Route::post('/update-password-request', 'ProfileController@passwordsUpdateRequest')->name('updatePasswordRequest');
-Route::post('/update-pin-request', 'ProfileController@pinUpdateRequest')->name('updatePinRequest');
+Route::get('/admin/game-number', 'GameController@indexGameNumber')->name('game-number');
+Route::post('/admin/addGameNumber', 'GameController@addGameNumber')->name('addGameNumber');
+Route::get('/admin/game-number/{id}', 'GameController@editGameNumber')->name('editGameNumber');
+Route::post('/admin/update-game-number/{id}', 'GameController@updateGameNumber')->name('update-game-number');
 
-//Downline Data
-Route::get('/downline-list', 'DownlineController@downlineList')->name('downline-list');
+Route::get('/admin/game-commission', 'GameController@indexGameCommission')->name('game-commission');
+Route::get('/admin/game-win-result', 'GameController@indexWinResult')->name('game-win-result');
+Route::get('/admin/game-bids', 'GameController@indexGameBids')->name('game-bids');
+
+
+});

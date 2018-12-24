@@ -505,18 +505,16 @@ class UserController extends Controller
     public function redirectUser()
     {
         $user = Auth::user();
-        //print_r($user);
-        //exit;
         if( Auth::check() ){
           $user = Auth::user();
           if($user->role_id ==1) {
             return redirect()->route('dashboard');
           } else {
-            return redirect()->route('game');
+            return redirect()->route('playgame');
           }
         } else {
 
-           return redirect()->route('home111');
+           return redirect()->route('home');
         }
     }
     /**

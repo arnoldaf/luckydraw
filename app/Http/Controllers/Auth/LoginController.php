@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/dashboard';
+    protected $redirectTo = '/redirect1';
 
     /**
      * Create a new controller instance.
@@ -82,7 +82,7 @@ class LoginController extends Controller
               //$user=Auth::user();
 
             //  if ( Auth::user()->isAdmin() ) {// do your margic here
-                  return redirect()->route('home');
+                  return redirect()->route('redirect');
             //  }
 
             // return redirect('/home');

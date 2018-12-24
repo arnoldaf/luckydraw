@@ -364,13 +364,17 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="bid-table">
                                 <thead>
                                   <tr>
+                                    <th>Transaction ID</th>
                                     <th>User ID</th>
                                     <th>Name</th>
                                     <th>Game Name</th>
                                     <th>Bid Number</th>
+                                    <th>Bid Type</th>
                                     <th>Quantity</th>
                                     <th>Amount</th>
                                     <th>Status</th>
+                                    <th>Result</th>
+                                    <th>Win Amount</th>
                                     <th>Date Time</th>
                                   </tr>
                                 </thead>
@@ -378,13 +382,17 @@
 
                                   @foreach($bidHistory as $bid)
                                       <tr>
+                                            <th>{{$bid->id}}</th>
                                             <td>{{$bid->user_account}}</td>
                                             <td>{{$bid->first_name.' '. $bid->last_name}}</td>
                                             <td>{{$bid->name}}</td>
-                                            <td>{{$bid->bid_number}}</td>
-                                            <td>*Q</td>
+                                            <td>{{sprintf("%02d", $bid->bid_number)}}</td>
+                                            <td>{{$bid->bid_category_id==1? 'Jodi': ($bid->bid_category_id==2?'Ander':'Bahar')}}</td>
+                                            <td>??</td>
                                             <td>{{$bid->amount}}</td>
-                                            <td>{{$bid->is_deleted}}</td>
+                                            <td>??</td>
+                                            <td>??</td>
+                                            <td>??</td>
                                             <td>{{ date('d-m-Y H:i:s', strtotime($bid->created_at))}}</td>
                                         </tr>
                                   @endforeach
@@ -400,12 +408,9 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="transaction-tab">
                                 <thead>
                                   <tr>
-                                    <th>To User Account</th>
                                     <th>From User Account</th>
-                                    <th>Game Id</th>
-                                    <!--<th>Bid Category</th>-->
-                                    <th>Bid Number</th>
-                                    <th>Bid Amount/Amount</th>
+                                    <th>To User Account</th>
+                                    <th>Amount</th>
                                     <th>Type</th>
                                     <th>Status</th>
                                     <th>Date Time</th>
@@ -415,13 +420,18 @@
 
                                   @foreach($transHistory as $trans)
                                       <tr>
-                                            <td>{{$trans->to_user_account}}</td>
                                             <td>{{$trans->from_user_account}}</td>
-                                            <td>{{$trans->game_id}}</td>
-                                            <!--<td>{{$trans->bid_category_id}}</td>-->
-                                            <td>{{$trans->bid_number}}</td>
+                                            <td>{{$trans->to_user_account}}</td>
+                                            @if($trans->type =='transfer')
+                                            <td>{{($trans->from_user_account == $user->user_account?'-':'')}}{{$trans->amount}}</td>
+                                            @else
                                             <td>{{$trans->amount}}</td>
-                                            <td>{{ucfirst($trans->type)}}</td>
+                                            @endif
+                                            @if($trans->type =='transfer')
+                                            <td>{{ucfirst($trans->type)}} {{($trans->from_user_account == $user->user_account?'Out':'In')}}</td>
+                                            @else
+                                            <td>{{ucfirst($trans->type)}} </td>
+                                            @endif
                                             <td>{{$trans->status==0?'Pending':'Completed' }}</td>
                                             <td>{{ date('d-m-Y H:i:s', strtotime($trans->created_at))}}</td>
                                         </tr>
