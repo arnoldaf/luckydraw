@@ -41,16 +41,10 @@
                                 <div id="ttabs" class="poker-tabs poker-tabs-pos-top-left poker-tabs-anim-scale poker-tabs-response-to-icons">
                                     <?php $tabSer = 1;?>
                                     @foreach($games as $game)
-                                    <input type="radio" name="poker-tabs" checked id="poker-tab{{$game['id']}}" class="poker-tab-content-{{$tabSer}}">
+                                    <input type="radio" name="poker-tabs" {{$tabSer == 1 ? "checked" : ""}} id="poker-tab{{$game['id']}}" value="{{$game['id']}}" class="poker-tab-content-{{$tabSer}}">
                                     <label for="poker-tab{{ $game['id'] }}"><span><span><i class="fa fa-bolt"></i>{{$game['name']}}</span></span></label>
-                                            <?php $tabSer++;?>
-                                        @endforeach
-                                    {{--<input type="radio" name="poker-tabs" id="poker-tab2" class="poker-tab-content-2">--}}
-                                    {{--<label for="poker-tab2"><span><span><i class="fa fa-picture-o"></i>Gali</span></span></label>--}}
-
-                                    {{--<input type="radio" name="poker-tabs" id="poker-tab3" class="poker-tab-content-3">--}}
-                                    {{--<label for="poker-tab3"><span><span><i class="fa fa-cogs"></i>Ghaziabad</span></span></label>--}}
-
+                                    <?php $tabSer++;?>
+                                    @endforeach
 
                                     <ul>
                                         <?php $tabSer = 0;?>

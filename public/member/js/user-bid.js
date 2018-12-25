@@ -516,7 +516,6 @@ $('.cross-calculate').on('click', function () {
             numA[i] = _thisVal;
             i++;
         }
-
     });
     // to get selected num of B
     let numB = new Array();
@@ -535,6 +534,26 @@ $('.cross-calculate').on('click', function () {
     setDenominationValue();
     if (denominationVal == 0) {
         _errorDiv.removeClass('hidden').addClass('alert-danger').html("Please select denomination coin ");
+    }
+    // to prepare num ab
+    let combos = [];
+    for(let n = 0; n < numA.length; n++) {
+        for(let m = 0; m < numB.length; m++) {
+            if (crossType == 0 && numA[n] == numB[m] ) {
+                continue;
+            }
+            combos.push(numA[n] + numB[m]);
+        }
+    }
+    let userBalance = parseFloat($('.user-balance').text());
+    let totalAmount = combos.length * denominationVal;
+    if (totalAmount > userBalance) {
+        fancyAlert("You don't have sufficient balance.");
+    }
+    let gameId = $('input[name="poker-tabs"]:checked').val();
+    let gameWrapper = $('.game-wrapper[data-id="'+gameId+'"]');
+    for(let o = 0; o < combos.length; o++){
+        gameWrapper.find('.user-selected-num[data-id="'+combos[o]+'"]').trigger("click");
     }
 
 });
