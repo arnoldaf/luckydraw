@@ -172,7 +172,7 @@
 
     <div class="container">
         <div class="jodi-section">
-            <div id="checkerStatus" class="checker__status"><h3> Select Numbers through CROSSING:  <input type="radio"> Jodi <input type="radio"> without Jodi </h3>
+            <div id="checkerStatus" class="checker__status"><h3> Select Numbers through CROSSING:  <input type="radio" name="jodi" value="1"> Jodi <input type="radio" name="jodi" value="0"> without Jodi </h3>
             </div>
 
         </div>
@@ -182,18 +182,10 @@
                     <div class="headh3">
                         <h3>A</h3>
                     </div>
-                    <div class="inputboxes" >
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-
+                    <div class="inputboxes cross-a">
+                        @for ($i = 0; $i < 10; $i++)
+                        <input type="text" name="cross_a" class="cross-a-val" maxlength="1">
+                        @endfor
                     </div>
 
                 </div>
@@ -201,24 +193,17 @@
                     <div class="headh3" >
                         <h3>B</h3>
                     </div>
-                    <div class="inputboxes">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
-                        <input type="text" name="">
+                    <div class="inputboxes cross-b">
+                        @for ($i = 0; $i < 10; $i++)
+                        <input type="text" name="cross_b" class="cross-b-val" maxlength="1">
+                        @endfor
                     </div>
                 </div>
             </div>
             <div class="width10">
                 <div class="jodibox-submit">
-                    <a href="javascript:void(0)" id="reset_checker" class="white-bt">Reset</a>
-                    <a href="javascript:void(0)" id="reset_checker" class="white-bt">Calculate</a>
+                    <a href="javascript:void(0)" id="reset_checker" class="white-bt cross-reset">Reset</a>
+                    <a href="javascript:void(0)" id="reset_checker" class="white-bt cross-calculate">Calculate</a>
 
                 </div>
             </div>

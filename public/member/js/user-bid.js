@@ -469,3 +469,34 @@ function fancyAlert(msg) {
         'content' : "<div style=\"margin:1px;width:240px;color:#fff\">"+msg+"<div style=\"text-align:right;margin-top:10px;\"><input style=\"margin:3px;padding:3px; width:20%; cursor:pointer\" type=\"button\" onclick=\"jQuery.fancybox.close();\" value=\"Ok\"></div></div>"
     });
 }
+
+function isCrossValueExist(inpVal, clsName) {
+    let counter = 0;
+    $('.'+clsName).each(function () {
+       if (parseInt(inpVal) == parseInt($(this).val())) {
+           counter += 1;
+       }
+    });
+
+    return counter > 1 ? true : false;
+}
+
+$('.cross-a-val').blur(function () {
+    let _this = $(this);
+    if (_this.val() != "" || _this.val() != NaN) {
+        if (isCrossValueExist(_this.val(), 'cross-a-val')) {
+            _this.val('');
+        }
+    }
+});
+
+$('.cross-b-val').blur(function () {
+    let _this = $(this);
+    if (_this.val() != "" || _this.val() != NaN) {
+        if (isCrossValueExist(_this.val(), 'cross-b-val')) {
+            _this.val('');
+        }
+    }
+});
+
+$('.cross-calculate').on('click')
