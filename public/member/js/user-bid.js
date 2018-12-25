@@ -499,4 +499,42 @@ $('.cross-b-val').blur(function () {
     }
 });
 
-$('.cross-calculate').on('click')
+$('.cross-calculate').on('click', function () {
+    let _errorDiv = $('.cross-error-msg');
+    let crossType = $('input[name="jodi"]:checked').val();
+    _errorDiv.removeClass('error-danger').addClass('hidden');
+    if (crossType == "" || crossType == NaN || crossType == undefined) {
+        _errorDiv.removeClass('hidden').addClass('alert-danger').html("Please section crossing type");
+        return false;
+    }
+    // to get selected num of A
+    let numA = new Array();
+    let i =0;
+    $('.cross-a-val').each(function () {
+        _thisVal = $(this).val();
+        if (_thisVal != "") {
+            numA[i] = _thisVal;
+            i++;
+        }
+
+    });
+    // to get selected num of B
+    let numB = new Array();
+    let j =0;
+    $('.cross-b-val').each(function () {
+        _thisValB = $(this).val();
+        if (_thisValB != "") {
+            numB[j] = _thisValB;
+            j++;
+        }
+    });
+    if (numA.length == 0 || numB.length == 0) {
+        _errorDiv.removeClass('hidden').addClass('alert-danger').html("Please input value for A and B ");
+        return false;
+    }
+    setDenominationValue();
+    if (denominationVal == 0) {
+        _errorDiv.removeClass('hidden').addClass('alert-danger').html("Please select denomination coin ");
+    }
+
+});

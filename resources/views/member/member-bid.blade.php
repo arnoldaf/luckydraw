@@ -172,7 +172,10 @@
 
     <div class="container">
         <div class="jodi-section">
-            <div id="checkerStatus" class="checker__status"><h3> Select Numbers through CROSSING:  <input type="radio" name="jodi" value="1"> Jodi <input type="radio" name="jodi" value="0"> without Jodi </h3>
+            <div class="alert alert-danger cross-error-msg hidden"> Processing.. </div>
+            <div id="checkerStatus" class="checker__status"><h3> Select Numbers through CROSSING:
+                    <input type="radio" name="jodi" value="1" checked> Jodi
+                    <input type="radio" name="jodi" value="0"> without Jodi </h3>
             </div>
 
         </div>
@@ -212,7 +215,11 @@
 
     </div>
 @endsection
-
+<style>
+    .alert { height: 20px; padding: 5px; color: #fff; width: 50%}
+    .alert-danger {background-color: #d4202b}
+    .alert-success {background-color: #00ff00}
+</style>
 <script type="text/javascript">
     // TImer for countdown
     // Set the date we're counting down to
