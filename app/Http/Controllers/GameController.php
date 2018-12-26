@@ -208,6 +208,12 @@ class GameController extends Controller {
         ini_set('memory_limit', '-1');
         $gameID = $request->input('game_id');
         $today = date("Y-m-d");
+        
+        $existNumber = DB::table('daily_declare_number')
+                ->where('game_id', $gameID)
+                ->where('declare_date', $today)
+                ->first();
+        if(!$existNumber){
         DB::table('daily_declare_number')->where('game_id', $gameID)->where('declare_date', $today)->delete();
         $validator = Validator::make($request->all(), [
                     'game_id' => 'required',
@@ -220,16 +226,22 @@ class GameController extends Controller {
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
+        $status=0;
         $gameNumber = DailyDeclareNumber::create([
                     'game_id' => $request->input('game_id'),
                     'number' => $request->input('game_number'),
                     'declare_date' => $today,
-                    'status' => 0,
+                    'status' => $status,
         ]);
+       
 
         $gameNumber->save();
         return redirect('admin/game-number')->with('success', 'Game Number created successfully.');
+        }
+        else {
+           return redirect('admin/game-number')->with('success', 'Game Result Already Declared.'); 
+        }
+        
     }
 
    
