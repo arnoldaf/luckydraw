@@ -8,6 +8,7 @@ use App\BidCategoryAmount;
 use App\GameTime;
 use App\DailyDeclareNumber;
 use Validator;
+use App\Services\WinResultService;
 use Auth;
 use App\Traits\CaptureIpTrait;
 use Illuminate\Http\Response;
@@ -46,6 +47,7 @@ class GameController extends Controller {
         $times = DB::table('game_times')
                 ->join('games', 'games.id', '=', 'game_times.game_id')
                 ->select('game_times.id as id', 'name as name', 'game_date', 'start_time', 'end_time', 'status')
+                 ->orderBy('game_times.game_date', 'DESC')
                 ->get();
 
         $games = Game::all();
@@ -58,7 +60,8 @@ class GameController extends Controller {
         // $number = DailyDeclareNumber::all();
         $number = DB::table('daily_declare_number')
                 ->join('games', 'games.id', '=', 'daily_declare_number.game_id')
-                ->select('daily_declare_number.id as id', 'name as name', 'declare_date', 'number')
+                ->select('daily_declare_number.id as id', 'daily_declare_number.status as status','games.id as game_id',  'name as name', 'declare_date', 'number')
+                ->orderBy('daily_declare_number.created_at', 'DESC')
                 ->get();
 
         $games = Game::all();
@@ -76,6 +79,7 @@ class GameController extends Controller {
                 // ->join('bid_categories', 'bid_categories.id', '=', 'transaction.bid_category_id')
                 ->select('users.user_account as user_name', 'games.name as game_name', 'transactions.percent as comm_percent', 'transactions.bid_amount as on_amount', 'transactions.amount as comm_amount', 'transactions.created_at as date')
                 ->where('type', 'commission')
+                ->orderBy('transactions.created_at', 'DESC')
                 ->get();
        
         $games = Game::all();
@@ -93,6 +97,7 @@ class GameController extends Controller {
                 ->join('bid_categories', 'bid_categories.id', '=', 'transactions.bid_category_id')
                 ->select('users.user_account as user_name', 'games.name as game_name', 'bid_categories.name as bid_category', 'transactions.percent as comm_percent', 'transactions.bid_number as bid_number', 'transactions.bid_amount as on_amount', 'transactions.amount as comm_amount', 'transactions.created_at as date')
                 ->where('type', 'win_result')
+                ->orderBy('transactions.created_at', 'DESC')
                 ->get();
      
         $games = Game::all();
@@ -109,7 +114,7 @@ class GameController extends Controller {
                 //->join('user', 'user.id', '=', 'transaction.from_user_id')
                 ->join('bid_categories', 'bid_categories.id', '=', 'user_bid.bid_category_id')
                 ->select('users.user_account as user_name', 'games.name as game_name', 'bid_categories.name as bid_category', 'user_bid.bid_number as bid_number', 'user_bid.amount as amount', 'user_bid.created_at as date')
-                // ->where ('type', 'win_result')
+                ->orderBy('user_bid.created_at', 'DESC')
                 ->get();
         //echo '<pre>';
         //print_r($commission);
@@ -220,6 +225,7 @@ class GameController extends Controller {
                     'game_id' => $request->input('game_id'),
                     'number' => $request->input('game_number'),
                     'declare_date' => $today,
+                    'status' => 0,
         ]);
 
         $gameNumber->save();
@@ -424,6 +430,16 @@ class GameController extends Controller {
        
         $games = Game::all();
         return View('admin/commissionResult', compact('commission', 'games'));
+    }
+    
+    public function gameResultDeclare($id) {
+        echo $game_id = $id;
+         (new WinResultService())->winPayout($id);
+        //die;
+       //return back()->with('success', 'Game updated succesfully');
+        return redirect()->route('game-number');
+        //return redirect('admin/game-number')->with('success', 'Game updated succesfully');
+        //return View('admin/game/gameNumber', compact('number', 'games'));
     }
 
   

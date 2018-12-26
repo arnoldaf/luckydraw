@@ -52,8 +52,7 @@
                     <button class="btn btn-success btn-sm " type="submit">Update</button>
                 </div><!--col-->
             </div><!--form-group-->
-            {!! Form::close() !!}    
-
+            
         </div><!--col-->
     </div><!--row-->
 

@@ -100,7 +100,13 @@
                                         <td>{{$game->declare_date}}</td>
                                         <td>{{$game->number}}</td>
                                         <td align="center" class="center">
-                                            <a href="{{ URL::to('admin/game-number/' . $game->id ) }}"><i class="fa fa-cog fa-fw"></i></a>
+                                            <?php if($game->status==0) { ?>
+                                            {!! Form::open(array('route' => ['game-number-result',$game->game_id], 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
+            {!! csrf_field() !!}
+                                           <button class="btn btn-success btn-sm " type="submit">Run Payout</button>
+                                             {!! Form::close() !!}  
+                                            <a title="Edit Number" href="{{ URL::to('admin/game-number/' . $game->id ) }}"><i class="fa fa-cog fa-fw"></i></a>
+                                            <? } else echo "Result Declared";?>
                                         </td>
                                     </tr>
                                     @endforeach 
