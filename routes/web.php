@@ -32,6 +32,22 @@ Route::group(['middleware' => ['member']], function() {
   Route::get('/passwords', 'ProfileController@passwords')->name('passwords');
   Route::post('/update-password-request', 'ProfileController@passwordsUpdateRequest')->name('updatePasswordRequest');
   Route::post('/update-pin-request', 'ProfileController@pinUpdateRequest')->name('updatePinRequest');
+//Game Mgmt
+Route::get('/admin/game-times', 'GameController@indexGameTimes')->name('game-times');
+Route::post('/admin/addGameTime', 'GameController@addGameTime')->name('addGameTime');
+Route::get('/admin/game-times/{id}', 'GameController@editGameTime')->name('editGameTime');
+Route::post('/admin/update-game-time/{id}', 'GameController@updateGameTime')->name('update-game-time');
+
+Route::get('/admin/game-number', 'GameController@indexGameNumber')->name('game-number');
+Route::post('/admin/addGameNumber', 'GameController@addGameNumber')->name('addGameNumber');
+Route::get('/admin/game-number/{id}', 'GameController@editGameNumber')->name('editGameNumber');
+Route::post('/admin/update-game-number/{id}', 'GameController@updateGameNumber')->name('update-game-number');
+
+Route::get('/admin/game-commission', 'GameController@indexGameCommission')->name('game-commission');
+Route::get('/admin/game-win-result', 'GameController@indexWinResult')->name('game-win-result');
+Route::get('/admin/game-bids', 'GameController@indexGameBids')->name('game-bids');
+Route::post('search-win', 'GameController@searchWin')->name('search-win');
+//=========
 
   //Downline Data
   Route::get('/downline-list', 'DownlineController@downlineList')->name('downline-list');
