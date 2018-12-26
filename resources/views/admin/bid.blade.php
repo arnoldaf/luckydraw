@@ -20,6 +20,7 @@
 
     <div class="mt-4 mb-4">
         <div class="col">
+            {!! Form::open(array('route' => 'search-bid', 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
             <div class="form-group row">
                 <label class="col-md-2 form-control-label required-field" for="game_name">Game Name</label>
 
@@ -42,7 +43,7 @@
 
                 <div class="col-md-6">
                     
-                    {!! Form::date('max_amount', NULL, array('id' => 'date', 'class' => 'form-control', 'placeholder' => 'Date',  'autofocus'=> "" , 'required'=> "" )) !!}
+                    <input class="form-control" type="text" autocomplete="off" name="reportrange" onkeydown="no_backspaces(event);" value="01/01/2018 - 01/15/2018" />
                 </div>
             </div>
 
@@ -55,6 +56,7 @@
                     <button class="btn btn-success btn-sm " type="submit">Search</button>
                 </div><!--col-->
             </div><!--form-group-->
+             {!! Form::close() !!}
 
             <div class="row">
                 <div class="col-lg-12">
