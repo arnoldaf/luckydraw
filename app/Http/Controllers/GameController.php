@@ -375,11 +375,17 @@ class GameController extends Controller {
    
     public function searchWin(Request $request) {
 
-        $game_id = $request->input('game_id');
+        $game_id = $request->input('game_id'); 
+        $gameName= Game::where('id',$game_id )->get();
+        
+        $name=($gameName[0]->name);
+      
         $reportrange = $request->input('reportrange');
         $dates = explode(' - ', str_replace('/', '-', $reportrange));
-        $fromDate = date('Y-m-d', strtotime($dates[0]));
-        $toDate = date('Y-m-d', strtotime($dates[1]));
+        $fromDate = date('Y-m-d', strtotime($dates[0]))." 00:00:00";
+        $toDate = date('Y-m-d', strtotime($dates[1]))." 23:59:59";
+        
+        $header= "For ".$name. " Between (".$fromDate." - ".$toDate.")";
 
         $commission = DB::table('transactions')
                 ->join('games', 'games.id', '=', 'transactions.game_id')
@@ -393,17 +399,25 @@ class GameController extends Controller {
                 ->get();
 
         $games = Game::all();
-        return View('admin/winResult', compact('commission', 'games'));
+        return View('admin/winResult', compact('header','commission', 'games'));
 
     }
 
     public function searchBid(Request $request) {
+        
+        
 
         $game_id = $request->input('game_id');
+        $gameName= Game::where('id',$game_id )->get();
+        
+        $name=($gameName[0]->name);
+      
         $reportrange = $request->input('reportrange');
         $dates = explode(' - ', str_replace('/', '-', $reportrange));
-        $fromDate = date('Y-m-d', strtotime($dates[0]));
-        $toDate = date('Y-m-d', strtotime($dates[1]));
+        $fromDate = date('Y-m-d', strtotime($dates[0]))." 00:00:00";
+        $toDate = date('Y-m-d', strtotime($dates[1]))." 23:59:59";
+        
+        $header= "For ".$name. " Between (".$fromDate." - ".$toDate.")";
 
         $bids = DB::table('user_bid')
                 ->join('games', 'games.id', '=', 'user_bid.game_id')
@@ -416,17 +430,23 @@ class GameController extends Controller {
                 ->get();
 
         $games = Game::all();
-        return View('admin/bid', compact('bids', 'games'));
+        return View('admin/bid', compact('header','bids', 'games'));
 
     }
     
      public function searchCommission(Request $request) {
          
         $game_id = $request->input('game_id');
+        $gameName= Game::where('id',$game_id )->get();
+        
+        $name=($gameName[0]->name);
+      
         $reportrange = $request->input('reportrange');
         $dates = explode(' - ', str_replace('/', '-', $reportrange));
-        $fromDate = date('Y-m-d', strtotime($dates[0]));
-        $toDate = date('Y-m-d', strtotime($dates[1]));
+        $fromDate = date('Y-m-d', strtotime($dates[0]))." 00:00:00";
+        $toDate = date('Y-m-d', strtotime($dates[1]))." 23:59:59";
+        
+        $header= "For ".$name. " Between (".$fromDate." - ".$toDate.")";
 
         $commission = DB::table('transactions')
                 ->join('games', 'games.id', '=', 'transactions.game_id')
@@ -441,11 +461,11 @@ class GameController extends Controller {
                 ->get();
        
         $games = Game::all();
-        return View('admin/commissionResult', compact('commission', 'games'));
+        return View('admin/commissionResult', compact('header','commission', 'games'));
     }
     
     public function gameResultDeclare($id) {
-        echo $game_id = $id;
+        //$game_id = $id;
          (new WinResultService())->winPayout($id);
         //die;
        //return back()->with('success', 'Game updated succesfully');

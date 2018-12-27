@@ -58,7 +58,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Win Result Details
+                            <b>Win Result Details</b> <? if(isset($header)){ echo $header;} ?>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">

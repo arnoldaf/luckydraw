@@ -42,6 +42,7 @@ class WinResultService {
                     ->select('user_id', 'game_id', 'bid_category_id', 'bid_number', 'amount as played_amount', 'comission')
                     ->where('game_id', '=', $gameId)
                     ->where('amount', '!=', 0)
+                    ->where('user_bid.created_at', '>=', date('Y-m-d'))
                     ->get();
 
             foreach ($sqlBidUser as $res) {
@@ -61,14 +62,14 @@ class WinResultService {
                     $winAmount = ($res->played_amount * $winPercentage);
                     // $insertResult = "INSERT INTO declare_win_result (uid, game_id, bid_category_id, bid_number,  bid_amount, win_amount)"
                     // . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount )";
-                    echo $insertResult = "INSERT INTO transactions (to_user_id, game_id, bid_category_id, bid_number,  bid_amount, amount, type)"
+                    $insertResult = "INSERT INTO transactions (to_user_id, game_id, bid_category_id, bid_number,  bid_amount, amount, type)"
                     . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount, 'win_result' )";
                     $resWin = DB::insert(DB::raw($insertResult));
                 }
 
-                if ($bidNumber == $firstNumber) {
+               if ($bidNumber == $firstNumber) {
                     $winAmount = ($res->played_amount * $winPercentage);
-                    echo $insertResult = "INSERT INTO transactions (to_user_id, game_id, bid_category_id, bid_number,  bid_amount, amount, type)"
+                    $insertResult = "INSERT INTO transactions (to_user_id, game_id, bid_category_id, bid_number,  bid_amount, amount, type)"
                     . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount, 'win_result' )";
                     //$insertResult = "INSERT INTO declare_win_result (uid, game_id, bid_category_id, bid_number,  bid_amount, win_amount)"
                     // . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount )";
@@ -77,12 +78,13 @@ class WinResultService {
 
                 if ($bidNumber == $lastNumber) {
                     $winAmount = ($res->played_amount * $winPercentage);
-                    echo $insertResult = "INSERT INTO transactions (to_user_id, game_id, bid_category_id, bid_number,  bid_amount, amount, type)"
+                    $insertResult = "INSERT INTO transactions (to_user_id, game_id, bid_category_id, bid_number,  bid_amount, amount, type)"
                     . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount, 'win_result' )";
                     // $insertResult = "INSERT INTO declare_win_result (uid, game_id, bid_category_id, bid_number,  bid_amount, win_amount)"
                     // . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount )";
                     $resWin = DB::insert(DB::raw($insertResult));
                 }
+                
             }
 
             DB::table('daily_declare_number')
