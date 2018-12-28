@@ -56,8 +56,8 @@ Route::group(['middleware' => ['superadmin']], function() {
   Route::post('search-users', 'UserController@search')->name('search-users');
   //Super Admin Routes
   Route::get('admin/userProfile/{id}', 'UserController@userProfile')->name('userprofile');
-
-
+  // Bid Listing
+  Route::get('/admin/all-bids', 'AdminBidController@index')->name('all-bids');
 
   //Game Mgmt
 Route::get('/admin/game', 'GameController@index')->name('game');

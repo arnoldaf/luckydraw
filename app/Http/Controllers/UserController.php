@@ -554,17 +554,15 @@ class UserController extends Controller
     public function userProfile($id)
     {
 
+      $transHistory = [];
       $tree = (new UserService())->downlineTree($id);
       $downline = json_encode($tree);
       $bidHistory = (new UserService())->bidHistory($id);
-      $transHistory =(new UserService())->transactionHistory($id);
-      /*
-      print('<pre>');
-      print_r($downline);
-      print('</pre>');
-      exit;
-      */
+      $transResult=(new UserService())->transactionHistory($id);
+      if(!isset($transResult['result']))
+       $transHistory = $transResult;
 
+      
       $user = User::findOrFail($id);
       $roles = Role::all();
       $amkUsers = User::where('role_id', '2')->get();

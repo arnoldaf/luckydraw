@@ -417,11 +417,12 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-
                                   @foreach($transHistory as $trans)
                                       <tr>
                                             <td>{{$trans->from_user_account}}</td>
+
                                             <td>{{$trans->to_user_account}}</td>
+
                                             @if($trans->type =='transfer')
                                             <td>{{($trans->from_user_account == $user->user_account?'-':'')}}{{$trans->amount}}</td>
                                             @else
@@ -432,13 +433,16 @@
                                             @else
                                             <td>{{ucfirst($trans->type)}} </td>
                                             @endif
+
                                             <td>{{$trans->status==0?'Pending':'Completed' }}</td>
                                             <td>{{ date('d-m-Y H:i:s', strtotime($trans->created_at))}}</td>
+
                                         </tr>
                                   @endforeach
 
                                 </tbody>
                             </table>
+
                             <!-- /.table-responsive -->
 
                         </div>

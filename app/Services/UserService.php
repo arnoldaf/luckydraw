@@ -82,11 +82,11 @@ class UserService {
     public function bidHistory($id) {
         try {
 
-                        $sql = "select usr.first_name, usr.last_name, usr.user_account,gm.name,ub.*  from users as usr
-                        inner join user_bid as ub on ub.user_id= usr.id inner join games as gm on ub.game_id=gm.id
-                        where usr.id=$id";
-                        $cards = DB::select($sql);
-                        return $cards;
+              $sql = "select usr.first_name, usr.last_name, usr.user_account,gm.name,ub.*  from users as usr
+              inner join user_bid as ub on ub.user_id= usr.id inner join games as gm on ub.game_id=gm.id
+              where usr.id=$id";
+              $cards = DB::select($sql);
+              return $cards;
 
         }catch (\Exception $exception) {
             return ['result' => false, 'message' => $exception->getMessage()];
@@ -116,11 +116,23 @@ class UserService {
                         $sql = "select * from transactions as trans where trans.to_user_id=$id or trans.from_user_id=$id ";
                         $transactions = DB::select($sql);
                         foreach ($transactions as $key=> $val) {
-                          $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name. ' '.$filteredUsers[$val->to_user_id]->last_name ;
-                          $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
-                          $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name. ' '.$filteredUsers[$val->from_user_id]->last_name ;
-                          $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
+                          $val->to_user_name =  '';
+                          $val->to_user_account = '';
+                          $val->from_user_name = '';
+                          $val->from_user_account = '';
+                          if(array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id,$filteredUsers)) {
+                            $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name. ' '.$filteredUsers[$val->to_user_id]->last_name ;
+                            $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
+                            $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name. ' '.$filteredUsers[$val->from_user_id]->last_name ;
+                            $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
+
+                          }
+
                           $transactions[$key] = $val;
+                        //  echo '<pre>';
+                        //  print_r($transactions);
+                        //  exit;
+
                          }
                         return $transactions;
 
