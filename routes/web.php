@@ -33,6 +33,8 @@ Route::group(['middleware' => ['member']], function() {
   Route::post('/update-password-request', 'ProfileController@passwordsUpdateRequest')->name('updatePasswordRequest');
   Route::post('/update-pin-request', 'ProfileController@pinUpdateRequest')->name('updatePinRequest');
 
+//=========
+
   //Downline Data
   Route::get('/downline-list', 'DownlineController@downlineList')->name('downline-list');
 
@@ -77,6 +79,12 @@ Route::post('/admin/update-game-number/{id}', 'GameController@updateGameNumber')
 Route::get('/admin/game-commission', 'GameController@indexGameCommission')->name('game-commission');
 Route::get('/admin/game-win-result', 'GameController@indexWinResult')->name('game-win-result');
 Route::get('/admin/game-bids', 'GameController@indexGameBids')->name('game-bids');
+
+Route::post('/admin/search-win', 'GameController@searchWin')->name('search-win');
+Route::post('/admin/search-bid', 'GameController@searchBid')->name('search-bid');
+Route::post('/admin/search-commission', 'GameController@searchCommission')->name('search-commission');
+
+Route::post('/admin/game-number-result/{id}', 'GameController@gameResultDeclare')->name('game-number-result');
 
 
 });

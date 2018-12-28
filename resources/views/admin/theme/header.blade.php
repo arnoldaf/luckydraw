@@ -248,33 +248,32 @@
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Game Management<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#">Game Creation</a>
-                        </li>
-                        <li>
-                            <a href="#">Game Time Settings</a>
-                        </li>
-                        <li>
-                            <a href="#">Game Bids</a>
-                        </li>
-                        <li>
-                            <a href="#">Result Declaration</a>
-                        </li>
+                      <li>
+                           <a href="{{ route('game') }}">Game Creation</a>
+                       </li>
+                       <li>
+                           <a href="{{ route('game-times') }}">Game Time Settings</a>
+                       </li>
+                       <li>
+                           <a href="#">Game Bids</a>
+                       </li>
+                       <li>
+                           <a href="{{ route('game-number') }}">Result Declaration</a>
+                       </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#">Bid</a>
-                        </li>
-                        <li>
-                            <a href="#">Result</a>
-                        </li>
-                        <li>
-                            <a href="#">Comission</a>
-                        </li>
+                      <li>
+                           <a href="{{ route('game-bids') }}">Bid</a>
+                       </li>
+                       <li>
+                           <a href="{{ route('game-win-result') }}">Result</a>
+                       </li>
+                       <li>
+                           <a href="{{ route('game-commission') }}">Commission</a>
                         <li>
                             <a href="#">Patti</a>
                         </li>

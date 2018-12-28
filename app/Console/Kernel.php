@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-         Commands\CommissionPayout::class,
+      Commands\CommissionPayout::class,
+      Commands\WinResultPayout::class,
         //
     ];
 

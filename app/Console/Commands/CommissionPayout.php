@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Services\CommissionPayoutService;
-use Illuminate\Support\Facades\Log;
 
 class CommissionPayout extends Command {
 
@@ -28,7 +27,17 @@ class CommissionPayout extends Command {
      * @return mixed
      */
     public function handle() {
-        (new CommissionPayoutService())->commPayout();
+         (new CommissionPayoutService())->commPayout();
+       /* $id = 4;
+        $startDate = '';
+        $endDate = '';
+        $gameId = '';
+        (new CommissionPayoutService())->commPayoutDetails($id, $startDate, $endDate, $gameId);
+        *
+        */
+
+
+        //(new WinResultService())->winPayout();
     }
 
 }
