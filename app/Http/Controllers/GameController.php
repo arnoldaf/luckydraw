@@ -36,7 +36,32 @@ class GameController extends Controller {
      */
     public function index() {
 
-        $games = Game::all();
+        $gameall = Game::all();
+        //echo "<pre>";
+
+        foreach ($gameall as $game) {
+
+            $jodiPer = BidCategoryAmount::where('game_id', $game->id)->where('bid_category_id', 1)->get();
+
+            $ABPer = BidCategoryAmount::where('game_id', $game->id)->where('bid_category_id', 2)->get();
+
+
+            $games[] = [
+                'id' => $game->id,
+                'name' => $game->name,
+                'jodi' => isset($jodiPer[0]->multiply) ? $jodiPer[0]->multiply : 0,
+                'ab' => isset($ABPer[0]->multiply) ? $ABPer[0]->multiply : 0,
+                'min_amount' => $game->min_amount,
+                'max_amount' => $game->max_amount,
+                'status' => $game->status,
+            ];
+        }
+
+        //$games
+        //print_r($games);
+        // print_r((object) $games);
+        // die;
+
         return view('admin/game/index')->withGames($games);
     }
 
@@ -47,7 +72,7 @@ class GameController extends Controller {
         $times = DB::table('game_times')
                 ->join('games', 'games.id', '=', 'game_times.game_id')
                 ->select('game_times.id as id', 'name as name', 'game_date', 'start_time', 'end_time', 'status')
-                 ->orderBy('game_times.game_date', 'DESC')
+                ->orderBy('game_times.game_date', 'DESC')
                 ->get();
 
         $games = Game::all();
@@ -60,7 +85,7 @@ class GameController extends Controller {
         // $number = DailyDeclareNumber::all();
         $number = DB::table('daily_declare_number')
                 ->join('games', 'games.id', '=', 'daily_declare_number.game_id')
-                ->select('daily_declare_number.id as id', 'daily_declare_number.status as status','games.id as game_id',  'name as name', 'declare_date', 'number')
+                ->select('daily_declare_number.id as id', 'daily_declare_number.status as status', 'games.id as game_id', 'name as name', 'declare_date', 'number')
                 ->orderBy('daily_declare_number.created_at', 'DESC')
                 ->get();
 
@@ -81,7 +106,7 @@ class GameController extends Controller {
                 ->where('type', 'commission')
                 ->orderBy('transactions.created_at', 'DESC')
                 ->get();
-       
+
         $games = Game::all();
         //return view('admin/winResult')->withCommission($commission);
         return View('admin/commissionResult', compact('commission', 'games'));
@@ -99,7 +124,7 @@ class GameController extends Controller {
                 ->where('type', 'win_result')
                 ->orderBy('transactions.created_at', 'DESC')
                 ->get();
-     
+
         $games = Game::all();
         //return view('admin/winResult')->withCommission($commission);
         return View('admin/winResult', compact('commission', 'games'));
@@ -124,7 +149,6 @@ class GameController extends Controller {
         return View('admin/bid', compact('bids', 'games'));
     }
 
-   
     public function addGame(Request $request) {
 
         $validator = Validator::make($request->all(), [
@@ -208,43 +232,40 @@ class GameController extends Controller {
         ini_set('memory_limit', '-1');
         $gameID = $request->input('game_id');
         $today = date("Y-m-d");
-        
+
         $existNumber = DB::table('daily_declare_number')
                 ->where('game_id', $gameID)
                 ->where('declare_date', $today)
                 ->first();
-        if(!$existNumber){
-        DB::table('daily_declare_number')->where('game_id', $gameID)->where('declare_date', $today)->delete();
-        $validator = Validator::make($request->all(), [
-                    'game_id' => 'required',
-                    'game_number' => 'required',
-                        ], [
-                    'game_number.unique' => 'Game Number should not be blank',
-                        ]
-        );
+        if (!$existNumber) {
+            DB::table('daily_declare_number')->where('game_id', $gameID)->where('declare_date', $today)->delete();
+            $validator = Validator::make($request->all(), [
+                        'game_id' => 'required',
+                        'game_number' => 'required',
+                            ], [
+                        'game_number.unique' => 'Game Number should not be blank',
+                            ]
+            );
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-        $status=0;
-        $gameNumber = DailyDeclareNumber::create([
-                    'game_id' => $request->input('game_id'),
-                    'number' => $request->input('game_number'),
-                    'declare_date' => $today,
-                    'status' => $status,
-        ]);
-       
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+            $status = 0;
+            $gameNumber = DailyDeclareNumber::create([
+                        'game_id' => $request->input('game_id'),
+                        'number' => $request->input('game_number'),
+                        'declare_date' => $today,
+                        'status' => $status,
+            ]);
 
-        $gameNumber->save();
-        return redirect('admin/game-number')->with('success', 'Game Number created successfully.');
+
+            $gameNumber->save();
+            return redirect('admin/game-number')->with('success', 'Game Number created successfully.');
+        } else {
+            return redirect('admin/game-number')->with('success', 'Game Result Already Declared.');
         }
-        else {
-           return redirect('admin/game-number')->with('success', 'Game Result Already Declared.'); 
-        }
-        
     }
 
-   
     /**
      * Show the form for editing the specified resource.
      *
@@ -371,21 +392,19 @@ class GameController extends Controller {
         return redirect('admin/game-number')->with('success', 'Game Number updated succesfully');
     }
 
-   
-   
     public function searchWin(Request $request) {
 
-        $game_id = $request->input('game_id'); 
-        $gameName= Game::where('id',$game_id )->get();
-        
-        $name=($gameName[0]->name);
-      
+        $game_id = $request->input('game_id');
+        $gameName = Game::where('id', $game_id)->get();
+
+        $name = ($gameName[0]->name);
+
         $reportrange = $request->input('reportrange');
         $dates = explode(' - ', str_replace('/', '-', $reportrange));
-        $fromDate = date('Y-m-d', strtotime($dates[0]))." 00:00:00";
-        $toDate = date('Y-m-d', strtotime($dates[1]))." 23:59:59";
-        
-        $header= "For ".$name. " Between (".$fromDate." - ".$toDate.")";
+        $fromDate = date('Y-m-d', strtotime($dates[0])) . " 00:00:00";
+        $toDate = date('Y-m-d', strtotime($dates[1])) . " 23:59:59";
+
+        $header = "For " . $name . " Between (" . $fromDate . " - " . $toDate . ")";
 
         $commission = DB::table('transactions')
                 ->join('games', 'games.id', '=', 'transactions.game_id')
@@ -399,25 +418,24 @@ class GameController extends Controller {
                 ->get();
 
         $games = Game::all();
-        return View('admin/winResult', compact('header','commission', 'games'));
-
+        return View('admin/winResult', compact('header', 'commission', 'games'));
     }
 
     public function searchBid(Request $request) {
-        
-        
+
+
 
         $game_id = $request->input('game_id');
-        $gameName= Game::where('id',$game_id )->get();
-        
-        $name=($gameName[0]->name);
-      
+        $gameName = Game::where('id', $game_id)->get();
+
+        $name = ($gameName[0]->name);
+
         $reportrange = $request->input('reportrange');
         $dates = explode(' - ', str_replace('/', '-', $reportrange));
-        $fromDate = date('Y-m-d', strtotime($dates[0]))." 00:00:00";
-        $toDate = date('Y-m-d', strtotime($dates[1]))." 23:59:59";
-        
-        $header= "For ".$name. " Between (".$fromDate." - ".$toDate.")";
+        $fromDate = date('Y-m-d', strtotime($dates[0])) . " 00:00:00";
+        $toDate = date('Y-m-d', strtotime($dates[1])) . " 23:59:59";
+
+        $header = "For " . $name . " Between (" . $fromDate . " - " . $toDate . ")";
 
         $bids = DB::table('user_bid')
                 ->join('games', 'games.id', '=', 'user_bid.game_id')
@@ -430,23 +448,22 @@ class GameController extends Controller {
                 ->get();
 
         $games = Game::all();
-        return View('admin/bid', compact('header','bids', 'games'));
-
+        return View('admin/bid', compact('header', 'bids', 'games'));
     }
-    
-     public function searchCommission(Request $request) {
-         
+
+    public function searchCommission(Request $request) {
+
         $game_id = $request->input('game_id');
-        $gameName= Game::where('id',$game_id )->get();
-        
-        $name=($gameName[0]->name);
-      
+        $gameName = Game::where('id', $game_id)->get();
+
+        $name = ($gameName[0]->name);
+
         $reportrange = $request->input('reportrange');
         $dates = explode(' - ', str_replace('/', '-', $reportrange));
-        $fromDate = date('Y-m-d', strtotime($dates[0]))." 00:00:00";
-        $toDate = date('Y-m-d', strtotime($dates[1]))." 23:59:59";
-        
-        $header= "For ".$name. " Between (".$fromDate." - ".$toDate.")";
+        $fromDate = date('Y-m-d', strtotime($dates[0])) . " 00:00:00";
+        $toDate = date('Y-m-d', strtotime($dates[1])) . " 23:59:59";
+
+        $header = "For " . $name . " Between (" . $fromDate . " - " . $toDate . ")";
 
         $commission = DB::table('transactions')
                 ->join('games', 'games.id', '=', 'transactions.game_id')
@@ -459,20 +476,19 @@ class GameController extends Controller {
                 ->where('transactions.created_at', '>=', $fromDate)
                 ->where('transactions.updated_at', '<=', $toDate)
                 ->get();
-       
+
         $games = Game::all();
-        return View('admin/commissionResult', compact('header','commission', 'games'));
+        return View('admin/commissionResult', compact('header', 'commission', 'games'));
     }
-    
+
     public function gameResultDeclare($id) {
         //$game_id = $id;
-         (new WinResultService())->winPayout($id);
+        (new WinResultService())->winPayout($id);
         //die;
-       //return back()->with('success', 'Game updated succesfully');
+        //return back()->with('success', 'Game updated succesfully');
         return redirect()->route('game-number');
         //return redirect('admin/game-number')->with('success', 'Game updated succesfully');
         //return View('admin/game/gameNumber', compact('number', 'games'));
     }
 
-  
 }

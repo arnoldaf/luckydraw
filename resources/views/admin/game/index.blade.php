@@ -114,18 +114,22 @@
                                     </tr>
                                 </tfoot>
                                 <tbody>
-
+                                    <?php
+                                   // print_r($games->name);
+                                   // echo $games['name'];
+                                   // die;
+                                    ?>
                                     @foreach($games as $game)
                                     <tr>
-                                        <td>{{$game->name}}</td>
-                                        <td>{{$game->win_percent}}</td>
-                                        <td>{{$game->win_percent_ab}}</td>
-                                        <td>{{$game->min_amount}}</td>
-                                        <td>{{$game->max_amount}}</td>
-                                        <td>{{$game->status== 0 ? 'Deactive': 'Active' }}</td>
+                                        <td>{{$game['name']}}</td>
+                                        <td>{{$game['jodi']}}</td>
+                                        <td>{{$game['ab']}}</td>
+                                        <td>{{$game['min_amount']}}</td>
+                                        <td>{{$game['max_amount']}}</td>
+                                        <td>{{$game['status']== 0 ? 'Deactive': 'Active' }}</td>
 
                                         <td align="center" class="center">
-                                            <a href="{{ URL::to('admin/game/' . $game->id ) }}"><i class="fa fa-cog fa-fw"></i></a>
+                                            <a href="{{ URL::to('admin/game/' . $game['id'] ) }}"><i class="fa fa-cog fa-fw"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach 
