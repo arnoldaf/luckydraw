@@ -111,15 +111,7 @@
                                                     </a>
                                                 </td>
                                             </tr>
-                                            {{--<tr class="evenrow">--}}
-                                                {{--<td>1</td>--}}
-                                                {{--<td class="name" >Dishawar</td>--}}
-                                                {{--<td>44</td>--}}
-                                                {{--<td>1000</td>--}}
-                                                {{--<td>--}}
-                                                    {{--<a href="" class="delete"><i class="fa fa-times" aria-hidden="true"></i></a>--}}
-                                                {{--</td>--}}
-                                            {{--</tr>--}}
+
                                             </tbody>
                                             <thead>
                                             <tr class="total-box">
@@ -183,6 +175,8 @@
                         @for ($i = 0; $i < 10; $i++)
                         <input type="text" name="cross_a" class="cross-a-val" maxlength="1">
                         @endfor
+                        <span style="font-weight: bold; color: #3b5656"> x </span>
+                        <input type="text" name="cross_a" class="cross-multiplier" onkeypress="return isNumber(event)" maxlength="3">
                     </div>
 
                 </div>
@@ -194,6 +188,8 @@
                         @for ($i = 0; $i < 10; $i++)
                         <input type="text" name="cross_b" class="cross-b-val" maxlength="1">
                         @endfor
+                        <span style="font-weight: bold"> x </span>
+                         <input type="text" disabled name="not-in-use" class="not-in-use" maxlength="1">
                     </div>
                 </div>
             </div>

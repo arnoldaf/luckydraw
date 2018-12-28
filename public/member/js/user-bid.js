@@ -3,8 +3,16 @@ let gameName = "";
 let gameId = 0;
 let userBidNum = 0;
 let totalBidAmountOnNum = 0;
-$('.game-wrapper').on('click', '.user-selected-num', function(){
-    if(setDenominationValue() === 0) { return; }
+$('.game-wrapper').on('click', '.user-selected-num', function(e){
+    console.log(e.originalEvent);
+    if (e.originalEvent !== undefined) { //human click
+        if(setDenominationValue() === 0) {
+            return;
+        }
+    } else if (denominationVal === 0) { //triggered from other event
+        console.log('Issue in denomination value');
+    }
+
     let _this = $(this);
     let gameWrapper = _this.closest('.game-wrapper');
     gameId = gameWrapper.data('id');
@@ -142,7 +150,6 @@ function setBidNumberPoints() {
         }
     });
     if (!findRow) {
-        console.log('not found');
         let newRow = gameHistoryWrapper.find('.member-bid-record.snippet').clone().removeClass('snippet').removeClass('hidden');
         newRow.find('.game-name').text(gameName);
         newRow.find('.game-name').data('id', gameId);
@@ -507,6 +514,11 @@ $('.cross-calculate').on('click', function () {
         _errorDiv.removeClass('hidden').addClass('alert-danger').html("Please section crossing type");
         return false;
     }
+    denominationVal = parseInt($('.cross-multiplier').val());
+    if (denominationVal < 1 || isNaN(denominationVal) || denominationVal == undefined) {
+        _errorDiv.removeClass('hidden').addClass('alert-danger').html("Please enter multiplier value");
+        return false;
+    }
     // to get selected num of A
     let numA = new Array();
     let i =0;
@@ -531,7 +543,7 @@ $('.cross-calculate').on('click', function () {
         _errorDiv.removeClass('hidden').addClass('alert-danger').html("Please input value for A and B ");
         return false;
     }
-    setDenominationValue();
+
     if (denominationVal == 0) {
         _errorDiv.removeClass('hidden').addClass('alert-danger').html("Please select denomination coin ");
     }
@@ -542,18 +554,48 @@ $('.cross-calculate').on('click', function () {
             if (crossType == 0 && numA[n] == numB[m] ) {
                 continue;
             }
-            combos.push(numA[n] + numB[m]);
+            if (numA[n] > 0) {
+                combos.push(numA[n] + numB[m]);
+            } else {
+                combos.push(numB[m]);
+            }
         }
     }
     let userBalance = parseFloat($('.user-balance').text());
     let totalAmount = combos.length * denominationVal;
     if (totalAmount > userBalance) {
         fancyAlert("You don't have sufficient balance.");
+        return false;
     }
     let gameId = $('input[name="poker-tabs"]:checked').val();
     let gameWrapper = $('.game-wrapper[data-id="'+gameId+'"]');
     for(let o = 0; o < combos.length; o++){
         gameWrapper.find('.user-selected-num[data-id="'+combos[o]+'"]').trigger("click");
     }
-
+    crossReset();
 });
+
+$('.cross-multiplier').blur(function () {
+   if ($(this).val() > 100) {
+       $(this).val("");
+   }
+});
+
+$('.cross-reset').on('click', function () {
+    crossReset();
+});
+
+function crossReset() {
+    $('.cross-a-val').val('');
+    $('.cross-b-val').val('');
+    $('.cross-multiplier').val('');
+}
+
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
