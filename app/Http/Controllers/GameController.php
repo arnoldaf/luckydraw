@@ -251,6 +251,106 @@ class GameController extends Controller {
         //return view('admin/winResult')->withCommission($commission);
         return View('admin/point/index', compact('transactions', 'games'));
     }
+    
+     public function indexAdminPointReceive() {
+        //echo "<pre>";
+
+        $users = User::all();
+        $roles = Role::all();
+        $filteredRoles = [];
+        $filteredUsers = [];
+        
+         foreach ($roles as $key=> $val) {
+                        $filteredRoles[$val->id] = $val->name;
+                      }
+
+        foreach ($users as $key => $val) {
+            $val->role_name = '';
+            if ($val->role_id) {
+                $val->role_name = $filteredRoles[$val->role_id];
+            }
+            $filteredUsers[$val->id] = $val;
+        }
+
+
+        $sql = "select * from transactions as trans where type='transfer' and to_user_id = 1";
+        $transactions = DB::select($sql);
+        foreach ($transactions as $key => $val) {
+            $val->to_user_name = '';
+            $val->to_user_account = '';
+            $val->from_user_name = '';
+            $val->from_user_account = '';
+            if (array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id, $filteredUsers)) {
+                $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name . ' ' . $filteredUsers[$val->to_user_id]->last_name;
+                $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
+                $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name . ' ' . $filteredUsers[$val->from_user_id]->last_name;
+                $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
+            }
+
+            $transactions[$key] = $val;
+            //  echo '<pre>';
+            //  print_r($transactions);
+            //  exit;
+        }
+       // print_r($transactions);
+        //die;
+        //return $transactions;
+
+
+        $games = Game::all();
+        //return view('admin/winResult')->withCommission($commission);
+        return View('admin/point/receivePoints', compact('transactions', 'games'));
+    }
+    
+     public function indexAdminPointTransfer() {
+        //echo "<pre>";
+
+        $users = User::all();
+        $roles = Role::all();
+        $filteredRoles = [];
+        $filteredUsers = [];
+        
+         foreach ($roles as $key=> $val) {
+                        $filteredRoles[$val->id] = $val->name;
+                      }
+
+        foreach ($users as $key => $val) {
+            $val->role_name = '';
+            if ($val->role_id) {
+                $val->role_name = $filteredRoles[$val->role_id];
+            }
+            $filteredUsers[$val->id] = $val;
+        }
+
+
+        $sql = "select * from transactions as trans where type='transfer' and from_user_id = 1";
+        $transactions = DB::select($sql);
+        foreach ($transactions as $key => $val) {
+            $val->to_user_name = '';
+            $val->to_user_account = '';
+            $val->from_user_name = '';
+            $val->from_user_account = '';
+            if (array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id, $filteredUsers)) {
+                $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name . ' ' . $filteredUsers[$val->to_user_id]->last_name;
+                $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
+                $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name . ' ' . $filteredUsers[$val->from_user_id]->last_name;
+                $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
+            }
+
+            $transactions[$key] = $val;
+            //  echo '<pre>';
+            //  print_r($transactions);
+            //  exit;
+        }
+       // print_r($transactions);
+        //die;
+        //return $transactions;
+
+
+        $games = Game::all();
+        //return view('admin/winResult')->withCommission($commission);
+        return View('admin/point/transferPoints', compact('transactions', 'games'));
+    }
 
     public function addGame(Request $request) {
 

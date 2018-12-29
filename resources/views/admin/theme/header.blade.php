@@ -290,10 +290,10 @@
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Manage Points<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="">Receivable</a>
+                            <a href="{{ route('admin-points-receive') }}">Receivable</a>
                         </li>
                         <li>
-                            <a href="">Transferable</a>
+                            <a href="{{ route('admin-points-transfer') }}">Transferable</a>
                         </li>
                         <li>
                             <a href="{{ route('admin-points-history') }}">Transaction History</a>

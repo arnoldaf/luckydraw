@@ -46,6 +46,8 @@ Route::group(['middleware' => ['member']], function() {
 
 });
 
+Route::post('/point-transfer-admin', 'TransactionController@pointTransferRequest')->name('pointTransferRequest');
+
 Route::group(['middleware' => ['superadmin']], function() {
   Route::get('admin/dashboard', 'DashboardController@myHome')->name('dashboard');
   Route::get('admin/test', 'DashboardController@test');
@@ -95,6 +97,8 @@ Route::post('/admin/game-number-result/{id}', 'GameController@gameResultDeclare'
 
 
 Route::get('/admin/admin-points-history', 'GameController@indexAdminPointTransaction')->name('admin-points-history');
+Route::get('/admin/admin-points-transfer', 'GameController@indexAdminPointTransfer')->name('admin-points-transfer');
+Route::get('/admin/admin-points-receive', 'GameController@indexAdminPointReceive')->name('admin-points-receive');
 //Route::post('/admin/search-transaction', 'GameController@searchPointsTransaction')->name('search-points-commission');
 
 
