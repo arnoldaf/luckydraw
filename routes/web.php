@@ -12,7 +12,13 @@
 */
 Auth::routes();
 
-
+Route::get('/auth/game-over-time', function() {
+    $hours = date('H');
+    if ($hours > 11 ) {
+        return strtotime(date("Y-m-d 11:59:59", time() + 86400))*1000;
+    }
+    return strtotime(date("Y-m-d 11:59:59"))*1000;
+});
 Route::get('/', 'MemberController@index')->name('sitehome');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login1', 'UserBidController@getGame');
@@ -85,6 +91,4 @@ Route::post('/admin/search-bid', 'GameController@searchBid')->name('search-bid')
 Route::post('/admin/search-commission', 'GameController@searchCommission')->name('search-commission');
 
 Route::post('/admin/game-number-result/{id}', 'GameController@gameResultDeclare')->name('game-number-result');
-
-
 });

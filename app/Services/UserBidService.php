@@ -18,6 +18,7 @@ class UserBidService {
         $userBids = [];
         $totalBidAmount = 0;
         $currentUser = User::find($userId);
+        $gameDate = $this->getGameDate();
         foreach($request['games'] as $key => $game) {
             $totalBidAmount += $game['bidAmount'];
             $userBids[] = [
@@ -26,7 +27,8 @@ class UserBidService {
                 'bid_category_id' => $game['categoryId'],
                 'bid_number' => $game['bidNum'],
                 'amount' => $game['bidAmount'],
-                'is_deleted' => 0
+                'is_deleted' => 0,
+                'game_date' => $gameDate
             ];
         }
         if ($currentUser->last_balance < $totalBidAmount) {
@@ -48,11 +50,20 @@ class UserBidService {
         $transaction->amount = $totalBidAmount;
         $transaction->type = 'bid';
         $transaction->status = 1;
+        $transaction->game_date = $gameDate;
         $transaction->save();
         //to deduct bid amount from user last balance
         $currentUser->last_balance = ($currentUser->last_balance - $totalBidAmount);
         $currentUser->save();
         
         return ['result' => true, 'message' => 'Bid placed successfully'];
+    }
+
+    public function getGameDate() {
+        $hours = date('H');
+        if ($hours > 11 ) {
+            return date("Y-m-d");
+        }
+        return date("Y-m-d", time() - 86400);
     }
 }

@@ -204,39 +204,39 @@
 
 
     </div>
-@endsection
+
 <style>
     .alert { height: 20px; padding: 5px; color: #fff; width: 50%}
     .alert-danger {background-color: #d4202b}
     .alert-success {background-color: #00ff00}
 </style>
 <script type="text/javascript">
-    // TImer for countdown
-    // Set the date we're counting down to
-    //var countDownDate = new Date.UTC("May 24, 2018 08:14:59").getTime();
-    var countDownDate = new Date(Date.UTC(2018, 11, 28, 06, 59, 59));
-    // Update the count down every 1 second
-    var x = setInterval(function() {
+    //"{{ strtotime(date("2018-12-30 11:59:59"))*1000 }}"; // new Date(2018, 12, 30, 11, 59, 59).getTime();
+    jQuery.ajax({
+        url: sit_url+'/auth/game-over-time',
+        type: 'GET',
+        success: function (countDownDateTime) {
+            setInterval(function() {
+                setGameOverTime(countDownDateTime);
+            }, 1000);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
 
+    function setGameOverTime(countDownDate) {
         // Get todays date and time
-        var now = new Date().getTime();
-
+        let now = new Date().getTime();
         // Find the distance between now an the count down date
-        var distance = countDownDate - now;
-
+        let distance = countDownDate - now;
         // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        // document.getElementById("timeleft").innerHTML =  hours + ": " + minutes + ": " + seconds ;
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
         document.getElementById("timeleft").innerHTML =   hours + ":" + minutes + ":" + seconds ;
-
-        // console.log("TIME LEFT: " + days + "D " + hours + "H " + minutes + "m " + seconds + "s ");
-        // If the count down is over, write some text
-
-    }, 1000);
-
-    // TImer for countdown end
+    }
 </script>
+
+@endsection

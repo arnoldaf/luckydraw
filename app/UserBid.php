@@ -12,7 +12,7 @@ class UserBid extends Model
         try {
             return $this->insert($userBids);
         } catch (Exception $ex) {
-            return $x->getErrorMessage();
+            return $ex->getErrorMessage();
         } 
     }
 }
