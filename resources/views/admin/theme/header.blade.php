@@ -251,9 +251,10 @@
                       <li>
                            <a href="{{ route('game') }}">Game Creation</a>
                        </li>
-                       <li>
+                      <!-- <li>
                            <a href="{{ route('game-times') }}">Game Time Settings</a>
                        </li>
+                      -->
                        <li>
                            <a href="#">Game Bids</a>
                        </li>
