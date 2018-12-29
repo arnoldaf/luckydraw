@@ -71,6 +71,7 @@
                                         <th>Percent</th>
                                         <th>On Amount</th>
                                         <th>Commission</th>
+                                        <th>Game Date</th>
                                         <th>Date</th>
                                     </tr>
                                 </thead>
@@ -81,6 +82,7 @@
                                         <th>Percent</th>
                                         <th>On Amount</th>
                                         <th>Commission</th>
+                                        <th>Game Date</th>
                                         <th>Date</th>
                                     </tr>
                                 </tfoot>
@@ -93,6 +95,7 @@
                                         <td>{{$comm->comm_percent}}</td>
                                         <td>{{$comm->on_amount}}</td>
                                         <td>{{$comm->comm_amount}}</td>
+                                        <td>{{$comm->game_date}}</td>
                                         <td>{{$comm->date}}</td>
                                     </tr>
                                     @endforeach 

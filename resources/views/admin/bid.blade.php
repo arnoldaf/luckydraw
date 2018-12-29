@@ -74,6 +74,7 @@
                                         <th>User</th>
                                         <th>Bid Number</th>
                                         <th>Bid Amount</th>
+                                        <th>Game Date</th>
                                         <th>Date</th>
                                     </tr>
                                 </thead>
@@ -84,6 +85,7 @@
                                         <th>User</th>
                                         <th>Bid Number</th>
                                         <th>Bid Amount</th>
+                                        <th>Game Date</th>
                                         <th>Date</th>
                                     </tr>
                                 </tfoot>
@@ -96,6 +98,7 @@
                                         <td>{{$bid->user_name}}</td>
                                         <td>{{$bid->bid_number}}</td>
                                         <td>{{$bid->amount}}</td>
+                                        <td>{{$bid->game_date}}</td>
                                         <td>{{$bid->date}}</td>
                                     </tr>
                                     @endforeach 

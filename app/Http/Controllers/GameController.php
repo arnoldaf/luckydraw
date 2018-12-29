@@ -102,7 +102,7 @@ class GameController extends Controller {
                 ->join('users', 'users.id', '=', 'transactions.to_user_id')
                 //->join('user', 'user.id', '=', 'transaction.from_user_id')
                 // ->join('bid_categories', 'bid_categories.id', '=', 'transaction.bid_category_id')
-                ->select('users.user_account as user_name', 'games.name as game_name', 'transactions.percent as comm_percent', 'transactions.bid_amount as on_amount', 'transactions.amount as comm_amount', 'transactions.created_at as date')
+                ->select('users.user_account as user_name', 'games.name as game_name', 'transactions.percent as comm_percent', 'transactions.bid_amount as on_amount', 'transactions.amount as comm_amount', 'transactions.created_at as date', 'transactions.game_date as game_date')
                 ->where('type', 'commission')
                 ->orderBy('transactions.created_at', 'DESC')
                 ->get();
@@ -120,7 +120,7 @@ class GameController extends Controller {
                 ->join('users', 'users.id', '=', 'transactions.to_user_id')
                 //->join('user', 'user.id', '=', 'transaction.from_user_id')
                 ->join('bid_categories', 'bid_categories.id', '=', 'transactions.bid_category_id')
-                ->select('users.user_account as user_name', 'games.name as game_name', 'bid_categories.name as bid_category', 'transactions.percent as comm_percent', 'transactions.bid_number as bid_number', 'transactions.bid_amount as on_amount', 'transactions.amount as comm_amount', 'transactions.created_at as date')
+                ->select('users.user_account as user_name', 'games.name as game_name', 'bid_categories.name as bid_category', 'transactions.percent as comm_percent', 'transactions.bid_number as bid_number', 'transactions.bid_amount as on_amount', 'transactions.amount as comm_amount', 'transactions.created_at as date', 'transactions.game_date as game_date')
                 ->where('type', 'win_result')
                 ->orderBy('transactions.created_at', 'DESC')
                 ->get();
@@ -138,7 +138,7 @@ class GameController extends Controller {
                 ->join('users', 'users.id', '=', 'user_bid.user_id')
                 //->join('user', 'user.id', '=', 'transaction.from_user_id')
                 ->join('bid_categories', 'bid_categories.id', '=', 'user_bid.bid_category_id')
-                ->select('users.user_account as user_name', 'games.name as game_name', 'bid_categories.name as bid_category', 'user_bid.bid_number as bid_number', 'user_bid.amount as amount', 'user_bid.created_at as date')
+                ->select('users.user_account as user_name', 'games.name as game_name', 'bid_categories.name as bid_category', 'user_bid.bid_number as bid_number', 'user_bid.amount as amount', 'user_bid.created_at as date', 'user_bid.game_date as game_date')
                 ->orderBy('user_bid.created_at', 'DESC')
                 ->get();
         //echo '<pre>';
@@ -401,8 +401,10 @@ class GameController extends Controller {
 
         $reportrange = $request->input('reportrange');
         $dates = explode(' - ', str_replace('/', '-', $reportrange));
-        $fromDate = date('Y-m-d', strtotime($dates[0])) . " 00:00:00";
-        $toDate = date('Y-m-d', strtotime($dates[1])) . " 23:59:59";
+        //$fromDate = date('Y-m-d', strtotime($dates[0])) . " 00:00:00";
+        //$toDate = date('Y-m-d', strtotime($dates[1])) . " 23:59:59";
+        $fromDate = date('Y-m-d', strtotime($dates[0]));
+        $toDate = date('Y-m-d', strtotime($dates[1]));
 
         $header = "For " . $name . " Between (" . $fromDate . " - " . $toDate . ")";
 
@@ -410,11 +412,11 @@ class GameController extends Controller {
                 ->join('games', 'games.id', '=', 'transactions.game_id')
                 ->join('users', 'users.id', '=', 'transactions.to_user_id')
                 ->join('bid_categories', 'bid_categories.id', '=', 'transactions.bid_category_id')
-                ->select('users.user_account as user_name', 'games.name as game_name', 'bid_categories.name as bid_category', 'transactions.percent as comm_percent', 'transactions.bid_number as bid_number', 'transactions.bid_amount as on_amount', 'transactions.amount as comm_amount', 'transactions.created_at as date')
+                ->select('users.user_account as user_name', 'games.name as game_name', 'bid_categories.name as bid_category', 'transactions.percent as comm_percent', 'transactions.bid_number as bid_number', 'transactions.bid_amount as on_amount', 'transactions.amount as comm_amount', 'transactions.created_at as date', 'transactions.game_date as game_date')
                 ->where('type', 'win_result')
                 ->where('game_id', $game_id)
-                ->where('transactions.created_at', '>=', $fromDate)
-                ->where('transactions.updated_at', '<=', $toDate)
+                ->where('transactions.game_date', '>=', $fromDate)
+                ->where('transactions.game_date', '<=', $toDate)
                 ->get();
 
         $games = Game::all();
@@ -432,8 +434,11 @@ class GameController extends Controller {
 
         $reportrange = $request->input('reportrange');
         $dates = explode(' - ', str_replace('/', '-', $reportrange));
-        $fromDate = date('Y-m-d', strtotime($dates[0])) . " 00:00:00";
-        $toDate = date('Y-m-d', strtotime($dates[1])) . " 23:59:59";
+        //$fromDate = date('Y-m-d', strtotime($dates[0])) . " 00:00:00";
+        //$toDate = date('Y-m-d', strtotime($dates[1])) . " 23:59:59";
+        
+        $fromDate = date('Y-m-d', strtotime($dates[0]));
+        $toDate = date('Y-m-d', strtotime($dates[1]));
 
         $header = "For " . $name . " Between (" . $fromDate . " - " . $toDate . ")";
 
@@ -441,10 +446,10 @@ class GameController extends Controller {
                 ->join('games', 'games.id', '=', 'user_bid.game_id')
                 ->join('users', 'users.id', '=', 'user_bid.user_id')
                 ->join('bid_categories', 'bid_categories.id', '=', 'user_bid.bid_category_id')
-                ->select('users.user_account as user_name', 'games.name as game_name', 'bid_categories.name as bid_category', 'user_bid.bid_number as bid_number', 'user_bid.amount as amount', 'user_bid.created_at as date')
+                ->select('users.user_account as user_name', 'games.name as game_name', 'bid_categories.name as bid_category', 'user_bid.bid_number as bid_number', 'user_bid.amount as amount', 'user_bid.created_at as date', 'user_bid.game_date as game_date')
                 ->where('game_id', $game_id)
-                ->where('user_bid.created_at', '>=', $fromDate)
-                ->where('user_bid.updated_at', '<=', $toDate)
+                ->where('user_bid.game_date', '>=', $fromDate)
+                ->where('user_bid.game_date', '<=', $toDate)
                 ->get();
 
         $games = Game::all();
@@ -460,8 +465,11 @@ class GameController extends Controller {
 
         $reportrange = $request->input('reportrange');
         $dates = explode(' - ', str_replace('/', '-', $reportrange));
-        $fromDate = date('Y-m-d', strtotime($dates[0])) . " 00:00:00";
-        $toDate = date('Y-m-d', strtotime($dates[1])) . " 23:59:59";
+        //$fromDate = date('Y-m-d', strtotime($dates[0])) . " 00:00:00";
+       // $toDate = date('Y-m-d', strtotime($dates[1])) . " 23:59:59";
+        
+        $fromDate = date('Y-m-d', strtotime($dates[0]));
+        $toDate = date('Y-m-d', strtotime($dates[1]));
 
         $header = "For " . $name . " Between (" . $fromDate . " - " . $toDate . ")";
 
@@ -470,11 +478,11 @@ class GameController extends Controller {
                 ->join('users', 'users.id', '=', 'transactions.to_user_id')
                 //->join('user', 'user.id', '=', 'transaction.from_user_id')
                 // ->join('bid_categories', 'bid_categories.id', '=', 'transaction.bid_category_id')
-                ->select('users.user_account as user_name', 'games.name as game_name', 'transactions.percent as comm_percent', 'transactions.bid_amount as on_amount', 'transactions.amount as comm_amount', 'transactions.created_at as date')
+                ->select('users.user_account as user_name', 'games.name as game_name', 'transactions.percent as comm_percent', 'transactions.bid_amount as on_amount', 'transactions.amount as comm_amount', 'transactions.created_at as date', 'transactions.game_date as game_date')
                 ->where('type', 'commission')
                 ->where('game_id', $game_id)
-                ->where('transactions.created_at', '>=', $fromDate)
-                ->where('transactions.updated_at', '<=', $toDate)
+                ->where('transactions.game_date', '>=', $fromDate)
+                ->where('transactions.game_date', '<=', $toDate)
                 ->get();
 
         $games = Game::all();

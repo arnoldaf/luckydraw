@@ -71,6 +71,7 @@
                                         <th>Bid Number</th>
                                         <th>Bid Amount</th>
                                         <th>Win Amount</th>
+                                        <th>Game Date</th>
                                         <th>Date</th>
                                     </tr>
                                 </thead>
@@ -82,6 +83,7 @@
                                         <th>Bid Number</th>
                                         <th>Bid Amount</th>
                                         <th>Win Amount</th>
+                                        <th>Game Date</th>
                                         <th>Date</th>
                                     </tr>
                                 </tfoot>
@@ -95,6 +97,7 @@
                                         <td>{{$comm->bid_number}}</td>
                                         <td>{{$comm->on_amount}}</td>
                                         <td>{{$comm->comm_amount}}</td>
+                                        <td>{{$comm->game_date}}</td>
                                         <td>{{$comm->date}}</td>
                                     </tr>
                                     @endforeach 
