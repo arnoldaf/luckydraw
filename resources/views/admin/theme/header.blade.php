@@ -228,10 +228,10 @@
                     <div class="input-group custom-search-form">
                         <input type="text" class="form-control" placeholder="Search...">
                         <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
+                            <button class="btn btn-default" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
                     </div>
                     <!-- /input-group -->
                 </li>
@@ -248,35 +248,55 @@
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Game Management<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                      <li>
-                           <a href="{{ route('game') }}">Game Creation</a>
-                       </li>
-                      <!-- <li>
-                           <a href="{{ route('game-times') }}">Game Time Settings</a>
-                       </li>
-                      -->
-                       <li>
-                           <a href="#">Game Bids</a>
-                       </li>
-                       <li>
-                           <a href="{{ route('game-number') }}">Result Declaration</a>
-                       </li>
+                        <li>
+                            <a href="{{ route('game') }}">Game Creation</a>
+                        </li>
+                        <!-- <li>
+                             <a href="{{ route('game-times') }}">Game Time Settings</a>
+                         </li>
+                        -->
+                        <li>
+                            <a href="#">Game Bids</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('game-number') }}">Result Declaration</a>
+                        </li>
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Reports<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                      <li>
-                           <a href="{{ route('game-bids') }}">Bid</a>
-                       </li>
-                       <li>
-                           <a href="{{ route('game-win-result') }}">Result</a>
-                       </li>
-                       <li>
-                           <a href="{{ route('game-commission') }}">Commission</a>
+                        <li>
+                            <a href="{{ route('game-bids') }}">Bid</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('game-win-result') }}">Result</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('game-commission') }}">Commission</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('points-transaction-history') }}">Points History</a>
+                        </li>
                         <li>
                             <a href="#">Patti</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+
+                <li>
+                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Manage Points<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="">Receivable</a>
+                        </li>
+                        <li>
+                            <a href="">Transferable</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin-points-history') }}">Transaction History</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

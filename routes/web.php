@@ -85,10 +85,17 @@ Route::post('/admin/update-game-number/{id}', 'GameController@updateGameNumber')
 Route::get('/admin/game-commission', 'GameController@indexGameCommission')->name('game-commission');
 Route::get('/admin/game-win-result', 'GameController@indexWinResult')->name('game-win-result');
 Route::get('/admin/game-bids', 'GameController@indexGameBids')->name('game-bids');
+Route::get('/admin/points-transaction-history', 'GameController@indexPointTransaction')->name('points-transaction-history');
 
 Route::post('/admin/search-win', 'GameController@searchWin')->name('search-win');
 Route::post('/admin/search-bid', 'GameController@searchBid')->name('search-bid');
 Route::post('/admin/search-commission', 'GameController@searchCommission')->name('search-commission');
 
 Route::post('/admin/game-number-result/{id}', 'GameController@gameResultDeclare')->name('game-number-result');
+
+
+Route::get('/admin/admin-points-history', 'GameController@indexAdminPointTransaction')->name('admin-points-history');
+//Route::post('/admin/search-transaction', 'GameController@searchPointsTransaction')->name('search-points-commission');
+
+
 });
