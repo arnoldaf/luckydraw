@@ -29,7 +29,7 @@ Route::group(['middleware' => ['member']], function() {
   Route::get('/point-transfer', 'TransactionController@pointTransfer')->name('point-transfer');
   Route::post('/point-transfer-request', 'TransactionController@pointTransferRequest');
   Route::post('/point-transfer-cancel', 'TransactionController@pointTransferCancel');
-  Route::post('/point-transfer-update', 'TransactionController@pointTransferUpdate');
+  //Route::post('/point-transfer-update', 'TransactionController@pointTransferUpdate');
   Route::post('/confirm-bid', 'UserBidController@confirmBid');
 
   //Front end Route
@@ -46,8 +46,8 @@ Route::group(['middleware' => ['member']], function() {
 
 });
 
-Route::post('/point-transfer-admin', 'TransactionController@pointTransferRequest')->name('pointTransferRequest');
 
+Route::post('member/point-transfer-update', 'TransactionController@pointTransferUpdate');
 Route::group(['middleware' => ['superadmin']], function() {
   Route::get('admin/dashboard', 'DashboardController@myHome')->name('dashboard');
   Route::get('admin/test', 'DashboardController@test');
@@ -100,6 +100,8 @@ Route::get('/admin/admin-points-history', 'GameController@indexAdminPointTransac
 Route::get('/admin/admin-points-transfer', 'GameController@indexAdminPointTransfer')->name('admin-points-transfer');
 Route::get('/admin/admin-points-receive', 'GameController@indexAdminPointReceive')->name('admin-points-receive');
 //Route::post('/admin/search-transaction', 'GameController@searchPointsTransaction')->name('search-points-commission');
+Route::post('/point-transfer-admin', 'GameController@pointTransferRequest')->name('pointTransferRequest');
 
+Route::post('/point-receive-admin', 'GameController@pointReceiveUpdate')->name('pointReceiveRequest');
 
 });

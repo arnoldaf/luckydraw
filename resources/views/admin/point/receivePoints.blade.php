@@ -1,11 +1,12 @@
 @extends('admin.theme.default')
 
+
 @section('content')
 
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header">  Points Receive<small class="text-muted"> Points Receive</small> </h3>
+            <h3 class="page-header">  Points Receive<small class="text-muted"> <b>Current Admin Balance: Rs  <? echo $adminLastBalance;?> </b></small> </h3>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -20,87 +21,85 @@
 
     <div class="mt-4 mb-4">
         <div class="col">
-             <div class="form-group row">
-                <label class="col-md-2 float-sm-right form-control-label" for="first_name">Account No</label>
-
-                <div class="col-md-4">
-                    <input class="form-control" type="text" value="" name="userid" id="userid" placeholder="User ID" maxlength="191" autofocus="">
-
-                </div><!--col-->
-            </div><!--form-group-->
-
-            <div class="form-group row">
-                <label class="col-md-2 float-sm-right form-control-label" for="first_name">Pin</label>
-
-                <div class="col-md-4">
-                    <input class="form-control" type="text" name="name" value=""  id="name" placeholder="Name" maxlength="191" autofocus="">
-
-                </div><!--col-->
-            </div><!--form-group-->
-
-            <div class="form-group row">
-                <label class="col-md-2 float-sm-right form-control-label" for="first_name">Amount</label>
-
-                <div class="col-md-4">
-                    <input class="form-control" type="text" name="emailid" value=""  id="emailid" placeholder="Email Id" maxlength="191" autofocus="">
-
-                </div><!--col-->
-            </div><!--form-group-->
-            <div class="form-group row">
-                <label class="col-md-2 form-control-label" for="active"></label>
-                <div class="col-md-6">
-                    <button class="btn btn-success btn-sm" type="reset">Reset</button>
-                    <button class="btn btn-success btn-sm " type="submit">Receive</button>
-                </div><!--col-->
-            </div><!--form-group-->
            
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <b>Received Points Details</b> <? if(isset($header)){ echo $header;} ?>
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>From User</th>
-                                        <th>Amount</th>
-                                       
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>From User</th>
-                                        <th>Amount</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <b>Received Points Details</b> <? if(isset($header)){ echo $header;} ?>
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                             {!! Form::open(array('route' => ['pointReceiveRequest'], 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
+                             {!! csrf_field() !!}
+                                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Date</th>
+                                            <th>From User ID</th>
+                                            <th>From User Name</th>
+                                            <th>From User Balance</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="7">
+                                    <div class="half-box blackbg" ><input type="checkbox" name="" class="select-all"> Select All
+                                        <a href="javascript:void(0)" id="reset_checker"  data-status="accept" class="buttons-points receive-points">
+                                            <i class="fa fa-credit-card" aria-hidden="true"></i> Receive
+                                        </a>
+                                        <a href="javascript:void(0)" id="reset_checker" data-status="reject" class="buttons-points reject-points">
+                                            <i class="fa fa-times" aria-hidden="true"></i> Reject
+                                        </a>
 
-                                    @foreach($transactions as $comm)
-                                    <tr>
-                                        <td>{{$comm->updated_at}}</td>
-                                        <td>{{$comm->from_user_account}}</td>
-                                        <td>{{$comm->amount}}</td>
-                                        <td>{{$comm->status==0?'Pending':'Completed' }}</td>
+                                        <div id="pinVerify" style="display:none">
+                                            <!--<form action="tbd" id="pinVerifyForm" method="post">-->
+                                                <div class="formline">
+                                                    <label for="userPin">Your Pin:</label>
+                                                    <input id="userPin" name="pin" type="password" maxlength="8" placeholder="Your Pin" required />
+                                                    <input type="hidden" name="status" class="status" value="">
+                                                    
+                                                    <input type="submit" value="Verify" class="buttons-points request-update" style="color:#000"/>
+                                                </div>
+                                           <!-- </form>-->
+                                        </div>
+                                    </div>
+                                    </th>
+                                    
                                     </tr>
-                                    @endforeach 
-                                </tbody>
-                            </table>
-                            <!-- /.table-responsive -->
+                                    </tfoot>
+                                    <tbody>
+
+                                        @foreach($transactions as $comm)
+                                        <tr>
+                                            <td><input type="checkbox" name="ids" class="transactionId" value="{{$comm->id}}"></td>
+                                            <td>{{$comm->updated_at}}</td>
+                                            <td>{{$comm->from_user_account}}</td>
+                                            <td>{{$comm->from_user_name}}</td>
+                                            <td>{{$comm->from_user_balance}}</td>
+                                            <td>{{$comm->amount}}</td>
+                                            <td>{{$comm->status==0?'Pending':'Completed' }}</td>
+                                        </tr>
+                                        @endforeach 
+                                    </tbody>
+                                </table>
+                              {!! Form::close() !!}    
+
+                                <!-- /.table-responsive -->
+                            </div>
+
+
+                            <!-- /.panel-body -->
                         </div>
-                        <!-- /.panel-body -->
+                        <!-- /.panel -->
                     </div>
-                    <!-- /.panel -->
-                </div>
 
-                <!-- /.col-lg-12 -->
-            </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+           
             <div class="row">Updated today at {{date('Y-m-d H:i:s')}}</div>
 
         </div><!--col-->
@@ -109,3 +108,24 @@
 
 </div>
 @endsection
+<script>
+    $("#checkall").click(function () {
+        if ($("#checkall").is(':checked')) {
+            $(".checkboxes").each(function () {
+                $(this).prop("checked", true);
+            });
+        } else {
+            $(".checkboxes").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+</script>   
+
+<style>
+    .alert { height: 20px; padding: 5px; color: #fff;}
+    .alert-danger {background-color: #d4202b}
+    .alert-success {background-color: #00ff00}
+    #pinVerifyForm {margin: 5px; border: 1px solid; padding: 5px;}
+</style>
+

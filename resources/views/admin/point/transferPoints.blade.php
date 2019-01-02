@@ -5,7 +5,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header">  Points Transfer<small class="text-muted"> Points Transfer</small> </h3>
+            <h3 class="page-header">  Points Transfer<small class="text-muted"> Points Transfer <b>Current Admin Balance: Rs  <? echo $adminLastBalance;?> </b></small> </h3>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -20,8 +20,8 @@
 
     <div class="mt-4 mb-4">
         <div class="col">
-             {!! Form::open(array('route' => ['pointTransferRequest'], 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
-                                    {!! csrf_field() !!}
+            {!! Form::open(array('route' => ['pointTransferRequest'], 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
+            {!! csrf_field() !!}
             <div class="form-group row">
                 <label class="col-md-2 float-sm-right form-control-label" for="first_name">Account No</label>
 
@@ -57,10 +57,10 @@
                     <button class="btn btn-success btn-sm " type="submit">Transfer</button>
                 </div><!--col-->
             </div><!--form-group-->
-            
-          
-                                     {!! Form::close() !!}
-           
+
+
+            {!! Form::close() !!}
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -74,8 +74,9 @@
                                     <tr>
                                         <th>Date</th>
                                         <th>To User</th>
+                                        <th>To User Name</th>
+                                        <th>To User Balance</th>
                                         <th>Amount</th>
-                                       
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -83,6 +84,8 @@
                                     <tr>
                                         <th>Date</th>
                                         <th>To User</th>
+                                        <th>To User Name</th>
+                                        <th>To User Balance</th>
                                         <th>Amount</th>
                                         <th>Status</th>
                                     </tr>
@@ -93,6 +96,8 @@
                                     <tr>
                                         <td>{{$comm->updated_at}}</td>
                                         <td>{{$comm->to_user_account}}</td>
+                                        <td>{{$comm->to_user_name}}</td>
+                                        <td>{{$comm->to_user_balance}}</td>
                                         <td>{{$comm->amount}}</td>
                                         <td>{{$comm->status==0?'Pending':'Completed' }}</td>
                                     </tr>

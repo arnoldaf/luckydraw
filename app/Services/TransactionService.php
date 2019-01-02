@@ -18,6 +18,8 @@ class TransactionService {
 
     public function pointTransferRequest($request) {
         try {
+            //print_r($request->user_account);
+            //die;
             $currentUser = (new UserController())->getCurrentUser();
             $fromUserId  = $currentUser->id;
             $storedPin = $currentUser->pin;
