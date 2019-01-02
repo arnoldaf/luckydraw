@@ -159,10 +159,10 @@ class GameController extends Controller {
         $roles = Role::all();
         $filteredRoles = [];
         $filteredUsers = [];
-        
-         foreach ($roles as $key=> $val) {
-                        $filteredRoles[$val->id] = $val->name;
-                      }
+
+        foreach ($roles as $key => $val) {
+            $filteredRoles[$val->id] = $val->name;
+        }
 
         foreach ($users as $key => $val) {
             $val->role_name = '';
@@ -192,7 +192,7 @@ class GameController extends Controller {
             //  print_r($transactions);
             //  exit;
         }
-       // print_r($transactions);
+        // print_r($transactions);
         //die;
         //return $transactions;
 
@@ -201,19 +201,21 @@ class GameController extends Controller {
         //return view('admin/winResult')->withCommission($commission);
         return View('admin/reports/index', compact('transactions', 'games'));
     }
-    
-    
+
     public function indexAdminPointTransaction() {
         //echo "<pre>";
+        
+        $adminBalance = User::where('id', 1)->first();
+        $adminLastBalance = $adminBalance->last_balance;
 
         $users = User::all();
         $roles = Role::all();
         $filteredRoles = [];
         $filteredUsers = [];
-        
-         foreach ($roles as $key=> $val) {
-                        $filteredRoles[$val->id] = $val->name;
-                      }
+
+        foreach ($roles as $key => $val) {
+            $filteredRoles[$val->id] = $val->name;
+        }
 
         foreach ($users as $key => $val) {
             $val->role_name = '';
@@ -224,18 +226,20 @@ class GameController extends Controller {
         }
 
 
-        $sql = "select * from transactions as trans where type='transfer'  and (to_user_id = 1 or  from_user_id = 1)";
+        $sql = "select * from transactions as trans where type='transfer' and (to_user_id = 1 or from_user_id = 1)";
         $transactions = DB::select($sql);
         foreach ($transactions as $key => $val) {
             $val->to_user_name = '';
             $val->to_user_account = '';
             $val->from_user_name = '';
             $val->from_user_account = '';
+            $val->from_user_balance = '';
             if (array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id, $filteredUsers)) {
                 $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name . ' ' . $filteredUsers[$val->to_user_id]->last_name;
                 $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
                 $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name . ' ' . $filteredUsers[$val->from_user_id]->last_name;
                 $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
+                $val->from_user_balance = $filteredUsers[$val->from_user_id]->last_balance;
             }
 
             $transactions[$key] = $val;
@@ -243,31 +247,31 @@ class GameController extends Controller {
             //  print_r($transactions);
             //  exit;
         }
-       // print_r($transactions);
+        // print_r($transactions);
         //die;
         //return $transactions;
 
 
         $games = Game::all();
         //return view('admin/winResult')->withCommission($commission);
-        return View('admin/point/index', compact('transactions', 'games'));
+        return View('admin/point/index', compact('adminLastBalance','transactions', 'games'));
     }
-    
-     public function indexAdminPointReceive() {
+
+    public function indexAdminPointReceive() {
         //echo "<pre>";
 
         $users = User::all();
         $roles = Role::all();
         $filteredRoles = [];
         $filteredUsers = [];
-        
+
         $adminBalance = User::where('id', 1)->first();
-        $adminLastBalance=$adminBalance->last_balance;
-        
-        
-         foreach ($roles as $key=> $val) {
-                        $filteredRoles[$val->id] = $val->name;
-                      }
+        $adminLastBalance = $adminBalance->last_balance;
+
+
+        foreach ($roles as $key => $val) {
+            $filteredRoles[$val->id] = $val->name;
+        }
 
         foreach ($users as $key => $val) {
             $val->role_name = '';
@@ -278,14 +282,14 @@ class GameController extends Controller {
         }
 
 
-        $sql = "select * from transactions as trans where type='transfer' and to_user_id = 1";
+        $sql = "select * from transactions as trans where type='transfer' and to_user_id = 1 and status=0";
         $transactions = DB::select($sql);
         foreach ($transactions as $key => $val) {
             $val->to_user_name = '';
             $val->to_user_account = '';
             $val->from_user_name = '';
             $val->from_user_account = '';
-             $val->from_user_balance = '';
+            $val->from_user_balance = '';
             if (array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id, $filteredUsers)) {
                 $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name . ' ' . $filteredUsers[$val->to_user_id]->last_name;
                 $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
@@ -306,23 +310,23 @@ class GameController extends Controller {
 
         $games = Game::all();
         //return view('admin/winResult')->withCommission($commission);
-        return View('admin/point/receivePoints', compact('adminLastBalance','transactions', 'games'));
+        return View('admin/point/receivePoints', compact('adminLastBalance', 'transactions', 'games'));
     }
-    
-     public function indexAdminPointTransfer() {
+
+    public function indexAdminPointTransfer() {
         //echo "<pre>";
 
         $users = User::all();
         $roles = Role::all();
         $filteredRoles = [];
         $filteredUsers = [];
-        
+
         $adminBalance = User::where('id', 1)->first();
-        $adminLastBalance=$adminBalance->last_balance;
-        
-         foreach ($roles as $key=> $val) {
-                        $filteredRoles[$val->id] = $val->name;
-                      }
+        $adminLastBalance = $adminBalance->last_balance;
+
+        foreach ($roles as $key => $val) {
+            $filteredRoles[$val->id] = $val->name;
+        }
 
         foreach ($users as $key => $val) {
             $val->role_name = '';
@@ -333,7 +337,7 @@ class GameController extends Controller {
         }
 
 
-        $sql = "select * from transactions as trans where type='transfer' and from_user_id = 1";
+        $sql = "select * from transactions as trans where type='transfer' and from_user_id = 1 and status=0";
         $transactions = DB::select($sql);
         foreach ($transactions as $key => $val) {
             $val->to_user_name = '';
@@ -341,7 +345,7 @@ class GameController extends Controller {
             $val->from_user_name = '';
             $val->from_user_account = '';
             $val->to_user_balance = '';
-            
+
             if (array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id, $filteredUsers)) {
                 $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name . ' ' . $filteredUsers[$val->to_user_id]->last_name;
                 $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
@@ -351,18 +355,18 @@ class GameController extends Controller {
             }
 
             $transactions[$key] = $val;
-              //echo '<pre>';
+            //echo '<pre>';
             //  print_r($transactions);
             //  exit;
         }
-       // print_r($transactions);
+        // print_r($transactions);
         //die;
         //return $transactions;
 
 
         $games = Game::all();
         //return view('admin/winResult')->withCommission($commission);
-        return View('admin/point/transferPoints', compact('adminLastBalance','transactions', 'games'));
+        return View('admin/point/transferPoints', compact('adminLastBalance', 'transactions', 'games'));
     }
 
     public function addGame(Request $request) {
@@ -704,6 +708,132 @@ class GameController extends Controller {
         $games = Game::all();
         return View('admin/commissionResult', compact('header', 'commission', 'games'));
     }
+    
+    public function searchAdminPoints(Request $request)
+    {
+        //DB::enableQueryLog();
+        $userid = $request->input('userid');
+        $name = $request->input('name');
+       
+        $status = $request->input('status');
+        $reportrange = $request->input('reportrange');
+        
+        $dates =  explode(' - ', str_replace('/', '-', $reportrange));
+        $fromDate =  date('Y-m-d', strtotime($dates[0]))." 00:00:00";
+        $toDate =  date('Y-m-d', strtotime($dates[1]))." 23:59:59";
+        
+        $adminBalance = User::where('id', 1)->first();
+        $adminLastBalance = $adminBalance->last_balance;
+
+        $users = User::all();
+        $roles = Role::all();
+        $filteredRoles = [];
+        $filteredUsers = [];
+
+        foreach ($roles as $key => $val) {
+            $filteredRoles[$val->id] = $val->name;
+        }
+
+        foreach ($users as $key => $val) {
+            $val->role_name = '';
+            if ($val->role_id) {
+                $val->role_name = $filteredRoles[$val->role_id];
+            }
+            $filteredUsers[$val->id] = $val;
+        }
+
+        $sql = "select * from transactions as trans where type='transfer' and (to_user_id = 1 or from_user_id = 1) "
+                . "and trans.updated_at between '$fromDate' and '$toDate' and trans.status=$status ";
+        $transactions = DB::select($sql);
+        foreach ($transactions as $key => $val) {
+            $val->to_user_name = '';
+            $val->to_user_account = '';
+            $val->from_user_name = '';
+            $val->from_user_account = '';
+            $val->from_user_balance = '';
+            if (array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id, $filteredUsers)) {
+                $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name . ' ' . $filteredUsers[$val->to_user_id]->last_name;
+                $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
+                $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name . ' ' . $filteredUsers[$val->from_user_id]->last_name;
+                $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
+                $val->from_user_balance = $filteredUsers[$val->from_user_id]->last_balance;
+            }
+
+            $transactions[$key] = $val;
+            
+        }
+        // print_r($transactions);
+        //die;
+        //return $transactions;
+
+
+        $games = Game::all();
+        //return view('admin/winResult')->withCommission($commission);
+        return View('admin/point/index', compact('adminLastBalance','transactions', 'games'));
+    }
+    
+    public function searchTransferPoints(Request $request)
+    {
+        //DB::enableQueryLog();
+        $userid = $request->input('userid');
+        $name = $request->input('name');
+       
+        $status = $request->input('status');
+        $reportrange = $request->input('reportrange');
+        
+        $dates =  explode(' - ', str_replace('/', '-', $reportrange));
+        $fromDate =  date('Y-m-d', strtotime($dates[0]))." 00:00:00";
+        $toDate =  date('Y-m-d', strtotime($dates[1]))." 23:59:59";
+        
+        $adminBalance = User::where('id', 1)->first();
+        $adminLastBalance = $adminBalance->last_balance;
+
+        $users = User::all();
+        $roles = Role::all();
+        $filteredRoles = [];
+        $filteredUsers = [];
+
+        foreach ($roles as $key => $val) {
+            $filteredRoles[$val->id] = $val->name;
+        }
+
+        foreach ($users as $key => $val) {
+            $val->role_name = '';
+            if ($val->role_id) {
+                $val->role_name = $filteredRoles[$val->role_id];
+            }
+            $filteredUsers[$val->id] = $val;
+        }
+
+        $sql = "select * from transactions as trans where type='transfer' "
+                . "and trans.updated_at between '$fromDate' and '$toDate' and trans.status=$status ";
+        $transactions = DB::select($sql);
+        foreach ($transactions as $key => $val) {
+            $val->to_user_name = '';
+            $val->to_user_account = '';
+            $val->from_user_name = '';
+            $val->from_user_account = '';
+            $val->from_user_balance = '';
+            if (array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id, $filteredUsers)) {
+                $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name . ' ' . $filteredUsers[$val->to_user_id]->last_name;
+                $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
+                $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name . ' ' . $filteredUsers[$val->from_user_id]->last_name;
+                $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
+                $val->from_user_balance = $filteredUsers[$val->from_user_id]->last_balance;
+            }
+
+            $transactions[$key] = $val;
+            
+        }
+        // print_r($transactions);
+        //die;
+        //return $transactions;
+
+
+        $games = Game::all();
+        //return view('admin/winResult')->withCommission($commission);
+        return View('admin/reports/index', compact('adminLastBalance','transactions', 'games'));
+    }
 
     public function gameResultDeclare($id) {
         //$game_id = $id;
@@ -714,18 +844,18 @@ class GameController extends Controller {
         //return redirect('admin/game-number')->with('success', 'Game updated succesfully');
         //return View('admin/game/gameNumber', compact('number', 'games'));
     }
-    
-    public function pointTransferRequest( Request $request) {
+
+    public function pointTransferRequest(Request $request) {
         try {
-            print_r($request->user_account);
-           // die;
+            // print_r($request->user_account);
+            // die;
             $currentUser = (new UserController())->getCurrentUser();
-            $fromUserId  = $currentUser->id;
+            $fromUserId = $currentUser->id;
             $storedPin = $currentUser->pin;
             $userTotalAmount = $currentUser->last_balance;
             $userAccount = $request->user_account;
-            if ($request->pin != (String)$storedPin) { //to validate pin
-               //return ['result' => false, 'message' => 'Invalid PIN'];
+            if ($request->pin != (String) $storedPin) { //to validate pin
+                //return ['result' => false, 'message' => 'Invalid PIN'];
                 return redirect('admin/admin-points-transfer')->with('success', 'Invalid PIN');
             }
             $toUser = (new User())->findByFieldName('user_account', $userAccount);
@@ -734,15 +864,15 @@ class GameController extends Controller {
                 return redirect('admin/admin-points-transfer')->with('success', 'Invalid User Account');
             }
             $toUserId = $toUser[0]['id'];
-           /* $bool = $this->isValidUserAccount($fromUserId, $toUserId);
-            if (!$bool || $toUserId == $fromUserId) {
-               // return ['result' => false, 'message' => 'Invalid User Account'];
-                return redirect('admin/admin-points-transfer')->with('success', 'Invalid User Account');
-            }
-            * 
-            */
+            /* $bool = $this->isValidUserAccount($fromUserId, $toUserId);
+              if (!$bool || $toUserId == $fromUserId) {
+              // return ['result' => false, 'message' => 'Invalid User Account'];
+              return redirect('admin/admin-points-transfer')->with('success', 'Invalid User Account');
+              }
+             * 
+             */
             //$pendingAmountResult = (new Transaction())->getTotalRequestedAmount($fromUserId);
-            if ( $request->amount > $userTotalAmount) { // validate amount
+            if ($request->amount > $userTotalAmount) { // validate amount
                 //return ['result' => false, 'message' => 'Insufficient Balance'];
                 return redirect('admin/admin-points-transfer')->with('success', 'Insufficient Balance');
             }
@@ -757,61 +887,93 @@ class GameController extends Controller {
             $user = User::find($fromUserId);
             $user->last_balance = $user->last_balance - $request->amount;
             $user->save();
-            
-           return redirect('admin/admin-points-transfer')->with('success', 'Request made successfully');
+
+            return redirect('admin/admin-points-transfer')->with('success', 'Request made successfully');
 
             //return ['result' => true, 'message' => 'Request made successfully', 'data' => $transaction];
         } catch (\Exception $exception) {
             //return ['result' => false, 'message' => $exception->getMessage()];
             return redirect('admin/admin-points-transfer')->with('success', $exception->getMessage());
         }
-        
     }
-    
+
     public function pointReceiveUpdate(Request $request) {
-        echo "<pre>";
-       
+        // echo "<pre>";
+
+
         $loggedInUser = (new UserController())->getCurrentUser();
         $toUserId = $loggedInUser->id;
-        
-        if ((String)$loggedInUser->pin != $request->pin) {
-             return ['result' => false, 'message' => 'Please enter valid pin'];
+
+        if ((String) $loggedInUser->pin != $request->pin) {
+            return redirect('admin/admin-points-receive')->with('success', 'Please enter valid pin');
+            //return ['result' => false, 'message' => 'Please enter valid pin'];
         }
-        echo $ids = $request->ids;
-       // echo $status = $request->status; 
-       // die;
-        $status = "accept";
-        
+        $ids = implode(',', $request->ids);
+        // ec
+        $idsArray = $request->ids;
+
+        // die;
+        $status = $request->statusa;
+
         if ($status == '') {
             return ['result' => false, 'message' => 'Status required'];
         }
         if ($status == 'accept') { // need to update user's balance
-           
-            $sumAmount = (new Transaction())->getSumRequestedPoint($toUserId, $ids); //get sum of requested point
-            print_r($sumAmount)  ;
-            die;
+            $sqlSumAmount = "select sum(amount) as total_amount from transactions where type='transfer' "
+                    . "and status=0 and to_user_id=$toUserId and id in ($ids)";
+            $reSumAmount = DB::select($sqlSumAmount);
+            //echo ($reSumAmount[0]->total_amount);
+            //die;
+
+            /* $sumAmount = DB::table('transactions')
+              ->select('sum(amount) as total_amount ')
+              // ->select(DB::raw("SUM(amount) as total_amount"))
+              ->whereIn('id', $ids)
+              ->where(['to_user_id' => $toUserId, 'status' => 0, 'type' => 'transfer'])
+              ->first();
+              print_r($sumAmount);
+              die;
+             * 
+             */
         }
-        if ((new Transaction())->updateTransferRequest($ids, $toUserId, $status) > 0) {
+        //if ((new Transaction())->updateTransferRequest($ids, $toUserId, $status) > 0) {
+        $statusBool = ($status == 'accept') ? 1 : 2;
+
+        // echo $statusBool;
+        // die;
+
+        Transaction::whereIn('id', $request->ids)->update(['status' => $statusBool]);
+        // print_r($updateT);
+        // die;
+        // $statusUpdate = Transaction::find($ids);
+        //$statusUpdate->status = $statusBool;
+        // $statusUpdate->save();
+
+        if ($statusBool > 0) {
+
             if ($status == 'accept') {
                 $user = User::find($toUserId);
-                $user->last_balance = $user->last_balance + $sumAmount['total_amount'];
+                $user->last_balance = $user->last_balance + $reSumAmount[0]->total_amount;
                 $user->save();
             } else { // case of reject
                 // need to add back amount to sender account
-                for ($i=0; $i < count($ids); $i++) {
-                    $fromUser = Transaction::where(['id' =>$ids[$i], 'to_user_id' => $toUserId, 'type' => 'transfer'])->first();
+                for ($i = 0; $i < count($idsArray); $i++) {
+
+                    $fromUser = Transaction::where(['id' => $idsArray[$i], 'to_user_id' => $toUserId, 'type' => 'transfer'])->first();
                     $fromUserDetail = User::find($fromUser->from_user_id);
                     $fromUserDetail->last_balance = $fromUserDetail->last_balance + $fromUser->amount;
                     $fromUserDetail->save();
                 }
             }
-
-            return ['result' => true, 'message' => 'Request updated successfully'];
+            return redirect('admin/admin-points-receive')->with('success', 'Request updated successfully');
+            // return ['result' => true, 'message' => 'Request updated successfully'];
         }
 
-        return ['result' => false, 'message' => 'Sorry! Try again later'];
+
+        return redirect('admin/admin-points-receive')->with('success', 'Sorry! Try again later');
+        // return ['result' => false, 'message' => 'Sorry! Try again later'];
     }
-    
+
     public function isValidUserAccount($fromUserId, $toUserId) {
         /**
          * toUserId should be direct upline, direct downline or on same level

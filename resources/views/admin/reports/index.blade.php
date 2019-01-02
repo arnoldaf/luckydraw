@@ -20,11 +20,13 @@
 
     <div class="mt-4 mb-4">
         <div class="col">
+            
+            {!! Form::open(array('route' => 'search-transfer-points', 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
             <div class="form-group row">
                 <label class="col-md-2 float-sm-right form-control-label" for="first_name">User ID</label>
 
                 <div class="col-md-4">
-                    <input class="form-control" type="text" value="" name="userid" id="userid" placeholder="User ID" maxlength="191" autofocus="">
+                    <input class="form-control" type="text" value="{{ Request::get('userid')}}" name="userid" id="userid" placeholder="User ID" maxlength="191" autofocus="">
 
                 </div><!--col-->
             </div><!--form-group-->
@@ -33,25 +35,30 @@
                 <label class="col-md-2 float-sm-right form-control-label" for="first_name">Name</label>
 
                 <div class="col-md-4">
-                    <input class="form-control" type="text" name="name" value=""  id="name" placeholder="Name" maxlength="191" autofocus="">
+                    <input class="form-control" type="text" name="name" value="{{ Request::get('name')}}"  id="name" placeholder="Name"  maxlength="191" autofocus="">
 
                 </div><!--col-->
             </div><!--form-group-->
 
             <div class="form-group row">
-                <label class="col-md-2 float-sm-right form-control-label" for="first_name">Email Id</label>
+                <label class="col-md-2 float-sm-right form-control-label" for="first_name">Status</label>
 
                 <div class="col-md-4">
-                    <input class="form-control" type="text" name="emailid" value=""  id="emailid" placeholder="Email Id" maxlength="191" autofocus="">
+                    <select class="custom-select form-control" name="status" required="" id="status">
+                        <option value="" {{ (Request::get('status') =='')? 'selected':''}} >Select</option>
+                        <option value="0" {{ (Request::get('status') ==0)? 'selected':''}}>Pending</option>
+                        <option value="1" {{ (Request::get('status') == 1)? 'selected':''}}>Complete</option>
+                        <option value="2" {{ (Request::get('status') ==2)? 'selected':''}}>Reject</option>
+                    </select>
 
                 </div><!--col-->
-            </div><!--form-group-->
+            </div>
 
             <div class="form-group row">
                 <label class="col-md-2 form-control-label required-field" for="max_amount">Date</label>
 
                 <div class="col-md-4">
-                    <input class="form-control" type="text" autocomplete="off" name="reportrange" onkeydown="no_backspaces(event);" value="01/01/2018 - 01/15/2018" />
+                    <input class="form-control" type="text" autocomplete="off" required="" name="reportrange" onkeydown="no_backspaces(event);" value="01/01/2018 - 01/15/2018" />
                 </div>
             </div>
 
@@ -63,7 +70,8 @@
                     <button class="btn btn-success btn-sm " type="submit">Search</button>
                 </div><!--col-->
             </div><!--form-group-->
-           
+             {!! Form::close() !!}
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -75,21 +83,21 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
+                                        <th>Request Date Time</th>
                                         <th>From User</th>
                                         <th>To User</th>
                                         <th>Amount</th>
-                                       
+                                        <th>Transfer Date Time</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Date</th>
+                                        <th>Request Date Time</th>
                                         <th>From User</th>
                                         <th>To User</th>
                                         <th>Amount</th>
-                                      
+                                        <th>Transfer Date Time</th>
                                         <th>Status</th>
                                     </tr>
                                 </tfoot>
@@ -97,12 +105,21 @@
 
                                     @foreach($transactions as $comm)
                                     <tr>
-                                        <td>{{$comm->updated_at}}</td>
+                                        <td>{{$comm->created_at}}</td>
                                         <td>{{$comm->from_user_account}}</td>
                                         <td>{{$comm->to_user_account}}</td>
                                         <td>{{$comm->amount}}</td>
-                                       
-                                        <td>{{$comm->status==0?'Pending':'Completed' }}</td>
+                                        <?
+                                        if ($comm->status==0){
+                                        $status='Pending';
+                                        }elseif($comm->status==1){
+                                        $status='Complete';
+                                        }else {
+                                        $status='Reject';
+                                        }
+                                        ?>
+                                        <td>{{$comm->updated_at}}</td>
+                                        <td>{{$status }}</td>
                                     </tr>
                                     @endforeach 
                                 </tbody>

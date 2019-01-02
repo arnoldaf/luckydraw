@@ -5,7 +5,8 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header">  Points Transfer<small class="text-muted"> Points Transfer <b>Current Admin Balance: Rs  <? echo $adminLastBalance;?> </b></small> </h3>
+            <h3 class="page-header">  Points Transfer
+                <small class="text-muted"><em ><h5 class="text-right">Current Admin Balance: <? echo $adminLastBalance;?> </h5></em></small>  </h3>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -35,7 +36,7 @@
                 <label class="col-md-2 float-sm-right form-control-label" for="first_name">Pin</label>
 
                 <div class="col-md-4">
-                    <input class="form-control" type="text" name="pin" value=""  id="pin" placeholder="Pin" maxlength="191" required autofocus="">
+                    <input class="form-control" type="text" name="pin"   id="pin" placeholder="Pin" maxlength="191" required autofocus="">
 
                 </div><!--col-->
             </div><!--form-group-->
@@ -72,7 +73,7 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
+                                        <th>Request Date Time</th>
                                         <th>To User</th>
                                         <th>To User Name</th>
                                         <th>To User Balance</th>
@@ -82,7 +83,7 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>Date</th>
+                                        <th>Request Date Time</th>
                                         <th>To User</th>
                                         <th>To User Name</th>
                                         <th>To User Balance</th>
@@ -94,12 +95,21 @@
 
                                     @foreach($transactions as $comm)
                                     <tr>
-                                        <td>{{$comm->updated_at}}</td>
+                                        <td>{{$comm->created_at}}</td>
                                         <td>{{$comm->to_user_account}}</td>
                                         <td>{{$comm->to_user_name}}</td>
                                         <td>{{$comm->to_user_balance}}</td>
                                         <td>{{$comm->amount}}</td>
-                                        <td>{{$comm->status==0?'Pending':'Completed' }}</td>
+                                        <?
+                                        if ($comm->status==0){
+                                        $status='Pending';
+                                        }elseif($comm->status==1){
+                                        $status='Complete';
+                                        }else {
+                                        $status='Reject';
+                                        }
+                                        ?>
+                                        <td>{{$status }}</td>
                                     </tr>
                                     @endforeach 
                                 </tbody>
