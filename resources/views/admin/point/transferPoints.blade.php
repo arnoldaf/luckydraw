@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header">  Points Transfer
-                <small class="text-muted"><em ><h5 class="text-right">Current Admin Balance: <? echo $adminLastBalance;?> </h5></em></small>  </h3>
+                <small class="text-muted"> Fund Transfer</small> <h5 class="text-right">Current Admin Balance: <em><b style="color: red"><? echo $adminLastBalance;?> </b></em></h5></h3>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -36,7 +36,7 @@
                 <label class="col-md-2 float-sm-right form-control-label" for="first_name">Pin</label>
 
                 <div class="col-md-4">
-                    <input class="form-control" type="text" name="pin"   id="pin" placeholder="Pin" maxlength="191" required autofocus="">
+                    <input class="form-control" type="password" name="pin"   id="pin" placeholder="Pin" maxlength="191" required autofocus="">
 
                 </div><!--col-->
             </div><!--form-group-->
@@ -45,7 +45,7 @@
                 <label class="col-md-2 float-sm-right form-control-label" for="first_name">Amount</label>
 
                 <div class="col-md-4">
-                    <input class="form-control" type="text" name="amount"  id="amount" placeholder="amount" required maxlength="191" autofocus="">
+                    <input class="form-control" type="text" name="amount"  id="amount" placeholder="Amount" required maxlength="191" autofocus="">
 
                 </div><!--col-->
             </div><!--form-group-->
@@ -76,7 +76,6 @@
                                         <th>Request Date Time</th>
                                         <th>To User</th>
                                         <th>To User Name</th>
-                                        <th>To User Balance</th>
                                         <th>Amount</th>
                                         <th>Status</th>
                                     </tr>
@@ -86,7 +85,6 @@
                                         <th>Request Date Time</th>
                                         <th>To User</th>
                                         <th>To User Name</th>
-                                        <th>To User Balance</th>
                                         <th>Amount</th>
                                         <th>Status</th>
                                     </tr>
@@ -98,7 +96,6 @@
                                         <td>{{$comm->created_at}}</td>
                                         <td>{{$comm->to_user_account}}</td>
                                         <td>{{$comm->to_user_name}}</td>
-                                        <td>{{$comm->to_user_balance}}</td>
                                         <td>{{$comm->amount}}</td>
                                         <?
                                         if ($comm->status==0){

@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header">  Points Receive
-                <small class="text-muted"><em ><h5 class="text-right">Current Admin Balance: <? echo $adminLastBalance;?> </h5></em></small>  </h3>
+               <small class="text-muted"> Fund Receive</small> <h5 class="text-right">Current Admin Balance: <em><b style="color: red"><? echo $adminLastBalance;?> </b></em></h5></h3>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -40,14 +40,13 @@
                                         <th>Request Date Time</th>
                                         <th>From User ID</th>
                                         <th>From User Name</th>
-                                        <th>From User Balance</th>
                                         <th>Amount</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th colspan="7">
+                                        <th colspan="6">
                                 <div class="half-box blackbg" ><input type="checkbox" name="" class="select-all"> Select All
                                     <!-- <a href="javascript:void(0)" id="reset_checker"  data-status="accept" class="buttons-points receive-points">
                                          <i class="fa fa-credit-card" aria-hidden="true"></i> Receive
@@ -85,7 +84,6 @@
                                         <td>{{$comm->created_at}}</td>
                                         <td>{{$comm->from_user_account}}</td>
                                         <td>{{$comm->from_user_name}}</td>
-                                        <td>{{$comm->from_user_balance}}</td>
                                         <td>{{$comm->amount}}</td>
                                         <?
                                         if ($comm->status==0){

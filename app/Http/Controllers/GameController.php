@@ -247,8 +247,8 @@ class GameController extends Controller {
             //  print_r($transactions);
             //  exit;
         }
-        // print_r($transactions);
-        //die;
+         //print_r($transactions);
+       // die;
         //return $transactions;
 
 

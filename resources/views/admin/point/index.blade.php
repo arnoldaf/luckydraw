@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header">  Transaction History
-                <small class="text-muted"> Search Transaction</small> <em ><h5 class="text-right">Current Admin Balance: <? echo $adminLastBalance;?> </h5></em></h3>
+                <small class="text-muted"> Search Transaction</small> <h5 class="text-right">Current Admin Balance: <em><b style="color: red"><? echo $adminLastBalance;?> </b></em></h5></h3>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -83,9 +83,9 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
+                                        <th>Type</th>
                                         <th>Request Date Time</th>
                                         <th>From User</th>
-                                        <th>From User Balance</th>
                                         <th>To User</th>
                                         <th>Amount</th>
                                         <th>Transfer Date Time</th>
@@ -94,9 +94,9 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th>Type</th>
                                         <th>Request Date Time</th>
                                         <th>From User</th>
-                                        <th>From User Balance</th>
                                         <th>To User</th>
                                         <th>Amount</th>
                                         <th>Transfer Date Time</th>
@@ -107,12 +107,14 @@
 
                                     @foreach($transactions as $comm)
                                     <tr>
+                                         <td> <?if ($comm->to_user_id!=1){
+                                       echo "Transfer"; } else { echo "Receive";}?></td>
                                         <td>{{$comm->created_at}}</td>
                                         <td>{{$comm->from_user_account}}</td>
-                                        <td>{{$comm->from_user_balance}}</td>
                                         <td>{{$comm->to_user_account}}</td>
                                         <td>{{$comm->amount}}</td>
-                                        <td>{{$comm->updated_at}}</td>
+                                        <td> <?if ($comm->status!=0){
+                                       echo $comm->updated_at; }?></td>
                                         <?
                                         if ($comm->status==0){
                                         $status='Pending';
