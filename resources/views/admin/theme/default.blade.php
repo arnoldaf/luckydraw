@@ -33,6 +33,9 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
       <link href="{!! asset('admin/bootstrap/vendor/datatables-plugins/dataTables.bootstrap.css') !!}" rel="stylesheet">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" rel="stylesheet">
+
+
 
 </head>
 
@@ -685,6 +688,7 @@
     <script src="{!! asset('admin/bootstrap/vendor/morrisjs/morris.min.js') !!}"></script>
     <script src="{!! asset('admin/bootstrap/data/morris-data.js') !!}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 
 
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"><input type="hidden" name="_token" value="{{ csrf_token() }}"></form>
@@ -906,6 +910,9 @@
 
   <link rel="stylesheet" href="{!! asset('admin/bootstrap/css/bootstrap-treeview.css') !!} ">
   <script src="{!! asset('admin/bootstrap/js/bootstrap-treeview.js') !!}"></script>
+  <script src="{!! asset('admin/bootstrap/js/html2canvas.min.js') !!}"></script>\
+<script src="{!! asset('admin/bootstrap/js/canvas2image.js') !!}"></script>
+
   <script>
 
 $(function() {
@@ -924,8 +931,43 @@ $('#default-tree').treeview({
 
 });
 console.log(11111)
+
+
+
+
+$("#lotteryDate").datepicker({
+    autoclose: true,
+    clearBtn: true,
+    todayHighlight: true,
+    format: 'dd/mm/yyyy'
+});
+
+// to canvas
+$(function() {
+  var test = $("#page-wrapper").get(0);
+
+  html2canvas(test).then(function(canvas) {
+
+  $('#save').click(function(e) {
+    let type = 'png'; // image type
+    let w = 1200; // image width
+    let h = 1000; // image height
+    let gameName = $('#lotteryType :selected').text();
+    let gameDate = $("#game_date").html();
+    let f = gameName+'-'+gameDate; // file name
+
+    // save as image
+    Canvas2Image.saveAsImage(canvas, w, h, type, f);
+  });
+});
+});
+
+
   </script>
-  
+
+
+
+
 
 </body>
 

@@ -28,6 +28,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,700,600,300' rel='stylesheet' type='text/css'>
     <link href="http://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{!! asset('member/css/custom.css')!!}?version={{rand(1,10010)}}" />
 <script src="{!! asset('member/js/slideproject/modernizr.js')!!}" type="text/javascript"></script>
 <script src="{!! asset('member/js/jquery-1.10.1.min.js')!!}" type="text/javascript"></script>
 <script src="{!! asset('member/js/jquery-migrate-1.2.1.min.js')!!}" type="text/javascript"></script>
