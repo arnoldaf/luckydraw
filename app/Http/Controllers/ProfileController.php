@@ -6,6 +6,7 @@ use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Services\ProfileService;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GameController;
 use App\Role;
 
 class ProfileController extends Controller
@@ -24,6 +25,18 @@ class ProfileController extends Controller
     public function gameResult() {
          $requests['user'] = '';
          return view('member.game-results')->with($requests);
+     }
+     
+      public function pointsHistory() {
+         
+          $CurrentUser=(new UserController())->getCurrentUserId();
+       
+         $transactions = (new GameController())->indexMemberPointTransaction($CurrentUser);
+         //return $transactions;
+        // print_r($transactions);
+         //die;
+         return View('member.points-history', compact('transactions'));
+         //return view('member.points-history')->with($transactions);
      }
 
      public function passwords() {

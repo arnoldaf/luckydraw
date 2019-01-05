@@ -256,6 +256,63 @@ class GameController extends Controller {
         //return view('admin/winResult')->withCommission($commission);
         return View('admin/point/index', compact('adminLastBalance','transactions', 'games'));
     }
+    
+    public function indexMemberPointTransaction($CurrentUser) {
+        //echo "<pre>";
+        
+        
+        $adminBalance = User::where('id', 1)->first();
+        $adminLastBalance = $adminBalance->last_balance;
+
+        $users = User::all();
+        $roles = Role::all();
+        $filteredRoles = [];
+        $filteredUsers = [];
+
+        foreach ($roles as $key => $val) {
+            $filteredRoles[$val->id] = $val->name;
+        }
+
+        foreach ($users as $key => $val) {
+            $val->role_name = '';
+            if ($val->role_id) {
+                $val->role_name = $filteredRoles[$val->role_id];
+            }
+            $filteredUsers[$val->id] = $val;
+        }
+
+
+        $sql = "select * from transactions as trans where type='transfer' and (to_user_id = $CurrentUser or from_user_id = $CurrentUser)";
+        $transactions = DB::select($sql);
+        foreach ($transactions as $key => $val) {
+            $val->to_user_name = '';
+            $val->to_user_account = '';
+            $val->from_user_name = '';
+            $val->from_user_account = '';
+            $val->from_user_balance = '';
+            if (array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id, $filteredUsers)) {
+                $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name . ' ' . $filteredUsers[$val->to_user_id]->last_name;
+                $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
+                $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name . ' ' . $filteredUsers[$val->from_user_id]->last_name;
+                $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
+                $val->from_user_balance = $filteredUsers[$val->from_user_id]->last_balance;
+            }
+
+            $transactions[$key] = $val;
+             // echo '<pre>';
+            //  print_r($transactions);
+            //  exit;
+        }
+        // print_r($transactions);
+       // die;
+        //return $transactions;
+
+
+        $games = Game::all();
+        return $transactions ;
+        //return view('admin/winResult')->withCommission($commission);
+       /// return View('member.points-history', compact('transactions'));
+    }
 
     public function indexAdminPointReceive() {
         //echo "<pre>";

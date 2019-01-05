@@ -911,9 +911,13 @@
 
   <link rel="stylesheet" href="{!! asset('admin/bootstrap/css/bootstrap-treeview.css') !!} ">
   <script src="{!! asset('admin/bootstrap/js/bootstrap-treeview.js') !!}"></script>
+<<<<<<< Updated upstream
   <script src="{!! asset('admin/bootstrap/js/html2canvas.min.js') !!}"></script>\
 <script src="{!! asset('admin/bootstrap/js/canvas2image.js') !!}"></script>
 
+=======
+  <script src="{!! asset('member/js/user-bid.js') !!}" type="text/javascript"></script>
+>>>>>>> Stashed changes
   <script>
 
 $(function() {
@@ -965,10 +969,15 @@ $(function() {
 
 
   </script>
+<<<<<<< Updated upstream
 
 
 
 
+=======
+  
+ 
+>>>>>>> Stashed changes
 
 </body>
 

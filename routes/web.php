@@ -41,6 +41,10 @@ Route::group(['middleware' => ['member']], function() {
   Route::get('/passwords', 'ProfileController@passwords')->name('passwords');
   Route::post('/update-password-request', 'ProfileController@passwordsUpdateRequest')->name('updatePasswordRequest');
   Route::post('/update-pin-request', 'ProfileController@pinUpdateRequest')->name('updatePinRequest');
+  
+   Route::get('/points-history', 'ProfileController@pointsHistory')->name('pointsHistory');
+   //Route::get('/points-history', 'GameController@indexMemberPointTransaction')->name('pointsHistory');
+   
 
 //=========
 
@@ -111,6 +115,8 @@ Route::post('/point-receive-admin', 'GameController@pointReceiveUpdate')->name('
 
 Route::post('/admin/search-admin-points', 'GameController@searchAdminPoints')->name('search-admin-points');
 Route::post('/admin/search-transfer-points', 'GameController@searchTransferPoints')->name('search-transfer-points');
+
+
 
 
 });
