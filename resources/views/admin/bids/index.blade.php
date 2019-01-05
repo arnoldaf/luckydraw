@@ -49,8 +49,10 @@
                         <button name="show" value="show" class="btn btn-success btn-sm" type="submit">Show</button>
                     </div>
                     <div class="col-xs-3">
+                      @if(Request::get('show'))
                         <span class="btn btn-primary" onClick="window.location.reload()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh Page</span>
                         <span class="btn btn-primary" id="save"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save</span>
+                      @endif
                     </div>
 
                 </div>
@@ -88,7 +90,7 @@
                             <i class="fa fa-angle-double-up fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{$maxJodiBid}}</div>
+                            <div class="huge">{{$maxJodiBid==''?0:$maxJodiBid}}</div>
                             <div>Max Jodi Bid</div>
                         </div>
                     </div>
@@ -103,7 +105,7 @@
                             <i class="fa fa-angle-double-down fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{$minJodiBid}}</div>
+                            <div class="huge">{{$minJodiBid==''?0:$minJodiBid}}</div>
                             <div>Min Jodi Bid</div>
                         </div>
                     </div>
@@ -118,7 +120,7 @@
                             <i class="fa fa-trophy fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">Pending</div>
+                            <div class="little-huge">Pending</div>
                             <div>Result</div>
                         </div>
                     </div>
@@ -485,12 +487,11 @@
     </div>
     <!-- /.row -->
     @endif
-
 </div>
 
 <script>
 // Set the date we're counting down to
-    var countDownDate = new Date("{{ date('M d, Y', strtotime(str_replace('/','-',Request::get('lotteryDate'))).' +1 day')}} 12:00:00").getTime();
+    var countDownDate = new Date("{{ date('M d, Y', strtotime(str_replace('/','-',Request::get('lotteryDate')).' + 1 day'))}} 12:00:00 PM").getTime();
 
 // Update the count down every 1 second
     var x = setInterval(function () {
