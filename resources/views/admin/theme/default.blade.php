@@ -34,6 +34,7 @@
     <![endif]-->
       <link href="{!! asset('admin/bootstrap/vendor/datatables-plugins/dataTables.bootstrap.css') !!}" rel="stylesheet">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" rel="stylesheet">
+      <link href="{!! asset('admin/css/custom-admin.css') !!}" rel="stylesheet">
 
 
 

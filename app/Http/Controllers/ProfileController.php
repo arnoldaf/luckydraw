@@ -21,10 +21,15 @@ class ProfileController extends Controller
         return ((new ProfileService())->updateProfileRequest($request));
     }
 
-    public function passwords() {
-         $requests['user'] = (new UserController())->getCurrentUser();
-         return view('member.passwords')->with($requests);
+    public function gameResult() {
+         $requests['user'] = '';
+         return view('member.game-results')->with($requests);
      }
+
+     public function passwords() {
+          $requests['user'] = (new UserController())->getCurrentUser();
+          return view('member.passwords')->with($requests);
+      }
 
      public function passwordsUpdateRequest(Request $request) {
          return response()->json((new ProfileService())->passwordsUpdateRequest($request));

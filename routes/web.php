@@ -24,6 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login1', 'UserBidController@getGame');
 Route::get('/redirect', 'UserController@redirectUser')->name('redirect');
 
+Route::get('/game-result', 'ProfileController@gameResult')->name('game-result');
 Route::group(['middleware' => ['member']], function() {
   Route::get('/game', 'UserBidController@getGame')->name('playgame');
   Route::get('/point-transfer', 'TransactionController@pointTransfer')->name('point-transfer');
@@ -31,6 +32,8 @@ Route::group(['middleware' => ['member']], function() {
   Route::post('/point-transfer-cancel', 'TransactionController@pointTransferCancel');
   //Route::post('/point-transfer-update', 'TransactionController@pointTransferUpdate');
   Route::post('/confirm-bid', 'UserBidController@confirmBid');
+
+
 
   //Front end Route
   Route::get('/profile', 'ProfileController@profileUpdate')->name('profile');

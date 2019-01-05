@@ -39,7 +39,7 @@
   <div class="dropdown-menu" aria-labelledby="pagesDropdown">
     <a class="dropdown-item" href="#"> Game Creation</a>
     <a class="dropdown-item" href="#">Game Time Settings </a>
-    <a class="dropdown-item" href="#">Game Bids </a>
+    <a class="dropdown-item" href="{{ route('all-bids') }}" >Game Bids 2</a>
     <a class="dropdown-item" href="#">Result Declaration </a>
   </div>
 </li>
