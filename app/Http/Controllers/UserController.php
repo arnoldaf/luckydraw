@@ -479,12 +479,10 @@ class UserController extends Controller {
             $transHistory = $transResult;
         }
 
-
         $user = User::findOrFail($id);
         $roles = Role::all();
         $amkUsers = User::where('role_id', '2')->get();
         $dmkUsers = User::where('role_id', '3')->get();
-        $currentRole = '';
         $data = [
             'user' => $user,
             'roles' => $roles,
