@@ -9,12 +9,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GameController;
 use App\Role;
 
-class ProfileController extends Controller
-{
+class ProfileController extends Controller {
 
-   public function profileUpdate() {
+    public function profileUpdate() {
         $requests['user'] = (new UserController())->getCurrentUser();
-        $requests['roles'] = Role::where('id', '<>','1')->get();
+        $requests['roles'] = Role::where('id', '<>', '1')->get();
         return view('member.profile')->with($requests);
     }
 
@@ -23,34 +22,35 @@ class ProfileController extends Controller
     }
 
     public function gameResult() {
-         $requests['user'] = '';
-         return view('member.game-results')->with($requests);
-     }
-     
-      public function pointsHistory() {
-         
-          $CurrentUser=(new UserController())->getCurrentUserId();
-       
-         $transactions = (new GameController())->indexMemberPointTransaction($CurrentUser);
-         //return $transactions;
-        // print_r($transactions);
-         //die;
-         return View('member.points-history', compact('transactions'));
-         //return view('member.points-history')->with($transactions);
-     }
+        $requests['user'] = '';
+        return view('member.game-results')->with($requests);
+    }
 
-     public function passwords() {
-          $requests['user'] = (new UserController())->getCurrentUser();
-          return view('member.passwords')->with($requests);
-      }
+    public function passwords() {
+        $requests['user'] = (new UserController())->getCurrentUser();
+        return view('member.passwords')->with($requests);
+    }
 
-     public function passwordsUpdateRequest(Request $request) {
-         return response()->json((new ProfileService())->passwordsUpdateRequest($request));
-     }
-     public function pinUpdateRequest(Request $request) {
-         return response()->json((new ProfileService())->pinUpdateRequest($request));
-     }
+    public function passwordsUpdateRequest(Request $request) {
+        return response()->json((new ProfileService())->passwordsUpdateRequest($request));
+    }
 
+    public function pinUpdateRequest(Request $request) {
+        return response()->json((new ProfileService())->pinUpdateRequest($request));
+    }
 
+    public function pointsHistory() {
+
+        $currentUser = (new UserController())->getCurrentUserId();
+        $transactions = (new GameController())->indexMemberPointTransaction($currentUser);
+        return View('member.points-history', compact('currentUser', 'transactions'));
+    }
+
+    public function bidsHistory() {
+
+        $currentUser = (new UserController())->getCurrentUserId();
+        $bids = (new GameController())->indexMemberGameBids($currentUser);
+        return View('member.bids-history', compact('currentUser', 'bids'));
+    }
 
 }

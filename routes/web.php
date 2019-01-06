@@ -24,7 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login1', 'UserBidController@getGame');
 Route::get('/redirect', 'UserController@redirectUser')->name('redirect');
 
-Route::get('/game-result', 'ProfileController@gameResult')->name('game-result');
 Route::group(['middleware' => ['member']], function() {
   Route::get('/game', 'UserBidController@getGame')->name('playgame');
   Route::get('/point-transfer', 'TransactionController@pointTransfer')->name('point-transfer');
@@ -32,8 +31,6 @@ Route::group(['middleware' => ['member']], function() {
   Route::post('/point-transfer-cancel', 'TransactionController@pointTransferCancel');
   //Route::post('/point-transfer-update', 'TransactionController@pointTransferUpdate');
   Route::post('/confirm-bid', 'UserBidController@confirmBid');
-
-
 
   //Front end Route
   Route::get('/profile', 'ProfileController@profileUpdate')->name('profile');
@@ -43,7 +40,7 @@ Route::group(['middleware' => ['member']], function() {
   Route::post('/update-pin-request', 'ProfileController@pinUpdateRequest')->name('updatePinRequest');
   
    Route::get('/points-history', 'ProfileController@pointsHistory')->name('pointsHistory');
-   //Route::get('/points-history', 'GameController@indexMemberPointTransaction')->name('pointsHistory');
+   Route::get('/bids-history', 'ProfileController@bidsHistory')->name('bidsHistory');
    
 
 //=========
@@ -74,7 +71,6 @@ Route::group(['middleware' => ['superadmin']], function() {
   Route::get('admin/userProfile/{id}', 'UserController@userProfile')->name('userprofile');
   // Bid Listing
   Route::get('/admin/all-bids', 'AdminBidController@index')->name('all-bids');
-  Route::post('/admin/filter-bids', 'AdminBidController@filterBids')->name('filter-bids');
 
   //Game Mgmt
 Route::get('/admin/game', 'GameController@index')->name('game');

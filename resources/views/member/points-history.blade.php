@@ -27,12 +27,12 @@
                             <table cellpadding="0" cellspacing="0" border="0" id="table" class="tinytable">
                                 <thead>
                                     <tr>
-                                        <th class="nosort"><h3>Type</h3></th>
-                                <th><h3>Request Date Time</h3></th>
+                                        <th><h3>Date Time</h3></th>
+                                        <th><h3>Type</h3></th>
+                                
                                 <th><h3>From User</h3></th>
                                 <th><h3>To User</h3></th>
                                 <th><h3>Amount</h3></th>
-                                <th><h3>Transfer Date Time</h3></th>
                             <th><h3>Status</h3></th>
                                 </tr>
                                 
@@ -42,14 +42,24 @@
                                     
                                         @foreach($transactions as $comm)
                                     <tr>
-                                         <td> <?if ($comm->to_user_id!=1){
-                                       echo "Transfer"; } else { echo "Receive";}?></td>
-                                        <td>{{$comm->created_at}}</td>
+                                        <td>{{$comm->updated_at}}</td>
+                                         <td> 
+                                       <?if ($comm->to_user_id!=$currentUser && $comm->type =='transfer'){
+                                       echo "Transfer"; } if ($comm->to_user_id==$currentUser && $comm->type =='transfer') { echo "Receive";}
+                                       if ($comm->type =='bid'){
+                                        echo "Bid"; }
+                                        if ($comm->type =='win_result'){
+                                        echo "Bid Winner"; }
+                                        if ($comm->type =='commision'){
+                                        echo "Commission"; }
+                                       ?>
+                                         </td>
+                                       
+                                        
                                         <td>{{$comm->from_user_account}}</td>
                                         <td>{{$comm->to_user_account}}</td>
                                         <td>{{$comm->amount}}</td>
-                                        <td> <?if ($comm->status!=0){
-                                       echo $comm->updated_at; }?></td>
+                                        
                                         <?
                                         if ($comm->status==0){
                                         $status='Pending';
@@ -63,7 +73,7 @@
                                     </tr>
                                     @endforeach 
 
-                                    </tr>
+                                   
                                     
                                     
                                    

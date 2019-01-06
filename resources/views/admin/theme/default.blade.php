@@ -303,64 +303,74 @@ responsive: true
             });
             $('#dataTable1').DataTable({
             order: [[ 3, 'desc' ], [ 0, 'asc' ]]
-            });
-            });
-        </script>
 
-        <link rel="stylesheet" href="{!! asset('admin/bootstrap/css/bootstrap-treeview.css') !!} ">
-        <script src="{!! asset('admin/bootstrap/js/bootstrap-treeview.js') !!}"></script>
-        <script src="{!! asset('admin/bootstrap/js/html2canvas.min.js') !!}"></script>
-        <script src="{!! asset('admin/bootstrap/js/canvas2image.js') !!}"></script>
-        <script src="{!! asset('member/js/user-bid.js') !!}" type="text/javascript"></script>
-        <script>
+        } );
 
-            $(function() {
+  });
+  </script>
 
-            $('#default-tree').treeview({
-            data: myTree,
-                    color: "#428bca",
-                    expandIcon: "glyphicon glyphicon-stop",
-                    collapseIcon: "glyphicon glyphicon-unchecked",
-                    nodeIcon: "glyphicon glyphicon-user",
-                    showTags: true,
-                    levels: 1,
-                    enableLinks: true,
-            });
-            });
-            console.log(11111)
+  <link rel="stylesheet" href="{!! asset('admin/bootstrap/css/bootstrap-treeview.css') !!} ">
+  <script src="{!! asset('admin/bootstrap/js/bootstrap-treeview.js') !!}"></script>
+
+  <script src="{!! asset('admin/bootstrap/js/html2canvas.min.js') !!}"></script>\
+<script src="{!! asset('admin/bootstrap/js/canvas2image.js') !!}"></script>
 
 
+  <script src="{!! asset('member/js/user-bid.js') !!}" type="text/javascript"></script>
+
+  <script>
+
+$(function() {
+
+$('#default-tree').treeview({
+  data: myTree,
+  color: "#428bca",
+  expandIcon: "glyphicon glyphicon-stop",
+  collapseIcon: "glyphicon glyphicon-unchecked",
+  nodeIcon: "glyphicon glyphicon-user",
+  showTags: true,
+  levels: 1,
+  enableLinks: true,
+});
 
 
-                    $("#lotteryDate").datepicker({
-            autoclose: true,
-                    clearBtn: true,
-                    todayHighlight: true,
-                    format: 'dd/mm/yyyy'
-            });
-            // to canvas
-            $(function() {
-            var test = $("#page-wrapper").get(0);
-            html2canvas(test).then(function(canvas) {
-
-            $('#save').click(function(e) {
-            let type = 'png'; // image type
-            let w = 1200; // image width
-            let h = 1000; // image height
-            let gameName = $('#lotteryType :selected').text();
-            let gameDate = $("#game_date").html();
-            let f = gameName + '-' + gameDate; // file name
-
-            // save as image
-            Canvas2Image.saveAsImage(canvas, w, h, type, f);
-            });
-            });
-            });
+});
+console.log(11111)
 
 
-        </script>
 
 
-    </body>
+$("#lotteryDate").datepicker({
+    autoclose: true,
+    clearBtn: true,
+    todayHighlight: true,
+    format: 'dd/mm/yyyy'
+});
+
+// to canvas
+$(function() {
+  var test = $("#page-wrapper").get(0);
+
+  html2canvas(test).then(function(canvas) {
+
+  $('#save').click(function(e) {
+    let type = 'png'; // image type
+    let w = 1200; // image width
+    let h = 1000; // image height
+    let gameName = $('#lotteryType :selected').text();
+    let gameDate = $("#game_date").html();
+    let f = gameName+'-'+gameDate; // file name
+
+    // save as image
+    Canvas2Image.saveAsImage(canvas, w, h, type, f);
+  });
+});
+});
+
+
+  </script>
+
+</body>
+
 
 </html>

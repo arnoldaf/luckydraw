@@ -266,11 +266,17 @@ class GameController extends Controller {
 
         $users = User::all();
         $roles = Role::all();
+        $games = Game::all();
         $filteredRoles = [];
         $filteredUsers = [];
+        $filteredGames=[];
 
         foreach ($roles as $key => $val) {
             $filteredRoles[$val->id] = $val->name;
+        }
+        
+        foreach ($games as $key => $val) {
+            $filteredGames[$val->id] = $val->name;
         }
 
         foreach ($users as $key => $val) {
@@ -282,7 +288,7 @@ class GameController extends Controller {
         }
 
 
-        $sql = "select * from transactions as trans where type='transfer' and (to_user_id = $CurrentUser or from_user_id = $CurrentUser)";
+        $sql = "select * from transactions as trans where (to_user_id = $CurrentUser or from_user_id = $CurrentUser)";
         $transactions = DB::select($sql);
         foreach ($transactions as $key => $val) {
             $val->to_user_name = '';
@@ -290,12 +296,14 @@ class GameController extends Controller {
             $val->from_user_name = '';
             $val->from_user_account = '';
             $val->from_user_balance = '';
+           // $val->game_name = '';
             if (array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id, $filteredUsers)) {
                 $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name . ' ' . $filteredUsers[$val->to_user_id]->last_name;
                 $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
                 $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name . ' ' . $filteredUsers[$val->from_user_id]->last_name;
                 $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
                 $val->from_user_balance = $filteredUsers[$val->from_user_id]->last_balance;
+               // $val->game_name = $filteredGames[$val->game_id]->name;
             }
 
             $transactions[$key] = $val;
@@ -303,15 +311,36 @@ class GameController extends Controller {
             //  print_r($transactions);
             //  exit;
         }
-        // print_r($transactions);
-       // die;
+          // print_r($transactions);
+      // die;
         //return $transactions;
 
 
-        $games = Game::all();
+       // $games = Game::all();
         return $transactions ;
         //return view('admin/winResult')->withCommission($commission);
-       /// return View('member.points-history', compact('transactions'));
+        //return View('member.points-history', compact('transactions'));
+    }
+    
+     public function indexMemberGameBids($currentUser) {
+
+        // $games = Game::all();
+        $bids = DB::table('user_bid')
+                ->join('games', 'games.id', '=', 'user_bid.game_id')
+                ->join('users', 'users.id', '=', 'user_bid.user_id')
+                //->join('user', 'user.id', '=', 'transaction.from_user_id')
+                ->join('bid_categories', 'bid_categories.id', '=', 'user_bid.bid_category_id')
+                ->select('users.user_account as user_name', 'games.name as game_name', 'bid_categories.name as bid_category',  'user_bid.*')
+                ->where('user_bid.user_id', $currentUser )
+                ->orderBy('user_bid.created_at', 'DESC')
+                ->get();
+       // echo '<pre>';
+       // print_r($bids);
+       // die;
+        //$games = Game::all();
+        return $bids ;
+        //return view('admin/winResult')->withCommission($commission);
+       // return View('admin/bid', compact('bids', 'games'));
     }
 
     public function indexAdminPointReceive() {

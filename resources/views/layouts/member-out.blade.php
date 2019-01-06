@@ -36,7 +36,10 @@
         <script src="{!! asset('member/js/slideproject/modernizr.js')!!}" type="text/javascript"></script>
         <script src="{!! asset('member/js/jquery-1.10.1.min.js')!!}" type="text/javascript"></script>
         <script src="{!! asset('member/js/jquery-migrate-1.2.1.min.js')!!}" type="text/javascript"></script>
+       @if(Route::currentRouteName()!='bidsHistory' && Route::currentRouteName()!='pointsHistory' )
         <link rel="stylesheet" href="{!! asset('member/css/custom.css')!!}" />
+       @endif
+        
         <link href="https://fonts.googleapis.com/css?family=Chakra+Petch" rel="stylesheet">
         
         
@@ -120,6 +123,8 @@
                                 <li><a href="{{ route('point-transfer') }}"><i class="fa fa-check"></i>Transfer </a></li>
                                 <li><a href="{{ route('point-transfer') }}"><i class="fa fa-check"></i>Transaction History </a></li>
                                 <li><a href="{{ route('pointsHistory') }}"><i class="fa fa-check"></i>Points History </a></li>
+                                <li><a href="{{ route('bidsHistory') }}"><i class="fa fa-check"></i>Bids History </a></li>
+                                
                             </ul>
                         </div>
                     </li>
