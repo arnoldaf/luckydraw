@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Input;
 use Validator;
 use Hash;
 use App\Role;
+use App\BidCategoryAmount;
+use App\DailyDeclareNumber;
 use DB;
 
 class UserService {
@@ -76,14 +78,61 @@ class UserService {
 
     public function bidHistory($id) {
         try {
+            $bidCategoryAmount = BidCategoryAmount::all();
+            $bidMultiplyAmount = [];
+            foreach ($bidCategoryAmount as $bidCat) {
+                $bidMultiplyAmount[$bidCat->game_id][$bidCat->bid_category_id] = $bidCat->multiply;
+            }
             $sql = "select usr.first_name, usr.last_name, usr.user_account,gm.name,ub.*  from users as usr
               inner join user_bid as ub on ub.user_id= usr.id inner join games as gm on ub.game_id=gm.id
               where usr.id=$id";
             $results = DB::select($sql);
+
+            foreach ($results as $key => $value) {
+                if (isset($bidMultiplyAmount[$value->game_id][$value->bid_category_id])) {
+                    
+                    $gameStatus = $this->checkResult($value->game_id, $value->game_date);
+                    //echo '<pre>';
+                    //print_r($gameStatus);
+                   
+                    if (count($gameStatus) > 0) {
+                        if ($gameStatus[0]->number == $value->bid_number) {
+                            $results[$key]->result = 'Win';
+                            $results[$key]->win_amount = $bidMultiplyAmount[$value->game_id][$value->bid_category_id] * $value->amount;
+                            //print_r($results);
+                            $bidMultiplyAmount[$value->game_id][$value->bid_category_id] * $value->amount;
+                            $results[$key]->result_date = $gameStatus[0]->created_at;
+                            //$gameStatus[0]->number .' '. $value->bid_number;
+                    
+                        } else {
+                            $results[$key]->result = 'Loose';
+                            $results[$key]->win_amount = 0;
+                            $results[$key]->result_date = $gameStatus[0]->created_at;
+                        }
+                    } else {
+                        $results[$key]->result = 'Pending';
+                        $results[$key]->win_amount = '-';
+                        $results[$key]->result_date = '-';
+                    }
+                } else {
+                    $results[$key]->result = 'Pending';
+                    $results[$key]->win_amount = '-';
+                    $results[$key]->result_date = '-';
+                }
+            }
             return $results;
         } catch (\Exception $exception) {
+           echo $exception->getMessage();
+           exit;
             return ['result' => false, 'message' => $exception->getMessage()];
         }
+    }
+
+    public function checkResult($game_id, $game_date) {
+        
+        $game = DailyDeclareNumber::where('game_id', $game_id)
+                        ->where('declare_date', $game_date)->get();
+        return $game;
     }
 
     public function transactionHistory($id) {
@@ -95,8 +144,6 @@ class UserService {
             foreach ($roles as $key => $val) {
                 $filteredRoles[$val->id] = $val->name;
             }
-
-            //echo $id;
             foreach ($users as $key => $val) {
                 $val->role_name = '';
                 if ($val->role_id) {
@@ -118,11 +165,7 @@ class UserService {
                     $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name . ' ' . $filteredUsers[$val->from_user_id]->last_name;
                     $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
                 }
-
                 $transactions[$key] = $val;
-                //  echo '<pre>';
-                //  print_r($transactions);
-                //  exit;
             }
             return $transactions;
         } catch (\Exception $exception) {
