@@ -23,12 +23,14 @@ class AdminBidController extends Controller
          $totalBid    = (new AdminBidService())->getTotalBidByDate($request);
          $maxJodiBid  = (new AdminBidService())->maxJodiBid($request,$bid_category_id=1);
          $minJodiBid  = (new AdminBidService())->minJodiBid($request,$bid_category_id=1);
+         $bidResult      = (new AdminBidService())->bidResult($request);
          $data['result'] = $jodiResult;
          $data['andarResult'] = $andarResult;
          $data['baharResult'] = $baharResult;
          $data['totalBid'] = $totalBid;
          $data['maxJodiBid'] = $maxJodiBid;
          $data['minJodiBid'] = $minJodiBid;
+         $data['bidResult'] = $bidResult;
          return view('admin.bids.index')->with($data);
      }
 }

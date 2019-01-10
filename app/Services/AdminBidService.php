@@ -9,6 +9,7 @@ use App\UserBid;
 use Validator;
 use Hash;
 use DB;
+use App\DailyDeclareNumber;
 
 class AdminBidService {
 
@@ -96,4 +97,20 @@ class AdminBidService {
               return ['result' => false, 'message' => $exception->getMessage()];
            }
         }
+        public function bidResult($request){
+         try {
+               $gameId = $request->input('lotteryType');
+               $lotteryDate = date('Y-m-d', strtotime(str_replace('/','-',$request->input('lotteryDate'))));
+               $game = DailyDeclareNumber::where('game_id', $gameId)
+                        ->where('declare_date', $lotteryDate)->get();
+               if(count($game) == 0)
+                   return 'Pending';
+               else return $game[0]->number;
+               
+            }catch (\Exception $exception) {
+              return ['result' => false, 'message' => $exception->getMessage()];
+           }
+        }
+        
+        
    }

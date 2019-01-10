@@ -10,11 +10,10 @@
         <!-- /.col-lg-12 -->
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                @include('admin.partials.form-status')
-            </div>
+   
+    <div class="row">
+        <div class="col-12">
+            @include('admin.partials.form-status')
         </div>
     </div>
 
@@ -36,11 +35,11 @@
                             <option {{ (Request::get('lotteryType') =='4')? 'selected':''}} value="4">Disawar</option>
                         </select>
                     </div>
-                    <div class="col-xs-2">
+                    <div class="col-xs-1">
                         <label class="form-control-label" for="first_name">Lottery Date</label>
                     </div>
                     <div class="col-xs-2">
-                        <input class="form-control" type="text" readonly id= "lotteryDate" name="lotteryDate" value="{{ Request::get('lotteryDate')}}">
+                        <input class="form-control" type="text" placeholder="Game Date"  readonly id= "lotteryDate" name="lotteryDate" value="{{ Request::get('lotteryDate')}}">
 
                     </div>
 
@@ -120,7 +119,7 @@
                             <i class="fa fa-trophy fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="little-huge">Pending</div>
+                            <div class="little-huge">{{$bidResult}}</div>
                             <div>Result</div>
                         </div>
                     </div>
