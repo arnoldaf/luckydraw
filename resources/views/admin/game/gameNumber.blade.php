@@ -95,7 +95,7 @@
                                         <td class="center">{{$game->number}}</td>
                                         <td class="center">
                                             <?php if($game->status==0) { ?>
-                                            {!! Form::open(array('route' => ['game-number-result',$game->game_id], 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
+                                            {!! Form::open(array('route' => ['game-number-result',$game->id], 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation')) !!}
                                             {!! csrf_field() !!}
                                            <a title="Edit Number" href="{{ URL::to('admin/game-number/' . $game->id ) }}"><i class="fa fa-edit fa-fw"></i></a> 
                                            <button class="btn btn-success btn-sm " type="submit">Run Payout</button>

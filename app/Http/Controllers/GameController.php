@@ -545,6 +545,14 @@ class GameController extends Controller {
         $status = $request->input('status');
         $dateArray = explode("/", $request->input('game_date'));
         $gameDate = $dateArray[2].'-'.$dateArray[1].'-'.$dateArray[0];
+        
+        $yesterdayDate = date('Y-m-d',strtotime("-1 days"));
+        $todayHour = date('H');
+        if($yesterdayDate == $gameDate && $todayHour <= 12) {
+            return redirect('admin/game-number')->withInput()->with('error', 'Game result can be declared for '.$request->input('game_date').' after 12PM today.');
+        } elseif(date('Y-m-d') >= $gameDate ){
+            return redirect('admin/game-number')->withInput()->with('error', 'Game result for future date can\'t bedeclared.');
+        }
 
         $existNumber = DB::table('daily_declare_number')
                 ->where('game_id', $gameID)
@@ -689,10 +697,19 @@ class GameController extends Controller {
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
+        
         $gameNumber = DailyDeclareNumber::find($id);
         $gameID = $request->input('game_id');
         $dateArray = explode("/", $request->input('game_date'));
         $gameDate = $dateArray[2].'-'.$dateArray[1].'-'.$dateArray[0];
+        
+        $yesterdayDate = date('Y-m-d',strtotime("-1 days"));
+        $todayHour = date('H');
+        if($yesterdayDate == $gameDate && $todayHour <= 12) {
+            return back()->withInput()->with('error', 'Game result can be declared for '.$request->input('game_date').' after 12PM today.');
+        } elseif(date('Y-m-d') >= $gameDate ){
+            return back()->withInput()->with('error', 'Game result for future date can\'t bedeclared.');
+        }
 
         $existNumber = DB::table('daily_declare_number')
                 ->where('id', '<>', $id)
@@ -932,13 +949,9 @@ class GameController extends Controller {
     }
 
     public function gameResultDeclare($id) {
-        //$game_id = $id;
-        (new WinResultService())->winPayout($id);
-        //die;
-        //return back()->with('success', 'Game updated succesfully');
-        return redirect()->route('game-number');
-        //return redirect('admin/game-number')->with('success', 'Game updated succesfully');
-        //return View('admin/game/gameNumber', compact('number', 'games'));
+        $game_id = $id;
+        $result = (new WinResultService())->winPayout($id);
+        return redirect()->route('game-number')->with('success', 'Payout done for '.date('d M Y', strtotime($result['declare_date'])).' successfully.');
     }
 
     public function pointTransferRequest(Request $request) {

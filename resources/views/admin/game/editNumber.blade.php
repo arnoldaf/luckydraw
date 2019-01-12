@@ -53,7 +53,7 @@
             <div class="form-group row">
                 <label class="col-md-2 form-control-label" for="active"></label>
                 <div class="col-md-6">
-                    <button class="btn btn-primary btn-sm " type="button">Cancel</button>
+                    <a href="{{route('game-number')}}" > <button class="btn btn-primary btn-sm " type="button">Cancel</button></a>
                     <button class="btn btn-primary btn-sm " type="submit">Update</button>
                 </div><!--col-->
             </div><!--form-group-->

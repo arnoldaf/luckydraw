@@ -346,7 +346,7 @@ $("#lotteryDate").datepicker({
     autoclose: true,
     clearBtn: true,
     todayHighlight: true,
-    endDate: '+0d',
+    endDate: '-1d',
     format: 'dd/mm/yyyy',
 });
 
