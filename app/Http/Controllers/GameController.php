@@ -550,7 +550,7 @@ class GameController extends Controller {
         $todayHour = date('H');
         if($yesterdayDate == $gameDate && $todayHour <= 12) {
             return redirect('admin/game-number')->withInput()->with('error', 'Game result can be declared for '.$request->input('game_date').' after 12PM today.');
-        } elseif(date('Y-m-d') >= $gameDate ){
+        } elseif( $gameDate > date('Y-m-d')){
             return redirect('admin/game-number')->withInput()->with('error', 'Game result for future date can\'t bedeclared.');
         }
 
