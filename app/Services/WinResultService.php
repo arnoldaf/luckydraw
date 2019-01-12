@@ -48,7 +48,7 @@ class WinResultService {
                     ->first();
 
             $winPercentage = $sqlWinPercentage->multiply;
-            if ($bidNumber == $winNumber) {
+            if ($bidNumber == $winNumber) { 
                 $winAmount = ($res->played_amount * $winPercentage);
                 // $insertResult = "INSERT INTO declare_win_result (uid, game_id, bid_category_id, bid_number,  bid_amount, win_amount)"
                 // . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount )";
