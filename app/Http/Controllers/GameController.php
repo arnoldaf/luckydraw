@@ -55,6 +55,7 @@ class GameController extends Controller {
                 'ab' => isset($ABPer[0]->multiply) ? $ABPer[0]->multiply : 0,
                 'min_amount' => $game->min_amount,
                 'max_amount' => $game->max_amount,
+                'is_stop' => $game->is_stop,
                 'status' => $game->status,
             ];
         }
@@ -87,7 +88,7 @@ class GameController extends Controller {
         // $number = DailyDeclareNumber::all();
         $number = DB::table('daily_declare_number')
                 ->join('games', 'games.id', '=', 'daily_declare_number.game_id')
-            ->select('daily_declare_number.id as id', 'daily_declare_number.status as status', 'games.id as game_id', 'name as name', 'declare_date','daily_declare_number.created_at', 'number')
+                ->select('daily_declare_number.id as id', 'daily_declare_number.status as status', 'games.id as game_id', 'name as name', 'declare_date', 'daily_declare_number.created_at', 'number')
                 ->orderBy('daily_declare_number.created_at', 'DESC')
                 ->get();
 
@@ -287,7 +288,7 @@ class GameController extends Controller {
         }
 
 
-        $sql = "select * from transactions as trans where (to_user_id = $CurrentUser or from_user_id = $CurrentUser)";
+        $sql = "select * from transactions as trans where (to_user_id = $CurrentUser or from_user_id = $CurrentUser) order by id desc";
         $transactions = DB::select($sql);
         foreach ($transactions as $key => $val) {
             $val->to_user_name = '';
@@ -338,6 +339,114 @@ class GameController extends Controller {
         return $bids;
         //return view('admin/winResult')->withCommission($commission);
         // return View('admin/bid', compact('bids', 'games'));
+    }
+
+    public function indexMemberGameCommCheck($currentUser) {
+
+        $users = User::all();
+        $roles = Role::all();
+        $games = Game::all();
+        $filteredRoles = [];
+        $filteredUsers = [];
+        $filteredGames = [];
+
+        foreach ($roles as $key => $val) {
+            $filteredRoles[$val->id] = $val->name;
+        }
+
+        foreach ($games as $key => $val) {
+            $filteredGames[$val->id] = $val->name;
+        }
+
+        foreach ($users as $key => $val) {
+            $val->role_name = '';
+            if ($val->role_id) {
+                $val->role_name = $filteredRoles[$val->role_id];
+            }
+            $filteredUsers[$val->id] = $val;
+        }
+
+
+        $sql = "select * from transactions as trans where type='commission' and (to_user_id = $currentUser or from_user_id = $currentUser) order by id desc";
+        $transactionsCheck = DB::select($sql);
+        foreach ($transactionsCheck as $key => $val) {
+            $val->to_user_name = '';
+            $val->to_user_account = '';
+            $val->from_user_name = '';
+            $val->from_user_account = '';
+            $val->from_user_balance = '';
+            // $val->game_name = '';
+            if (array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id, $filteredUsers)) {
+                $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name . ' ' . $filteredUsers[$val->to_user_id]->last_name;
+                $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
+                $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name . ' ' . $filteredUsers[$val->from_user_id]->last_name;
+                $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
+                $val->from_user_balance = $filteredUsers[$val->from_user_id]->last_balance;
+            }
+
+            $transactionsCheck[$key] = $val;
+        }
+
+        return $transactionsCheck;
+    }
+
+    public function indexMemberGameComm($currentUser) {
+
+        $adminBalance = User::where('id', 1)->first();
+        $adminLastBalance = $adminBalance->last_balance;
+
+        $users = User::all();
+        $roles = Role::all();
+        $games = Game::all();
+        $filteredRoles = [];
+        $filteredUsers = [];
+        $filteredGames = [];
+
+        foreach ($roles as $key => $val) {
+            $filteredRoles[$val->id] = $val->name;
+        }
+
+        foreach ($games as $key => $val) {
+            $filteredGames[$val->id] = $val->name;
+        }
+
+        foreach ($users as $key => $val) {
+            $val->role_name = '';
+            if ($val->role_id) {
+                $val->role_name = $filteredRoles[$val->role_id];
+            }
+            $filteredUsers[$val->id] = $val;
+        }
+
+
+        $sql = "select * from transactions as trans where type='commission' and (to_user_id = $currentUser or from_user_id = $currentUser) order by id desc";
+        $transactions = DB::select($sql);
+        foreach ($transactions as $key => $val) {
+            $val->to_user_name = '';
+            $val->to_user_account = '';
+            $val->from_user_name = '';
+            $val->from_user_account = '';
+            $val->from_user_balance = '';
+            // $val->game_name = '';
+            if (array_key_exists($val->to_user_id, $filteredUsers) && array_key_exists($val->from_user_id, $filteredUsers)) {
+                $val->to_user_name = $filteredUsers[$val->to_user_id]->first_name . ' ' . $filteredUsers[$val->to_user_id]->last_name;
+                $val->to_user_account = $filteredUsers[$val->to_user_id]->user_account;
+                $val->from_user_name = $filteredUsers[$val->from_user_id]->first_name . ' ' . $filteredUsers[$val->from_user_id]->last_name;
+                $val->from_user_account = $filteredUsers[$val->from_user_id]->user_account;
+                $val->from_user_balance = $filteredUsers[$val->from_user_id]->last_balance;
+                // $val->game_name = $filteredGames[$val->game_id]->name;
+            }
+
+            $transactions[$key] = $val;
+            //echo '<pre>';
+            //  print_r($transactions);
+            //  exit;
+        }
+        // print_r($transactions);
+        // die;
+        //return $transactions;
+        // $games = Game::all();
+        return $transactions;
     }
 
     public function indexAdminPointReceive() {
@@ -475,7 +584,8 @@ class GameController extends Controller {
                     'name' => $request->input('game_name'),
                     'min_amount' => $request->input('min_amount'),
                     'max_amount' => $request->input('max_amount'),
-                    'status' => $request->input('status')
+                    'status' => $request->input('status'),
+                    'is_stop' => $request->input('is_stop')
         ]);
 
         $gameId = DB::table('games')->orderBy('id', 'desc')->first();
@@ -532,11 +642,11 @@ class GameController extends Controller {
 
     public function addGameNumber(Request $request) {
         $validator = Validator::make($request->all(), [
-                                'game_id' => 'required',
-                                'game_number' => 'required',
-                                'game_date' => 'required',
-                                ]
-            );
+                    'game_id' => 'required',
+                    'game_number' => 'required',
+                    'game_date' => 'required',
+                        ]
+        );
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -544,6 +654,7 @@ class GameController extends Controller {
         $gameID = $request->input('game_id');
         $status = $request->input('status');
         $dateArray = explode("/", $request->input('game_date'));
+
         $gameDate = $dateArray[2].'-'.$dateArray[1].'-'.$dateArray[0];
         
         $yesterdayDate = date('Y-m-d',strtotime("-1 days"));
@@ -554,12 +665,13 @@ class GameController extends Controller {
             return redirect('admin/game-number')->withInput()->with('error', 'Game result for future date can\'t bedeclared.');
         }
 
+
         $existNumber = DB::table('daily_declare_number')
                 ->where('game_id', $gameID)
                 ->where('declare_date', $gameDate)
                 ->first();
         if (!$existNumber) {
-            
+
             $status = 0;
             $gameNumber = DailyDeclareNumber::create([
                         'game_id' => $request->input('game_id'),
@@ -568,9 +680,9 @@ class GameController extends Controller {
                         'status' => $status,
             ]);
             $gameNumber->save();
-            return redirect('admin/game-number')->with('success', 'Game result has been declared for '.$request->input('game_date'));
+            return redirect('admin/game-number')->with('success', 'Game result has been declared for ' . $request->input('game_date'));
         } else {
-            return redirect('admin/game-number')->withInput()->with('error', 'Game result has already declared for '.$request->input('game_date'));
+            return redirect('admin/game-number')->withInput()->with('error', 'Game result has already declared for ' . $request->input('game_date'));
         }
     }
 
@@ -619,7 +731,7 @@ class GameController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function updateGame(Request $request, $id) {
-        
+
         DB::table('bid_category_amount')->where('game_id', $id)->delete();
         //BidCategoryAmount:where('game_id', $id)->delete();
         $game = Game::find($id);
@@ -639,6 +751,7 @@ class GameController extends Controller {
         $game->min_amount = $request->input('min_amount');
         $game->max_amount = $request->input('max_amount');
         $game->status = $request->input('status');
+        $game->is_stop = $request->input('is_stop');
 
         $gameJodi = BidCategoryAmount::create([
                     'bid_category_id' => 1,
@@ -686,13 +799,13 @@ class GameController extends Controller {
     }
 
     public function updateGameNumber(Request $request, $id) {
-        
-         $validator = Validator::make($request->all(), [
-                                'game_id' => 'required',
-                                'game_number' => 'required',
-                                'game_date' => 'required',
-                                ]
-            );
+
+        $validator = Validator::make($request->all(), [
+                    'game_id' => 'required',
+                    'game_number' => 'required',
+                    'game_date' => 'required',
+                        ]
+        );
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
@@ -701,6 +814,7 @@ class GameController extends Controller {
         $gameNumber = DailyDeclareNumber::find($id);
         $gameID = $request->input('game_id');
         $dateArray = explode("/", $request->input('game_date'));
+
         $gameDate = $dateArray[2].'-'.$dateArray[1].'-'.$dateArray[0];
         
         $yesterdayDate = date('Y-m-d',strtotime("-1 days"));
@@ -710,6 +824,7 @@ class GameController extends Controller {
         } elseif(date('Y-m-d') >= $gameDate ){
             return back()->withInput()->with('error', 'Game result for future date can\'t bedeclared.');
         }
+
 
         $existNumber = DB::table('daily_declare_number')
                 ->where('id', '<>', $id)
@@ -722,11 +837,10 @@ class GameController extends Controller {
             $gameNumber->game_id = $gameID;
             $gameNumber->declare_date = $gameDate;
             $gameNumber->save();
-            return redirect('admin/game-number')->with('success', 'Game result has updated for '.$request->input('game_date'));
+            return redirect('admin/game-number')->with('success', 'Game result has updated for ' . $request->input('game_date'));
         } else {
-            return back()->withInput()->with('error', 'Game result has already declared for '.$request->input('game_date'));
+            return back()->withInput()->with('error', 'Game result has already declared for ' . $request->input('game_date'));
         }
-        
     }
 
     public function searchWin(Request $request) {

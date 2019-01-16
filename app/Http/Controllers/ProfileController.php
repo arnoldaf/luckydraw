@@ -50,7 +50,23 @@ class ProfileController extends Controller {
 
         $currentUser = (new UserController())->getCurrentUserId();
         $bids = (new GameController())->indexMemberGameBids($currentUser);
+       // echo "<pre>";
+        //print_r($bids);
+       // die;
         return View('member.bids-history', compact('currentUser', 'bids'));
+    }
+    
+    public function commissionHistory() {
+
+        $currentUser = (new UserController())->getCurrentUserId();
+        $transactions = (new GameController())->indexMemberGameComm($currentUser);
+        return View('member.commission-history', compact('currentUser', 'transactions'));
+    }
+    
+    public function commissionHistoryCheck() {
+        $currentUser = (new UserController())->getCurrentUserId();
+        $transactionsCheck = (new GameController())->indexMemberGameCommCheck($currentUser);
+        return View('layouts.member-out', compact('transactionsCheck'));
     }
 
 }

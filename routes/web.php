@@ -41,6 +41,8 @@ Route::group(['middleware' => ['member']], function() {
   
    Route::get('/points-history', 'ProfileController@pointsHistory')->name('pointsHistory');
    Route::get('/bids-history', 'ProfileController@bidsHistory')->name('bidsHistory');
+   Route::get('/commission-history', 'ProfileController@commissionHistory')->name('commissionHistory');
+   Route::get('/commission-history-check', 'ProfileController@commissionHistoryCheck')->name('commissionHistoryCheck');
    
 
 //=========

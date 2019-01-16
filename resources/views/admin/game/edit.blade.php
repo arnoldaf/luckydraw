@@ -69,6 +69,18 @@
                     </label>
                 </div><!--col-->
             </div><!--form-group-->
+            
+             <div class="form-group row">
+                <label class="col-md-2 form-control-label" for="active">Is Stop</label>
+
+                <div class="col-md-6">
+                    <label class="switch switch-3d switch-primary">
+                        <input class="switch-input" type="checkbox" name="is_stop" id="active" value="1" {{$game->is_stop?'checked="true"':''}}>
+                        <span class="switch-label"></span>
+                        <span class="switch-handle"></span>
+                    </label>
+                </div><!--col-->
+            </div><!--form-group-->
 
             <div class="form-group row">
                 <label class="col-md-2 form-control-label" for="active"></label>

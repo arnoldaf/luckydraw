@@ -36,7 +36,7 @@
         <script src="{!! asset('member/js/slideproject/modernizr.js')!!}" type="text/javascript"></script>
         <script src="{!! asset('member/js/jquery-1.10.1.min.js')!!}" type="text/javascript"></script>
         <script src="{!! asset('member/js/jquery-migrate-1.2.1.min.js')!!}" type="text/javascript"></script>
-       @if(Route::currentRouteName()!='bidsHistory' && Route::currentRouteName()!='pointsHistory' )
+       @if(Route::currentRouteName()!='bidsHistory' && Route::currentRouteName()!='pointsHistory' && Route::currentRouteName()!='commissionHistory' )
         <link rel="stylesheet" href="{!! asset('member/css/custom.css')!!}" />
        @endif
         
@@ -100,15 +100,15 @@
                         <a class="link_onepages" href="{{ route('sitehome') }}"><i class="fa fa-single fa-home"></i></a>
 
                     </li>
-                    <li ><a class="link_onepages" href="{{ route('playgame') }}"><i class="fa fa-eye"></i>Play Game</a>
+                    <li ><a class="link_onepages" href="{{ route('playgame') }}"><i class="fa fa-gamepad"></i>Play Game</a>
                         <div class="grid-container4">
                             <ul>
-                                <li><a href="{{ route('playgame') }}"><i class="fa fa-check"></i>Number Game </a></li>
+                                <li><a href="{{ route('playgame') }}"><i class="fa fa-money"></i>Number Game </a></li>
                             </ul>
                         </div>
                     </li>
 
-                    <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Game Results</a>
+                    <li ><a class="link_onepages" href="#section-3"><i class="fa fa-trophy"></i>Game Results</a>
                         <div class="grid-container4">
                             <ul>
                                 <li><a href="#"><i class="fa fa-check"></i>My Bid Result </a></li>
@@ -116,31 +116,28 @@
                             </ul>
                         </div>
                     </li>
-                    <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Manage My Points</a>
+                    <li ><a class="link_onepages" href="#section-3"><i class="fa fa-hand-pointer-o"></i>Manage Points</a>
                         <div class="grid-container4">
                             <ul>
-                                <li><a href="{{ route('point-transfer') }}"><i class="fa fa-check"></i>Receive </a></li>
-                                <li><a href="{{ route('point-transfer') }}"><i class="fa fa-check"></i>Transfer </a></li>
-                                <li><a href="{{ route('point-transfer') }}"><i class="fa fa-check"></i>Transaction History </a></li>
-                                <li><a href="{{ route('pointsHistory') }}"><i class="fa fa-check"></i>Points History </a></li>
-                                <li><a href="{{ route('bidsHistory') }}"><i class="fa fa-check"></i>Bids History </a></li>
+                                <li><a href="{{ route('point-transfer') }}"><i class="fa fa-hand-pointer-o"></i>Manage Points </a></li>
+                                <li><a href="{{ route('pointsHistory') }}"><i class="fa fa-folder"></i>Transaction History </a></li>
+                                <li><a href="{{ route('bidsHistory') }}"><i class="fa fa-history"></i>Bids History </a></li>
                                 
                             </ul>
                         </div>
                     </li>
-
-                    <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Comission</a>
-                        <div class="grid-container4">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-check"></i>Commission History</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                   
+                   <? //if(count($transactionsCheck) > 0){?>
+                    <li ><a class="link_onepages" href="{{ route('commissionHistory') }}"><i class="fa fa-gift"></i>Commission</a></li>
+                   <? //}?>
                     @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 3)
-                    <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Downline</a>
+                    <li ><a class="link_onepages" href="#section-3"><i class="fa fa-angle-double-down"></i>Downline</a>
                         <div class="grid-container4">
                             <ul>
-                                <li><a href="#"><i class="fa fa-check"></i>Downline  List</a></li>
+                                <li><a href="#"><i class="fa fa-plus-square-o"></i>Add Client</a></li>
+                            </ul>
+                             <ul>
+                                <li><a href="#"><i class="fa fa-tree"></i>Downline Tree</a></li>
                             </ul>
                             <ul>
                                 <li><a href="#"><i class="fa fa-check"></i>Downline  Client Data</a></li>
@@ -149,7 +146,7 @@
                     </li>
                     @endif
                     <!--<li><a class="link_onepages" href="#section-6"><i class="fa fa-single fa-envelope"></i></a></li>-->
-                    <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Balance: &#8377; <span class="user-balance">{{(Auth::user()->last_balance == 0 ? '0.00':Auth::user()->last_balance) }} </span></a>
+                    <li ><a class="link_onepages" href="#section-3"><i class="fa fa-money"></i>Balance: <b> <span class="user-balance">{{(Auth::user()->last_balance == 0 ? '0.00':Auth::user()->last_balance) }}</b> </span></a>
                         <!--<div class="grid-container4">
                             <ul>
                                 <li><a href="#"><i class="fa fa-check"></i>INR {{(Auth::user()->last_balance == 0 ? '0.00':Auth::user()->last_balance) }}</a></li>
@@ -164,11 +161,11 @@
     
                     </li>
                     -->
-                    <li aria-haspopup="true" class="right last"><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Welcome: {{Auth::user()->first_name }}</a>
+                    <li aria-haspopup="true" class="right last"><a class="link_onepages" href="#section-3"><i class="fa fa-user-o"></i>Welcome: {{Auth::user()->first_name }}</a>
                         <div class="grid-container4">
                             <ul>
-                                <li><a href="{{ route('profile') }}"><i class="fa fa-check"></i>Profile</a></li>
-                                <li><a href="{{ route('passwords') }}"><i class="fa fa-check"></i>Change Password and PIN</a></li>
+                                <li><a href="{{ route('profile') }}"><i class="fa fa-user-circle-o"></i>Profile</a></li>
+                                <li><a href="{{ route('passwords') }}"><i class="fa fa-key"></i>Change Password or PIN</a></li>
                                 <li><a data-toggle="modal" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" href="{{ route('logout') }}"><i class="fa fa-sign-in"></i>Logout</a></li>
                             </ul>
                         </div>

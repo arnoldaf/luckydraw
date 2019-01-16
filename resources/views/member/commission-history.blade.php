@@ -10,7 +10,7 @@
                     
                    
                     <div class="clear"></div>
-                    <h3 class="title_tab">Transaction Points History</h3>
+                    <h3 class="title_tab">Commission History</h3>
                     <p class="desc_tab">Tournaments included in the Asia Weekly MTT Challenge run from Sunday-Friday every week at the times listed below.</p>
                     <div id="tablewrapper" >
                         <div id="tableheader">
@@ -36,7 +36,6 @@
                             <th><h3>Status</h3></th>
                                 </tr>
                                 
-                               
                                 </thead>
                                 <tbody>
                                     
@@ -44,12 +43,7 @@
                                     <tr>
                                         <td>{{$comm->updated_at}}</td>
                                          <td> 
-                                       <?if ($comm->to_user_id!=$currentUser && $comm->type =='transfer'){
-                                       echo "Transfer"; } if ($comm->to_user_id==$currentUser && $comm->type =='transfer') { echo "Receive";}
-                                       if ($comm->type =='bid'){
-                                        echo "Bid"; }
-                                        if ($comm->type =='win_result'){
-                                        echo "Bid Winner"; }
+                                       <?
                                         if ($comm->type =='commission'){
                                         echo "Commission"; }
                                        ?>

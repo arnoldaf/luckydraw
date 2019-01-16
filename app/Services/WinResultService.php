@@ -16,12 +16,9 @@ class WinResultService {
     public function winPayout($id) {
         $game = DailyDeclareNumber::find($id);
         $gameDate = $game->declare_date;
-        $gameNumber = $game->number;
         $gameId = $game->game_id;
-        $getGame = Game::where('id', $gameId)->get();
         Log::info("Win Calculation Started");
         //foreach ($gamePayout as $game) {
-        $gameId = $game->game_id;
         Transaction::where('type', 'win_result')->where('game_id', '=', $gameId)->whereDate('game_date', '=', $gameDate)->delete();
         $sqlDeclareNumber = DailyDeclareNumber::select('number')
                 ->where('game_id', '=', $gameId)
@@ -48,10 +45,9 @@ class WinResultService {
                     ->first();
 
             $winPercentage = $sqlWinPercentage->multiply;
-            if ($bidNumber == $winNumber) { 
+            if ($bidNumber == $winNumber) {
                 $winAmount = ($res->played_amount * $winPercentage);
-                // $insertResult = "INSERT INTO declare_win_result (uid, game_id, bid_category_id, bid_number,  bid_amount, win_amount)"
-                // . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount )";
+                
                 $insertResult = "INSERT INTO transactions (to_user_id, game_id, bid_category_id, bid_number,  bid_amount, amount, type, status, game_date)"
                         . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount, 'win_result', 1, '$gameDate' )";
                 $resWin = DB::insert(DB::raw($insertResult));
@@ -67,8 +63,7 @@ class WinResultService {
                 $winAmount = ($res->played_amount * $winPercentage);
                 $insertResult = "INSERT INTO transactions (to_user_id, game_id, bid_category_id, bid_number,  bid_amount, amount, type, status, game_date)"
                         . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount, 'win_result', 1, '$gameDate' )";
-                //$insertResult = "INSERT INTO declare_win_result (uid, game_id, bid_category_id, bid_number,  bid_amount, win_amount)"
-                // . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount )";
+                
                 $resWin = DB::insert(DB::raw($insertResult));
 
                 $useBalance = User::where('id', $user)->first();
@@ -83,8 +78,7 @@ class WinResultService {
                 $winAmount = ($res->played_amount * $winPercentage);
                 $insertResult = "INSERT INTO transactions (to_user_id, game_id, bid_category_id, bid_number,  bid_amount, amount, type, status, game_date)"
                         . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount, 'win_result', 1, '$gameDate' )";
-                // $insertResult = "INSERT INTO declare_win_result (uid, game_id, bid_category_id, bid_number,  bid_amount, win_amount)"
-                // . " VALUES ($user, $gameId, $bidCategoryId, $bidNumber, $amount, $winAmount )";
+                
                 $resWin = DB::insert(DB::raw($insertResult));
 
                 $useBalance = User::where('id', $user)->first();
@@ -101,7 +95,7 @@ class WinResultService {
                 ->where('declare_date', $gameDate)
                 ->update(['status' => 1]);
         Log::info("Calculation End");
-        return ['result'=>'suceess','declare_date'=>$gameDate];
+        return ['result' => 'suceess', 'declare_date' => $gameDate];
     }
 
 }

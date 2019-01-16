@@ -68,12 +68,12 @@
             </div>
         </li>
 
-        <li ><a class="link_onepages" href="#section-3"><i class="fa fa-bar-chart"></i>Game Results</a>
+        <li ><a class="link_onepages" href="#section-3"><i class="fa fa-trophy"></i>Game Results</a>
+        </li>
+        <li ><a class="link_onepages" href="#section-3"><i class="fa fa-user-circle" aria-hidden="true"></i>About us</a>
         </li>
 
-        <li aria-haspopup="true">
-					<a class="link_onepage" href="#section-3"><i class="fa fa-users"></i>About us</a>
-				</li>
+        
 
         <li aria-haspopup="true">
 					<a class="link_onepage" href="#section-3"><i class="fa fa-envelope"></i>Contact us</a>
@@ -123,7 +123,7 @@
               </div>
           </li>
 
-          <li ><a class="link_onepages" href="#section-3"><i class="fa fa-star"></i>Game Results</a>
+          <li ><a class="link_onepages" href="#section-3"><i class="fa fa-"></i>Game Results</a>
               <div class="grid-container4">
                   <ul>
                       <li><a href="#"><i class="fa fa-check"></i>My Bid Result </a></li>
